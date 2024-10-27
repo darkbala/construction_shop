@@ -1,8 +1,10 @@
-# React + Vite
+Клонировать репозиторий:
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+git clone https://github.com/ 
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Установить зависимости:
+
+cd dua-menu npm install Запустить сервер разработки:
+
+npm run dev Фронтенд будет доступен по адресу http://localhost:5173.
