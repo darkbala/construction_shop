@@ -1,9 +1,9 @@
-import './Homepage.module.scss'
+import classes from './Homepage.module.scss'
 
-function Homepage() {
-  return (
-    <div>Homepage</div>
-  )
+const Homepage = () => {
+    return (
+        <div className={classes.HomePage}>Homepage</div>
+    )
 }
 
 export default Homepage
