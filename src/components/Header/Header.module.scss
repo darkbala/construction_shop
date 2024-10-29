@@ -1,0 +1,35 @@
+.container {
+  position: relative;
+  height: 400px;
+  overflow: hidden;
+  border: 5px solid green;
+}
+
+.slide {
+  height: 100%;
+  background-color: black;
+  background-size: cover;
+  background-position: center;
+}
+
+.slide1 {
+  background-image: url("https://plus.unsplash.com/premium_photo-1721929720315-379fc22f526a?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+}
+
+.slide2 {
+  background-image: url("https://images.pexels.com/photos/1624490/pexels-photo-1624490.jpeg");
+}
+
+.slide3 {
+  background-image: url("https://cdn.pixabay.com/photo/2016/11/29/06/16/landscape-1867203_640.jpg");
+}
+
+.content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: red;
+  text-align: center;
+  z-index: 1;
+}
