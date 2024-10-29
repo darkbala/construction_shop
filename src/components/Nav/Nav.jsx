@@ -13,8 +13,7 @@ const Nav = () => {
     return (
         <nav className={classes.Nav}>
 
-
-            <div className={`${classes.bottom_nav} ${isMenuOpen ? classes.active : ''} `}>
+            <div className={`${classes.bottom_nav} ${isMenuOpen ? classes.active : ''}`}>
                 <nav>
                     <Logo/>
                     <ul>

@@ -6,9 +6,6 @@ $bg-dark: #212529;
   margin: 0 auto;
   position: relative;
 
-
-
-
   .mobileMenu {
     width: 350px;
     min-height: 100vh;
@@ -22,21 +19,15 @@ $bg-dark: #212529;
     flex-direction: column;
     gap: 10px;
 
-    transform: translateX(100%);
-    transition: transform 0.3s ease;
 
-    &.active {
-      transform: translateX(0);
-      transition: transform 0.3s ease;
-    }
+    -webkit-box-shadow: inset 3px 0 4px 1px rgba(179, 179, 179, 0.48);
+    -moz-box-shadow: inset 3px 0 4px 1px rgba(179, 179, 179, 0.48);
+    box-shadow: inset 3px 0 4px 1px rgba(179, 179, 179, 0.48);
 
-    -webkit-box-shadow: 3px 0px 4px 1px rgba(179, 179, 179, 0.48);
-    -moz-box-shadow: 3px 0px 4px 1px rgba(179, 179, 179, 0.48);
-    box-shadow: 3px 0px 4px 1px rgba(179, 179, 179, 0.48);
 
     div {
       width: 80%;
-      margin: 30px auto;
+      margin: 10px auto 20px;
     }
 
     ul {
@@ -88,13 +79,15 @@ $bg-dark: #212529;
         width: 100%;
         display: flex;
         align-items: center;
-        gap: 30px;
+        row-gap: 10px;
         justify-content: flex-end;
+        gap: 20px;
 
         li {
           a {
             color: white;
             font-size: 16px;
+            padding: 10px;
           }
         }
 
@@ -135,3 +128,6 @@ $bg-dark: #212529;
 
 
 }
+
+
+
