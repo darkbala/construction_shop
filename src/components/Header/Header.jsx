@@ -1,6 +1,7 @@
-import { Fade } from "react-slideshow-image";
+import {Fade} from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
 import styles from "./Header.module.scss";
+import {Link} from "react-router-dom";
 
 const Header = () => {
     const backgrounds = [
@@ -10,8 +11,8 @@ const Header = () => {
     ];
 
     const settings = {
-        duration: 3000,
-        transitionDuration: 500,
+        duration: 10000,
+        transitionDuration: 3000,
         infinite: true,
         indicators: false,
         arrows: false,
@@ -21,14 +22,20 @@ const Header = () => {
         <div className={styles.sliderContainer}>
             <Fade {...settings}>
                 {backgrounds.map((bg, index) => (
-                    <div key={index} className={styles.slide} style={{ backgroundImage: `url("${bg}")` }}>
+                    <div key={index} className={styles.slide} style={{backgroundImage: `url("${bg}")`}}>
                     </div>
                 ))}
             </Fade>
 
             <div className={styles.content}>
-                <h2>Заголовок слайда</h2>
-                <p>Описание, которое остается на одном месте и не исчезает</p>
+                <div className={styles.container}>
+                    <h3>Добро пожаловать в</h3>
+                    <h1>Iskender Company!</h1>
+                    <p>Имея более чем 10-летний опыт проектирования и производства высококачественной мебели для ванной
+                        комнаты, мы с гордостью представляем наши коллекции для ванной комнаты.</p>
+
+                    <Link to={"/"} className={styles.btn_to_category}>К каталогу</Link>
+                </div>
             </div>
         </div>
     );
