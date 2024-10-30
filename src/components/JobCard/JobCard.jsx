@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import styles from './JobCard.module.scss';
 
-const JobCard = ({ job }) => {
+const JobCard = ({job}) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleDetails = () => {
@@ -51,7 +51,10 @@ const JobCard = ({ job }) => {
                     <p>{job.additionalInfo}</p>
                 </div>
 
-                <button className={styles.applyButton}>Откликнуться</button>
+                <div className={styles.section}>
+
+                    <button className={styles.applyButton}>Откликнуться</button>
+                </div>
             </div>
         </div>
     );
