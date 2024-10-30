@@ -19,7 +19,7 @@ const Nav = () => {
                     <ul>
                         <NavItem to="/">Производство Iskender</NavItem>
                         <NavItem to="/ax">Дистрибуция</NavItem>
-                        <NavItem to="/">Вакансии</NavItem>
+                        <NavItem to="/vacancy">Вакансии</NavItem>
                         <NavItem to="/ax">Корзина(0)</NavItem>
                         <NavItem to="/ax">Анг</NavItem>
                     </ul>
@@ -48,7 +48,7 @@ const Nav = () => {
                     <ul>
                         <NavItem to="/">Производство Iskender</NavItem>
                         <NavItem to="/ax">Дистрибуция</NavItem>
-                        <NavItem to="/">Вакансии</NavItem>
+                        <NavItem to="/vacancy">Вакансии</NavItem>
                         <NavItem to="/ax">Корзина(0)</NavItem>
                         <NavItem to="/ax">Анг</NavItem>
                     </ul>
