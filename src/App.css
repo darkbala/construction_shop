@@ -8,3 +8,7 @@
   list-style: none;
   font-family: "Montserrat Alternates", sans-serif;
 }
+
+/*.swiper-slide {*/
+/*  flex-shrink: 1 !important;*/
+/*}*/

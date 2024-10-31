@@ -6,6 +6,7 @@ import Layout from "./components/Layout/Layout.jsx";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Vacancy from "./Pages/Vacancy/Vacancy.jsx";
+import CatalogPage from "./Pages/Catalog/CatalogPage.jsx";
 function App() {
 
     return (
@@ -14,6 +15,7 @@ function App() {
                 <Routes>
                     <Route path='/' exact element={<Homepage/>}/>
                     <Route path='/vacancy'  element={<Vacancy/>}/>
+                    <Route path='/catalog'  element={<CatalogPage/>}/>
                     <Route path='*' element={<ErrorPage/>}/>
                 </Routes>
             </Layout>
