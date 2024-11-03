@@ -4,9 +4,9 @@ import {useEffect, useState} from "react";
 import styles from "./CatalogPage.module.scss";
 import {fetchCategoriesWithMeals} from "../../store/slices/getCategories.js";
 import CategorySlider from "../../components/CategorySlider/CategorySlider.jsx";
+import Products from "../../components/Products/Products.jsx";
 
 const CatalogPage = () => {
-
     const dispatch = useDispatch();
     const {categories, loading, error} = useSelector((state) => state.categories);
     const [selectedCategory, setSelectedCategory] = useState(null);
@@ -17,7 +17,7 @@ const CatalogPage = () => {
 
     useEffect(() => {
         if (categories.length > 0) {
-            setSelectedCategory(categories[0]); 
+            setSelectedCategory(categories[0]);
         }
     }, [categories]);
 
@@ -58,7 +58,13 @@ const CatalogPage = () => {
                 </div>
             </section>
 
-            <p>Показано 12 из 45</p>
+
+            <section className={styles.results_container}>
+                <p>Показано 12 из 45</p>
+                {selectedCategory && selectedCategory.meals.length > 0 && (
+                    <Products meals={selectedCategory.meals}/>
+                )}
+            </section>
         </div>
     )
 }
