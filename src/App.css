@@ -9,6 +9,9 @@
   font-family: "Montserrat Alternates", sans-serif;
 }
 
+body{
+  background-color: #eeeeee;
+}
 
 .swiper-button-prev-categories,
 .swiper-button-next-categories {
