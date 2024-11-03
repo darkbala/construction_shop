@@ -7,6 +7,7 @@ const Homepage = () => {
         <div className={classes.HomePage}>
             <Header/>
             <Counter/>
+            <p className='commit'>Комит как Амит ахахах</p>
         </div>
     )
 }

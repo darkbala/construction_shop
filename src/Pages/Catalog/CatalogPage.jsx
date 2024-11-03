@@ -17,7 +17,7 @@ const CatalogPage = () => {
 
     useEffect(() => {
         if (categories.length > 0) {
-            setSelectedCategory(categories[0]);
+            setSelectedCategory(categories[0]); 
         }
     }, [categories]);
 
