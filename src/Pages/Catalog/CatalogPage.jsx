@@ -62,7 +62,7 @@ const CatalogPage = () => {
             <section className={styles.results_container}>
                 <p>Показано 12 из 45</p>
                 {selectedCategory && selectedCategory.meals.length > 0 && (
-                    <Products meals={selectedCategory.meals}/>
+                    <Products products={selectedCategory.meals}/>
                 )}
             </section>
         </div>

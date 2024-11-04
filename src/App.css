@@ -10,7 +10,7 @@
 }
 
 body{
-  background-color: #eeeeee;
+  background-color: #F5F5F5;
 }
 
 .swiper-button-prev-categories,
@@ -29,8 +29,8 @@ body{
   }
 
   &::after {
-    font-size: 16px; /* Размер стрелок */
-    color: white; /* Цвет стрелок */
+    font-size: 16px;
+    color: white;
   }
 
   &.swiper-button-disabled{

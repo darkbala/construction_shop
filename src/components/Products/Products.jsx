@@ -1,18 +1,14 @@
 import styles from "./Products.module.scss";
 import Product from "./Product/Product.jsx";
 
-const Products = () => {
-    const products = [
-        {
-            id: 1,
-            title: "axa"
-        }
-    ];
+const Products = ({products}) => {
     return (
         <div className={styles.Products}>
-            {products.map((item) => (
-                <Product product={item} key={item.id}/>
-            ))}
+            <section className={styles.container}>
+                {products.map((item) => (
+                    <Product name={item.name} key={item.id} price={item.price} image={item.picture}/>
+                ))}
+            </section>
         </div>
     );
 }
