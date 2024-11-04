@@ -1,7 +1,8 @@
 import styles from "./Product.module.scss";
 import {Link} from "react-router-dom";
 
-const Product = ({name, price, image, id}) => {
+const Product = ({name, price, image,id }) => {
+
     return (
         <Link to={`product/${id}`} className={styles.Product}>
             <span className={styles.brand}> iskender</span>
