@@ -1,14 +1,48 @@
 .Products {
   max-width: 2560px;
-
+  padding: 20px;
 
   .container {
     margin: 0 auto;
     max-width: 1440px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 50px;
+
   }
+
+  .pagination {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 20px;
+    gap: 10px;
+
+    button {
+      border: none;
+      background: none;
+      font-size: 22px;
+      color: #444;
+      cursor: pointer;
+      transition: color 0.3s;
+
+      &.active {
+        color: #f4a261;
+        font-weight: bold;
+      }
+
+      &:hover:not(.active) {
+        color: #888;
+      }
+
+      &:disabled {
+        color: #ccc;
+        cursor: default;
+      }
+    }
+  }
+
+
 }

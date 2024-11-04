@@ -11,6 +11,11 @@
   color: black;
   padding-bottom: 10px;
 
+  &:hover {
+
+    background-color: #ececec;
+  }
+
   .brand {
     position: absolute;
     top: 0;
@@ -50,7 +55,7 @@
 
       .line {
         width: 80%;
-        height: 2px;
+        height: 1px;
         background-color: #F5F5F5;
         margin: 0 auto;
       }

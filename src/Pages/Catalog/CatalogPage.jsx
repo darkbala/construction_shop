@@ -44,7 +44,7 @@ const CatalogPage = () => {
                                 d="M19.7916 17.7087C20.9422 17.7087 21.8749 16.7759 21.8749 15.6253C21.8749 14.4747 20.9422 13.542 19.7916 13.542C18.641 13.542 17.7083 14.4747 17.7083 15.6253C17.7083 16.7759 18.641 17.7087 19.7916 17.7087Z"
                                 stroke="white" strokeLinecap="round"/>
                         </svg>
-                        filter
+                        Фильтры
                     </button>
                 </div>
                 <div>
@@ -60,7 +60,7 @@ const CatalogPage = () => {
 
 
             <section className={styles.results_container}>
-                <p>Показано 12 из 45</p>
+                <p className={styles.show}>Показано 12 из 45</p>
                 {selectedCategory && selectedCategory.meals.length > 0 && (
                     <Products products={selectedCategory.meals}/>
                 )}
