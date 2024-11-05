@@ -1,25 +1,25 @@
 .card {
   display: flex;
   flex-wrap: wrap;
-  padding: 20px;
-  border: 1px solid #ddd;
+  justify-content: flex-start;
   background-color: #fff;
   border-radius: 8px;
-  max-width: 100%;
-  margin: auto;
+  width: 100%;
+  padding-block: 16px;
 }
 
-.cont{
+.cont {
   display: flex;
-  flex-wrap: wrap;
-  padding: 20px;
-  width: 1440px;
-  border: 1px solid #ddd;
-  margin: auto;
+  padding: 20px  0;
+  max-width: 1440px;
+  justify-content: center;
+  gap: 20px;
+  margin: 0 auto;
+
+  border: 1px salmon solid;
 }
 
 .imageSection {
-  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -52,56 +52,53 @@
 }
 
 .infoSection {
-  flex: 2;
-  padding-left: 20px;
-}
-
-.tag {
-  background-color: #e28a4f;
-  color: #fff;
-  padding: 8px 18px;
-  border-radius: 4px;
-  font-size: 18px;
-  display: inline-block;
-}
-
-.title {
-  font-size: 24px;
-  margin: 0 0 10px;
-}
-
-.colors {
+  flex-grow: 1;
   display: flex;
-  gap: 10px;
-  margin: 10px 0;
-}
+  flex-direction: column;
+  gap: 20px;
 
-.color {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  border: 1px solid #ddd;
-}
+  width: 80%;
 
-.price {
-  font-size: 24px;
-  font-weight: bold;
-  color: #333;
-  margin: 10px 0;
-}
-
-.description {
-  margin-top: 10px;
-
-  h3 {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 5px;
+  .tag {
+    background-color: #f4a261;
+    text-align: center;
+    width: 100px;
+    padding: 5px;
+    color: white;
+    border-radius: 3px;
   }
 
-  p {
-    font-size: 14px;
-    color: #555;
-    line-height: 1.4;
+  .title {
+    font-size: 24px;
+  }
+
+  .colors {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    .color {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 1px solid #ddd;
+      cursor: pointer;
+    }
+  }
+
+  .price {
+    font-size: 18px;
+    display: inline-block;
+
+  }
+
+  .description{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    p{
+      word-break: break-word;
+    }
   }
 }
