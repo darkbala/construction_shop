@@ -18,6 +18,8 @@ export const fetchMealsByCategory = createAsyncThunk(
         return response.data;
     }
 );
+
+
 const categoriesSlice = createSlice({
     name: 'categories',
     initialState: {
@@ -52,7 +54,8 @@ const categoriesSlice = createSlice({
             .addCase(fetchMealsByCategory.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.error.message;
-            });
+            })
+
     },
 });
 
