@@ -4,7 +4,7 @@ import styles from './CounterCard.module.scss';
 const CounterCard = ({counter}) => {
     return (
         <div className={styles.CounterCard}>
-            <h3>{counter.count}{counter.id}</h3>
+            <h3>{counter.count}</h3>
             <p>{counter.description}</p>
         </div>
     )
