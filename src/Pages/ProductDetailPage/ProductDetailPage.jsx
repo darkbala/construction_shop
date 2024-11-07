@@ -16,7 +16,6 @@ const ProductDetailPage = () => {
     const loading = useSelector((state) => state.products.loading);
     const error = useSelector((state) => state.products.error);
 
-    // Находим индекс основного изображения
     const mainImageIndex = product?.pictures?.findIndex((pic) => pic.is_main) || 0;
     const [currentIndex, setCurrentIndex] = useState(mainImageIndex);
 
@@ -29,9 +28,8 @@ const ProductDetailPage = () => {
     if (loading) return <p>Загрузка...</p>;
     if (error) return <p>Ошибка: {error}</p>;
     if (!product) return <p>Продукт не найден.</p>;
-
     const thumbnails = product.pictures.map((pic) => pic.picture);
-    const mainImage = thumbnails[currentIndex]; // Получаем текущее главное изображение
+    const mainImage = thumbnails[currentIndex];
 
     const handleThumbnailClick = (index) => {
         setCurrentIndex(index);
@@ -47,12 +45,10 @@ const ProductDetailPage = () => {
         setCurrentIndex(prevIndex);
     };
 
-    // Отображаем только первые пять миниатюр
     const visibleThumbnails = thumbnails.slice(0, 5);
-    const hasMoreThumbnails = thumbnails.length > 5;
 
     return (
-        <div className={styles.card}>
+        <div className={styles.ProductDetail}>
             <section className={styles.cont}>
                 <div className={styles.imageSection}>
                     <aside className={styles.box}>
@@ -87,20 +83,31 @@ const ProductDetailPage = () => {
                                 onClick={() => handleThumbnailClick(index)}
                             />
                         ))}
-
                     </div>
                 </div>
 
                 <div className={styles.infoSection}>
                     <div className={styles.tag}>Iskender</div>
                     <h2 className={styles.title}>{product.title}</h2>
+
+                    <div className={styles.colors}>
+                        <button className={styles.color} style={{backgroundColor: "red"}}/>
+                        <button className={styles.color} style={{backgroundColor: "green"}}/>
+                        <button className={styles.color} style={{backgroundColor: "blue"}}/>
+                    </div>
                     <p className={styles.price}>123,000 сом</p>
                     <div className={styles.description}>
                         <h3>Описание</h3>
                         <p>{product.description}</p>
                     </div>
                 </div>
+
+
             </section>
+            <div className={styles.description_bottom}>
+                <h3>Описание</h3>
+                <p>{product.description}</p>
+            </div>
         </div>
     );
 };
