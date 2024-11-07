@@ -27,5 +27,22 @@
     }
   }
 
+  .arrows{
+    display: flex;
+    width: 95%;
+    justify-content: flex-end;
+
+
+    button{
+      svg{
+        background-color: red;
+      }
+    }
+
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+
 }
 

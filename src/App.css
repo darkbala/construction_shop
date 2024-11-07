@@ -37,3 +37,11 @@ body{
     display: none;
   }
 }
+
+.swiper-button-prev-products,
+.swiper-button-next-products{
+
+  &.swiper-button-disabled{
+    display: none;
+  }
+}

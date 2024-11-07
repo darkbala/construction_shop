@@ -118,6 +118,7 @@ const ProductDetailPage = () => {
 
             <section className={styles.cont2}>
                     <ProductSlider/>
+                    <ProductSlider/>
             </section>
         </div>
     );

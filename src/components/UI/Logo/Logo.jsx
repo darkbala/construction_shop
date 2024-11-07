@@ -1,8 +1,8 @@
+import logo from "../../../../public/images/logo.svg"
 const Logo = () => {
     return (
-        <div className="logo">
-
-            <img src="./images/logo.svg" alt=""/>
+        <div>
+            <img src={logo} alt=""/>
         </div>
     )
 }

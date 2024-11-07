@@ -1,7 +1,7 @@
 import {Fade} from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
-import styles from "./Header.module.scss";
 import {Link} from "react-router-dom";
+import styles from "./Header.module.scss";
 
 const Header = () => {
     const backgrounds = [
@@ -22,19 +22,22 @@ const Header = () => {
         <div className={styles.sliderContainer}>
             <Fade {...settings}>
                 {backgrounds.map((bg, index) => (
-                    <div key={index} className={styles.slide} style={{backgroundImage: `url("${bg}")`}}>
-                    </div>
+                    <div key={index} className={styles.bgSlide} style={{backgroundImage: `url("${bg}")`}}/>
                 ))}
             </Fade>
 
             <div className={styles.content}>
                 <div className={styles.container}>
-                    <h3>Добро пожаловать в</h3>
-                    <h1>Iskender Company!</h1>
-                    <p>Имея более чем 10-летний опыт проектирования и производства высококачественной мебели для ванной
+                    <span>
+                        <h1>Iskender</h1>
+                        <h4>Company</h4>
+                    </span>
+                    <section className={styles.b2b}>
+                        <p>B2B Оптовые продажи</p>
+                    </section>
+                    <p className={styles.desk}>Имея более чем 10-летний опыт проектирования и производства высококачественной мебели для ванной
                         комнаты, мы с гордостью представляем наши коллекции для ванной комнаты.</p>
-
-                    <Link to={"/"} className={styles.btn_to_category}>К каталогу</Link>
+                    <Link to={"/catalog"} className={styles.btn_to_category}>К каталогу</Link>
                 </div>
             </div>
         </div>
