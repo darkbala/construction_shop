@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
@@ -49,6 +49,11 @@ const ProductDetailPage = () => {
 
     return (
         <div className={styles.ProductDetail}>
+            <div className={styles.back_link}>
+                <Link to={`/catalog`}>
+                    category/<p>{product.title}</p>
+                </Link>
+            </div>
             <section className={styles.cont}>
                 <div className={styles.imageSection}>
                     <aside className={styles.box}>
@@ -101,7 +106,6 @@ const ProductDetailPage = () => {
                         <p>{product.description}</p>
                     </div>
                 </div>
-
 
             </section>
             <div className={styles.description_bottom}>
