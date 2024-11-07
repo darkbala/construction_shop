@@ -2,7 +2,7 @@ import styles from './CompanyGoalHome.module.scss'
 
 const CompanyGoalHome = () => {
     return (
-        <div className={styles.wrap}>
+        <div className={styles.wrapper}>
             <div className={styles.inbox}>
                 <p className={styles.left}><span>Iskender Company</span> является ведущим международным производителем
                     дизайнерской мебели для ванных комнат</p>
