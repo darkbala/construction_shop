@@ -1,0 +1,31 @@
+.ProductSlider {
+  max-width: 1440px;
+  margin: 0 auto;
+  height: auto;
+
+
+  .title{
+    width: 98%;
+    margin: 0 auto;
+
+    h3{
+      font-size: 24px;
+      text-transform: capitalize;
+    }
+
+  }
+
+  .slider {
+    max-width: 98%;
+    margin: 0 auto;
+    overflow: hidden;
+    padding: 30px 0;
+
+    .productSlide {
+      width: 310px !important;
+      height: 379px;
+    }
+  }
+
+}
+

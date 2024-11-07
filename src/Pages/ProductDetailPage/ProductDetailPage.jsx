@@ -8,6 +8,9 @@ import styles from "./ProductDetailPage.module.scss";
 import {fetchProductById} from "../../store/slices/getProducts.js";
 import {useDispatch, useSelector} from "react-redux";
 
+import placeholderImage from "../../assets/img.png"
+import ProductSlider from "../../components/ProductSlider/ProductSlider.jsx";
+
 const ProductDetailPage = () => {
     const {id} = useParams();
     const dispatch = useDispatch();
@@ -29,7 +32,7 @@ const ProductDetailPage = () => {
     if (error) return <p>Ошибка: {error}</p>;
     if (!product) return <p>Продукт не найден.</p>;
     const thumbnails = product.pictures.map((pic) => pic.picture);
-    const mainImage = thumbnails[currentIndex];
+    const mainImage = thumbnails[currentIndex] || placeholderImage;
 
     const handleThumbnailClick = (index) => {
         setCurrentIndex(index);
@@ -112,6 +115,10 @@ const ProductDetailPage = () => {
                 <h3>Описание</h3>
                 <p>{product.description}</p>
             </div>
+
+            <section className={styles.cont2}>
+                    <ProductSlider/>
+            </section>
         </div>
     );
 };
