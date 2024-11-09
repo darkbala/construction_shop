@@ -22,7 +22,7 @@ const Counter = () => {
     return (
         <div className={styles.Counter}>
             {data.map((item, index) => (
-                <CounterCard key={index} counter={item} />
+                <CounterCard key={index} counter={item}/>
             ))}
         </div>
     )
