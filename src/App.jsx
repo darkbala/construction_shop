@@ -18,6 +18,7 @@ function App() {
                     <Route path='/vacancy'  element={<Vacancy/>}/>
                     <Route path='/catalog'  element={<CatalogPage/>}/>
                     <Route path='/catalog/product/:id'  element={<ProductDetailPage/>}/>
+                    <Route path='/:id'  element={<ProductDetailPage/>}/>
                     <Route path='*' element={<ErrorPage/>}/>
                 </Routes>
             </Layout>

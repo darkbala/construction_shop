@@ -45,3 +45,12 @@ body{
     display: none;
   }
 }
+
+
+.swiper-slide1 {
+  font-size: 18px;
+  background: #fff;
+
+  display: flex;
+  justify-content: center !important;
+}
