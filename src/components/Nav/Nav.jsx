@@ -52,7 +52,6 @@ const Nav = () => {
                         <NavItem to="/">Производство Iskender</NavItem>
                         <NavItem to="/ax">Дистрибуция</NavItem>
                         <NavItem to="/vacancy">Вакансии</NavItem>
-                        <NavItem to="/ax">Корзина(0)</NavItem>
                         <NavItem to="/ax">Анг</NavItem>
                     </ul>
                 </div>
