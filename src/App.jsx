@@ -4,7 +4,7 @@ import Homepage from './Pages/Homepage/Homepage'
 import ErrorPage from './Pages/Errorpage/Errorpage'
 import Layout from "./components/Layout/Layout.jsx";
 import Vacancy from "./Pages/Vacancy/Vacancy.jsx";
-import CatalogPage from "./Pages/Catalog/CatalogPage.jsx";
+import CatalogPage from "./Pages/CatalogPage/CatalogPage.jsx";
 import ProductDetailPage from "./Pages/ProductDetailPage/ProductDetailPage.jsx";
 function App() {
 

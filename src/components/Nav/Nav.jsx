@@ -2,6 +2,7 @@ import {useState} from "react";
 import NavItem from "./NavItem/NavItem.jsx";
 import classes from "./Nav.module.scss";
 import Logo from "../UI/Logo/Logo.jsx";
+import {Link} from "react-router-dom";
 
 const Nav = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -15,7 +16,10 @@ const Nav = () => {
 
             <div className={`${classes.bottom_nav} ${isMenuOpen ? classes.active : ''}`}>
                 <nav>
-                    <Logo/>
+
+                    <Link to="/">
+                        <Logo/>
+                    </Link>
                     <ul>
                         <NavItem to="/">Производство Iskender</NavItem>
                         <NavItem to="/ax">Дистрибуция</NavItem>

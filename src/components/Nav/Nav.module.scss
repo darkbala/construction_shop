@@ -5,6 +5,7 @@ $bg-dark: #212529;
   width: 100%;
   margin: 0 auto;
   position: relative;
+  background-color: $bg-dark;
 
   .mobileMenu {
     width: 350px;
@@ -51,16 +52,17 @@ $bg-dark: #212529;
 
 
   .bottom_nav {
+    max-width: 1350px;
+    margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: $bg-dark;
     padding: 10px 30px;
     height: 80px;
     width: 100%;
 
     nav {
-      width: 1440px;
+      width: 1350px;
       display: flex;
       justify-content: space-between;
       align-items: center;
