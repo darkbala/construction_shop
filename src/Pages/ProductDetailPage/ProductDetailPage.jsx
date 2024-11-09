@@ -3,13 +3,12 @@ import {Link, useParams} from "react-router-dom";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
-
 import styles from "./ProductDetailPage.module.scss";
 import {fetchProductById} from "../../store/slices/getProducts.js";
 import {useDispatch, useSelector} from "react-redux";
-
 import placeholderImage from "../../assets/img.png"
-import ProductSlider from "../../components/ProductSlider/ProductSlider.jsx";
+import img from "../../assets/img.png"
+import CardSlider from "../../components/UI/CardSlider/CardSlider.jsx";
 
 const ProductDetailPage = () => {
     const {id} = useParams();
@@ -49,6 +48,18 @@ const ProductDetailPage = () => {
     };
 
     const visibleThumbnails = thumbnails.slice(0, 5);
+
+    const cards = [
+        {id: 1, name: 'Product 1', price: '$10', description: 'Description 1', image: img},
+        {id: 2, name: 'Product 2', price: '$20', description: 'Description 2', image: img},
+        {id: 3, name: 'Product 1', price: '$10', description: 'Description 1', image: img},
+        {id: 4, name: 'Product 2', price: '$20', description: 'Description 2', image: img},
+        {id: 5, name: 'Product 1', price: '$10', description: 'Description 1', image: img},
+        {id: 6, name: 'Product 2', price: '$20', description: 'Description 2', image: img},
+        {id: 7, name: 'Product 1', price: '$10', description: 'Description 1', image: img},
+        {id: 8, name: 'Product 2', price: '$20', description: 'Description 2', image: img},
+    ];
+
 
     return (
         <div className={styles.ProductDetail}>
@@ -116,10 +127,12 @@ const ProductDetailPage = () => {
                 <p>{product.description}</p>
             </div>
 
+
             <section className={styles.cont2}>
-                    <ProductSlider/>
-                    <ProductSlider/>
+                <CardSlider cards={cards}/>
             </section>
+
+
         </div>
     );
 };

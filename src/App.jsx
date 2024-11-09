@@ -3,8 +3,6 @@ import {Route, Routes} from 'react-router-dom'
 import Homepage from './Pages/Homepage/Homepage'
 import ErrorPage from './Pages/Errorpage/Errorpage'
 import Layout from "./components/Layout/Layout.jsx";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import Vacancy from "./Pages/Vacancy/Vacancy.jsx";
 import CatalogPage from "./Pages/Catalog/CatalogPage.jsx";
 import ProductDetailPage from "./Pages/ProductDetailPage/ProductDetailPage.jsx";
