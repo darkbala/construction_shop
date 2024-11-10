@@ -5,6 +5,7 @@ import CompanyGoalHome from "../../components/CompanyGoalHome/CompanyGoalHome.js
 import SpecialProductCard from "../../components/SpecialProductCard/SpecialProductCard.jsx";
 import SwitchSection from "../../components/SwitchSection/SwitchSection.jsx";
 import Catalog from "../../components/Catalog/Catalog.jsx";
+import Reviews from "../../components/Reviews/Reviews.jsx";
 
 const Homepage = () => {
     return (
@@ -16,6 +17,8 @@ const Homepage = () => {
 
             <SwitchSection/>
             <Catalog/>
+
+            <Reviews/>
         </main>
     )
 }
