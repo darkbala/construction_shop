@@ -6,6 +6,7 @@ import SpecialProductCard from "../../components/SpecialProductCard/SpecialProdu
 import SwitchSection from "../../components/SwitchSection/SwitchSection.jsx";
 import Catalog from "../../components/Catalog/Catalog.jsx";
 import Reviews from "../../components/Reviews/Reviews.jsx";
+import Brands from "../../components/Brands/Brands.jsx";
 
 const Homepage = () => {
     return (
@@ -19,6 +20,8 @@ const Homepage = () => {
             <Catalog/>
 
             <Reviews/>
+
+            <Brands/>
         </main>
     )
 }
