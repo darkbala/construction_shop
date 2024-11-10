@@ -60,9 +60,10 @@ const Catalog = () => {
                     <Link to={"/catalog"} className={styles.link}>Перейти</Link>
                 </div>
                 <div className={styles.productGrid}>
-                    {topProducts.map(product => (
+                    {bottomProducts.map(product => (
                         <div key={product.id} className={styles.productCard}>
-                            <div className={styles.brandLabel}>{product.brand}</div>
+                            {product.brand.toUpperCase() === "ISKENDER" ? (
+                                <div className={styles.brandLabel}>{product.brand}</div>) : ""}
                             <img src={img} alt={product.name}
                                  className={styles.productImage}/>
                             <aside className={styles.productAside}>
@@ -73,7 +74,6 @@ const Catalog = () => {
                     ))}
                 </div>
             </section>
-
 
 
         </div>
