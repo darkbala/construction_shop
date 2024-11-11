@@ -1,12 +1,8 @@
 .Reviews {
   max-width: 1440px;
   margin: 0 auto;
-  height: 60vh;
-  padding: 30px 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  padding: 20px;
+
 
   .title {
     display: flex;
@@ -16,8 +12,7 @@
     gap: 20px;
 
     h3 {
-      font-size: 20px;
-      font-weight: 500;
+      font-size: 24px;
     }
 
     a {
@@ -74,6 +69,7 @@
         h6 {
           margin-top: 10px;
           font-weight: 600;
+          font-size: 16px;
         }
       }
     }
@@ -129,7 +125,7 @@
           }
 
           h6 {
-            font-size: 15px;
+            font-size: 16px;
           }
         }
       }
@@ -183,19 +179,20 @@
           }
 
           h6 {
-            font-size: 13px;
+            font-size: 14px;
           }
         }
       }
     }
+  }
 
-    .prev,
-    .next {
-      width: 35px;
-      height: 35px;
-    }
+  .prev,
+  .next {
+    width: 35px;
+    height: 35px;
   }
 }
+
 
 @media (max-width: 600px) {
   .Reviews {
@@ -204,9 +201,8 @@
     .container {
       .reviews_slider_cont {
         width: 100%;
-
         .slide {
-          padding: 30px 10px;
+          padding: 10px;
 
           p {
             font-size: 12px;
@@ -232,14 +228,48 @@
 
     .prev {
       top: 25px;
-      left: 15px;
     }
 
     .next {
-      right: 10px;
       top: 25px;
     }
   }
+  @media (max-width: 320px) {
+    .Reviews {
+      padding: 5px;
+
+      .container {
+        .reviews_slider_cont {
+          .slide {
+            padding: 8px;
+
+            p {
+              font-size: 11px;
+              line-height: 1.3;
+            }
+
+            .stars li {
+              font-size: 10px;
+            }
+
+            h6 {
+              font-size: 11px;
+            }
+          }
+        }
+      }
+
+      .prev,
+      .next {
+        width: 25px;
+        height: 25px;
+        font-size: 16px;
+      }
+
+
+    }
+  }
+
 }
 
 @media (max-width: 320px) {
@@ -272,14 +302,6 @@
       width: 25px;
       height: 25px;
       font-size: 16px;
-    }
-
-    .prev {
-      left: -10px;
-    }
-
-    .next {
-      right: -10px;
     }
   }
 }
