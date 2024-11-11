@@ -1,9 +1,16 @@
 {
   "nav": {
     "production": "Production Iskender",
+    "item1": "Standard Collections",
+    "item2": "Painted Collections",
     "distribution": "Distribution",
+    "distribution_item1": "Plumbing",
+    "distribution_item2": "Plumbing",
+    "distribution_item3": "Plumbing",
+
     "vacancies": "Vacancies",
-    "english": "English"
+    "english": "English",
+    "russian": "Russian"
   },
   "header": {
     "title": "Iskender",

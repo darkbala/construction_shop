@@ -1,11 +1,11 @@
-// CardSlider.jsx
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 import { useRef, useEffect } from 'react';
 import styles from './CardSlider.module.scss';
 import { Link } from 'react-router-dom';
 
-import ArrowButton from "../ArrowButton/ArrowButton.jsx"; // Путь к изображению
+import ArrowButton from "../ArrowButton/ArrowButton.jsx";
+import placeholderImage from '../../../assets/img.png';
 
 const CardSlider = ({ cards }) => {
     const swiperRef = useRef(null);
@@ -36,7 +36,6 @@ const CardSlider = ({ cards }) => {
                     800: { slidesPerView: 3 },
                     1024: { slidesPerView: 3 },
                     1280: { slidesPerView: 4 },
-
                 }}
             >
                 {cards.map((card) => (
@@ -44,7 +43,7 @@ const CardSlider = ({ cards }) => {
                         <Link to={`product/${card.id}`} className={styles.Product}>
                             <span className={styles.brand}>iskender</span>
                             <div>
-                                <img src={card.image} alt={card.name} />
+                                <img src={card.photos?.[0]?.url || placeholderImage} alt={card.name} />
                                 <aside>
                                     <h4>{card.name}</h4>
                                     <div className={styles.line} />
