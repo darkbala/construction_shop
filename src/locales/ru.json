@@ -1,13 +1,19 @@
 {
   "nav": {
     "production": "Производство Iskender",
+    "item1": "Стандартные коллекции",
+    "item2": "Крашенные коллекции",
     "distribution": "Дистрибуция",
+    "distribution_item1": "Plumbing",
+    "distribution_item2": "Plumbing",
+    "distribution_item3": "Plumbing",
     "vacancies": "Вакансии",
-    "english": "Английский"
+    "english": "Английский",
+    "russian": "Русский"
   },
   "header": {
     "title": "Iskender",
-    "subtitle": "Компания",
+    "subtitle": "Company",
     "b2b": "B2B Оптовые продажи",
     "description": "Имея более чем 10-летний опыт проектирования и производства высококачественной мебели для ванной комнаты, мы с гордостью представляем наши коллекции для ванной комнаты.",
     "toCatalog": "К каталогу"
