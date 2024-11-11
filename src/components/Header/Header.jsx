@@ -1,9 +1,12 @@
-import {Fade} from "react-slideshow-image";
+import { Fade } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import styles from "./Header.module.scss";
 
 const Header = () => {
+    const { t } = useTranslation();
+
     const backgrounds = [
         'https://images.unsplash.com/photo-1719937051176-9b98352a6cf4?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
         'https://plus.unsplash.com/premium_photo-1730142098065-c8e1a9361b6e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
@@ -22,23 +25,21 @@ const Header = () => {
         <div className={styles.sliderContainer}>
             <Fade {...settings}>
                 {backgrounds.map((bg, index) => (
-                    <div key={index} className={styles.bgSlide} style={{backgroundImage: `url("${bg}")`}}/>
+                    <div key={index} className={styles.bgSlide} style={{ backgroundImage: `url("${bg}")` }} />
                 ))}
             </Fade>
 
             <div className={styles.content}>
                 <div className={styles.container}>
                     <span>
-                        <h1>Iskender</h1>
-                        <h4>Company</h4>
+                        <h1>{t('header.title')}</h1>
+                        <h4>{t('header.subtitle')}</h4>
                     </span>
                     <section className={styles.b2b}>
-                        <p>B2B Оптовые продажи</p>
+                        <p>{t('header.b2b')}</p>
                     </section>
-                    <p className={styles.desk}>Имея более чем 10-летний опыт проектирования и производства
-                        высококачественной мебели для ванной
-                        комнаты, мы с гордостью представляем наши коллекции для ванной комнаты.</p>
-                    <Link to={"/catalog"} className={styles.btn_to_category}>К каталогу</Link>
+                    <p className={styles.desk}>{t('header.description')}</p>
+                    <Link to={"/catalog"} className={styles.btn_to_category}>{t('header.toCatalog')}</Link>
                 </div>
             </div>
         </div>

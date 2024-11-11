@@ -1,0 +1,15 @@
+{
+  "nav": {
+    "production": "Production Iskender",
+    "distribution": "Distribution",
+    "vacancies": "Vacancies",
+    "english": "English"
+  },
+  "header": {
+    "title": "Iskender",
+    "subtitle": "Company",
+    "b2b": "B2B Wholesale",
+    "description": "With over 10 years of experience in designing and manufacturing high-quality bathroom furniture, we proudly present our bathroom collections.",
+    "toCatalog": "To Catalog"
+  }
+}
