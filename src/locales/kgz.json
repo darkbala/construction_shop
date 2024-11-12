@@ -1,0 +1,21 @@
+{
+  "nav": {
+    "production": "Production Iskender",
+    "item1": "стандартык коллекция",
+    "item2": "Боелгон коллекция",
+    "distribution": "дистрибутазация",
+    "distribution_item1": "ванна",
+    "distribution_item2": "кран",
+    "distribution_item3": "кран",
+    "vacancies": "Vacancies",
+    "english": "English",
+    "russian": "Russian"
+  },
+  "header": {
+    "title": "Iskender",
+    "subtitle": "Company",
+    "b2b": "B2B Wholesale",
+    "description": "With over 10 years of experience in designing and manufacturing high-quality bathroom furniture, we proudly present our bathroom collections.",
+    "toCatalog": "To Catalog"
+  }
+}

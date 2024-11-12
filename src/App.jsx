@@ -7,9 +7,6 @@ import Vacancy from "./Pages/Vacancy/Vacancy.jsx";
 import CatalogPage from "./Pages/CatalogPage/CatalogPage.jsx";
 import ProductDetailPage from "./Pages/ProductDetailPage/ProductDetailPage.jsx";
 import './i18n';
-import {useDispatch} from "react-redux";
-import {useEffect} from "react";
-import {fetchLanguages} from "./store/slices/getLanguages.js";
 
 const App = () => {
 

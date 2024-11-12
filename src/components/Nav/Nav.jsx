@@ -35,7 +35,7 @@ const Nav = () => {
                 <nav>
                     <Link to="/">
                         <Logo />
-                    </Link>
+                    </  Link>
                     <ul>
                         <div className={classes.navItem}>
                             <div className={classes.languageSelector}>
