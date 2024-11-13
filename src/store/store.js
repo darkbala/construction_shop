@@ -4,6 +4,7 @@ import paginationReducer from "./slices/paginationSlice.js";
 import productsReducer from "./slices/getProducts.js";
 import languageReducers from "./slices/getLanguages.js";
 import languageReducer from './slices/languageState.js'
+import reviewsReducer from "./slices/reviewsSlice.js"
 
 const store = configureStore({
     reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
         products: productsReducer,
         languages: languageReducers,
         language: languageReducer,
+        reviews: reviewsReducer
     },
 });
 

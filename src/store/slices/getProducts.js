@@ -43,8 +43,6 @@ export const fetchPopularProducts = createAsyncThunk(
             `http://127.0.0.1:8080/popular?lang=${language}`
         );
         const collection = response.data.collections;
-
-        console.log(collection)
         const item = response.data.items;
         return [...collection, ...item];
 
