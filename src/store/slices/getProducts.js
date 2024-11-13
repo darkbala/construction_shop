@@ -40,9 +40,14 @@ export const fetchPopularProducts = createAsyncThunk(
     async (_, {getState}) => {
         const language = getState().language.currentLanguage;
         const response = await axios.get(
-            `http://127.0.0.1:8080/items/popular?lang=${language}`
+            `http://127.0.0.1:8080/popular?lang=${language}`
         );
-        return response.data;
+        const collection = response.data.collections;
+
+        console.log(collection)
+        const item = response.data.items;
+        return [...collection, ...item];
+
     }
 );
 
@@ -51,9 +56,14 @@ export const fetchNewProducts = createAsyncThunk(
     async (_, {getState}) => {
         const language = getState().language.currentLanguage;
         const response = await axios.get(
-            `http://127.0.0.1:8080/items/new?lang=${language}`
+            `http://127.0.0.1:8080/new?lang=${language}`
         );
-        return response.data;
+        console.log(response.data)
+        const collection = response.data.collections;
+
+        console.log(collection)
+        const item = response.data.items;
+        return [...collection, ...item];
     }
 );
 const productsSlice = createSlice({

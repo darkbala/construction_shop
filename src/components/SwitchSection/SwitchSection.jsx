@@ -12,6 +12,7 @@ const SwitchSection = () => {
     const language = useSelector((state) => state.language.currentLanguage);
     const [active, setActive] = useState('pop');
 
+    console.log(newProducts);
     useEffect(() => {
         if (active === 'pop') {
             dispatch(fetchPopularProducts());

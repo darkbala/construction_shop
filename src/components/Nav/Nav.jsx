@@ -30,7 +30,6 @@ const Nav = () => {
     if (loading) return <div>Загрузка языков...</div>;
     if (error) return <div>Ошибка загрузки языков: {error}</div>;
 
-    console.log(setLanguage(languages))
 
     return (
         <nav className={classes.Nav}>

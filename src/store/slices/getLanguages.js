@@ -5,7 +5,6 @@ export const fetchLanguages = createAsyncThunk(
     'languages/fetchLanguages',
     async (_, { getState }) => {
         const language = getState().language.currentLanguage;
-        console.log(language)
         const response = await axios.get(`http://127.0.0.1:8080/languages?lang=${language}`);
         return response.data;
     }

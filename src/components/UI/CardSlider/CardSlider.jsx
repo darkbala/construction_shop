@@ -12,6 +12,8 @@ const CardSlider = ({ cards }) => {
     const prevButtonRef = useRef(null);
     const nextButtonRef = useRef(null);
 
+    console.log(cards)
+
     useEffect(() => {
         if (swiperRef.current && swiperRef.current.swiper) {
             const swiperInstance = swiperRef.current.swiper;
@@ -38,6 +40,7 @@ const CardSlider = ({ cards }) => {
                     1280: { slidesPerView: 4 },
                 }}
             >
+                {/* eslint-disable-next-line react/prop-types */}
                 {cards.map((card) => (
                     <SwiperSlide key={card.id} className={styles.card}>
                         <Link to={`product/${card.id}`} className={styles.Product}>
