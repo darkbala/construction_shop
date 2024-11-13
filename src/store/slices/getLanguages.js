@@ -1,21 +1,20 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import axios from "axios";
-
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 
 export const fetchLanguages = createAsyncThunk(
     'languages/fetchLanguages',
-    async () => {
-        const response = await axios.get(`http://127.0.0.1:8080/languages`);
+    async (_, { getState }) => {
+        const language = getState().language.currentLanguage;
+        console.log(language)
+        const response = await axios.get(`http://127.0.0.1:8080/languages?lang=${language}`);
         return response.data;
     }
 );
-
 
 const getLanguages = createSlice({
     name: 'languages',
     initialState: {
         data: [],
-        selectedLanguages: null,
         loading: false,
         error: null,
     },
@@ -33,7 +32,7 @@ const getLanguages = createSlice({
             .addCase(fetchLanguages.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.error.message;
-            })
+            });
     }
 });
 

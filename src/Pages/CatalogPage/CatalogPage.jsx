@@ -9,20 +9,21 @@ import Products from "../../components/Products/Products.jsx";
 
 const CatalogPage = () => {
     const dispatch = useDispatch();
+    const language = useSelector((state) => state.language.currentLanguage);
     const { categories, loading: categoriesLoading, error: categoriesError } = useSelector((state) => state.categories);
     const { data: products, loading: productsLoading, error: productsError } = useSelector((state) => state.products);
     const [selectedCategory, setSelectedCategory] = useState(null);
 
     useEffect(() => {
         dispatch(fetchCategories());
-    }, [dispatch]);
+    }, [dispatch, language]);
 
     useEffect(() => {
         if (categories.length > 0) {
             setSelectedCategory(categories[0]);
             dispatch(fetchProducts(categories[0].id));
         }
-    }, [categories, dispatch]);
+    }, [categories, dispatch, language]);
 
     const handleCategoryClick = (category) => {
         setSelectedCategory(category);
