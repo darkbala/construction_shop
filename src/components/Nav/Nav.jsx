@@ -64,7 +64,7 @@ const Nav = () => {
                         <NavItem to="/vacancy">{t('nav.vacancies')}</NavItem>
 
                         <div className={classes.languageSelector}>
-                            {t('nav.english')}
+                            {t('nav.russian')}
                             <div className={classes.dropdownMenu}>
                                 <div className={classes.inner}>
                                     {languages?.map((language) => (
