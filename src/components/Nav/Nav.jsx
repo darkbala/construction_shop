@@ -1,18 +1,19 @@
-import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
+import {useEffect, useState} from "react";
+import {useTranslation} from "react-i18next";
 import NavItem from "./NavItem/NavItem.jsx";
 import classes from "./Nav.module.scss";
 import Logo from "../UI/Logo/Logo.jsx";
-import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchLanguages } from "../../store/slices/getLanguages.js";
+import {Link} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchLanguages} from "../../store/slices/getLanguages.js";
+import { setLanguage } from "../../store/slices/languageState.js";
 
 const Nav = () => {
     const dispatch = useDispatch();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const { t, i18n } = useTranslation();
+    const {t, i18n} = useTranslation();
 
-    const { data: languages, loading, error } = useSelector(state => state.languages);
+    const {data: languages, loading, error} = useSelector(state => state.languages);
 
     const toggleMenu = () => {
         setIsMenuOpen((prev) => !prev);
@@ -24,18 +25,20 @@ const Nav = () => {
 
     const handleLanguageChange = (lang) => {
         i18n.changeLanguage(lang);
+        dispatch(setLanguage(lang));
     };
 
     if (loading) return <div>Загрузка языков...</div>;
     if (error) return <div>Ошибка загрузки языков: {error}</div>;
+
 
     return (
         <nav className={classes.Nav}>
             <div className={`${classes.bottom_nav} ${isMenuOpen ? classes.active : ''}`}>
                 <nav>
                     <Link to="/">
-                        <Logo />
-                    </Link>
+                        <Logo/>
+                    </  Link>
                     <ul>
                         <div className={classes.navItem}>
                             <div className={classes.languageSelector}>
@@ -62,7 +65,7 @@ const Nav = () => {
                         <NavItem to="/vacancy">{t('nav.vacancies')}</NavItem>
 
                         <div className={classes.languageSelector}>
-                            {t('nav.english')}
+                            {t('nav.russian')}
                             <div className={classes.dropdownMenu}>
                                 <div className={classes.inner}>
                                     {languages?.map((language) => (

@@ -1,6 +1,6 @@
 import Nav from "../Nav/Nav.jsx";
 
-const Layout = ({ children }) => {
+const Layout = ({children}) => {
     return(
         <>
             <header>

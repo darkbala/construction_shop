@@ -3,8 +3,9 @@ import axios from 'axios';
 
 export const fetchCategories = createAsyncThunk(
     'categories/fetchCategories',
-    async () => {
-        const response = await axios.get(`http://127.0.0.1:8080/category?lang=en`);
+    async (_, {getState}) => {
+        const language = getState().language.currentLanguage;
+        const response = await axios.get(`http://127.0.0.1:8080/category?lang=${language}`);
         return response.data;
     }
 );

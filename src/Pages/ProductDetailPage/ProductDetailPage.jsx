@@ -1,36 +1,35 @@
-import { useEffect, useState, useCallback, useMemo } from "react";
-import { Link, useParams } from "react-router-dom";
+import {useCallback, useEffect, useMemo, useState} from "react";
+import {Link, useParams} from "react-router-dom";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import styles from "./ProductDetailPage.module.scss";
-import { fetchProductById, fetchProductInCollection } from "../../store/slices/getProducts.js";
-import { useDispatch, useSelector } from "react-redux";
+import {fetchProductById, fetchProductInCollection} from "../../store/slices/getProducts.js";
+import {useDispatch, useSelector} from "react-redux";
 import placeholderImage from "../../assets/img.png";
 import CardSlider from "../../components/UI/CardSlider/CardSlider.jsx";
 
 const ProductDetailPage = () => {
-    const { id } = useParams();
+    const {id} = useParams();
     const dispatch = useDispatch();
-
+    const language = useSelector((state) => state.language.currentLanguage);
     const product = useSelector((state) => state.products.selectedProduct);
     const collection = useSelector((state) => state.products.productsInCollection);
     const loading = useSelector((state) => state.products.loading);
     const error = useSelector((state) => state.products.error);
-
     const [currentIndex, setCurrentIndex] = useState(0);
 
     useEffect(() => {
         if (id) {
             dispatch(fetchProductById(id));
         }
-    }, [id, dispatch]);
+    }, [id, dispatch, language]);
 
     useEffect(() => {
         if (product?.collection_id) {
             dispatch(fetchProductInCollection(product.collection_id));
         }
-    }, [product?.collection_id, dispatch]);
+    }, [product?.collection_id, dispatch, language]);
 
     useEffect(() => {
         if (product) {
@@ -70,7 +69,7 @@ const ProductDetailPage = () => {
             <section className={styles.cont}>
                 <div className={styles.imageSection}>
                     <aside className={styles.box}>
-                        <img src={mainImage} alt={product.name} className={styles.mainImage} />
+                        <img src={mainImage} alt={product.name} className={styles.mainImage}/>
                         <span>
                             <button className={styles.arrowButton} onClick={handlePrevImage}>⬅</button>
                             <button className={styles.arrowButton} onClick={handleNextImage}>➡</button>
@@ -89,7 +88,7 @@ const ProductDetailPage = () => {
                                 />
                             ))
                         ) : (
-                            " "
+                            ""
                         )}
                     </div>
                 </div>
@@ -112,14 +111,14 @@ const ProductDetailPage = () => {
             {collection && collection.length > 0 && (
                 <section className={styles.cont2}>
                     <h3>Продукты из этой коллекции</h3>
-                    <CardSlider cards={collection} />
+                    <CardSlider cards={collection}/>
                 </section>
             )}
 
             {product.relatedProducts && product.relatedProducts.length > 0 && (
                 <section className={styles.cont2}>
                     <h3>Связанные продукты</h3>
-                    <CardSlider cards={product.relatedProducts} />
+                    <CardSlider cards={product.relatedProducts}/>
                 </section>
             )}
         </div>

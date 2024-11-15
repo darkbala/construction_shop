@@ -1,31 +1,34 @@
 import styles from './SwitchSection.module.scss';
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import SwitchButtons from "../UI/SwitchButtons/SwitchButtons.jsx";
 import CardSlider from "../UI/CardSlider/CardSlider.jsx";
-import img from "../../assets/img.png"
+import {useDispatch, useSelector} from "react-redux";
+import {fetchPopularProducts, fetchNewProducts} from "../../store/slices/getProducts.js";
+
 const SwitchSection = () => {
+    const dispatch = useDispatch();
+    const popularProducts = useSelector((state) => state.products.popularProducts);
+    const newProducts = useSelector((state) => state.products.newProducts);
+    const language = useSelector((state) => state.language.currentLanguage);
     const [active, setActive] = useState('pop');
+
+    console.log(newProducts);
+    useEffect(() => {
+        if (active === 'pop') {
+            dispatch(fetchPopularProducts());
+        } else if (active === 'new') {
+            dispatch(fetchNewProducts());
+        }
+    }, [language, active, dispatch]);
 
     const handleClick = (button) => {
         setActive(button);
     };
 
-    const cards = [
-        {id: 1, name: 'Product 1', price: '$10', description: 'Description 1', image: img},
-        {id: 2, name: 'Product 2', price: '$20', description: 'Description 2', image: img},
-        {id: 3, name: 'Product 1', price: '$10', description: 'Description 1', image: img},
-        {id: 4, name: 'Product 2', price: '$20', description: 'Description 2', image: img},
-        {id: 5, name: 'Product 1', price: '$10', description: 'Description 1', image: img},
-        {id: 6, name: 'Product 2', price: '$20', description: 'Description 2', image: img},
-        {id: 7, name: 'Product 1', price: '$10', description: 'Description 1', image: img},
-        {id: 8, name: 'Product 2', price: '$20', description: 'Description 2', image: img},
-    ];
-
     return (
         <section className={styles.SwitchSection}>
-            <SwitchButtons active={active} onClick={handleClick}/>
-
-            <CardSlider cards={cards}/>
+            <SwitchButtons active={active} onClick={handleClick} />
+            <CardSlider cards={active === 'pop' ? popularProducts : newProducts} />
         </section>
     );
 };

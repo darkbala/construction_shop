@@ -7,15 +7,19 @@ import SwitchSection from "../../components/SwitchSection/SwitchSection.jsx";
 import Catalog from "../../components/Catalog/Catalog.jsx";
 import Reviews from "../../components/Reviews/Reviews.jsx";
 import Brands from "../../components/Brands/Brands.jsx";
+import {useDispatch, useSelector} from "react-redux";
+import {useEffect} from "react";
+import {fetchPopularProducts} from "../../store/slices/getProducts.js";
 
 const Homepage = () => {
+
+
     return (
         <main className={classes.HomePage}>
             <Header/>
             <Counter/>
             <CompanyGoalHome/>
             <SpecialProductCard/>
-
             <SwitchSection/>
             <Catalog/>
 
