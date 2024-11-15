@@ -7,6 +7,7 @@ import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchLanguages} from "../../store/slices/getLanguages.js";
 import { setLanguage } from "../../store/slices/languageState.js";
+
 const Nav = () => {
     const dispatch = useDispatch();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
