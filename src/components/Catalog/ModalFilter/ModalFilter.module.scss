@@ -32,8 +32,9 @@
   .box {
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
     width: 340px;
-    gap: 30px;
+    gap: 40px;
   }
   
   .vals {
@@ -56,53 +57,54 @@
     padding: 5px;
   }
   
+  .buttons {
+    display: flex;
+    flex-direction: row ;
+    justify-content: end;
+    gap: 10px;
+    width: 100%;
+  
+    .btn1 {
+      width: 170px;
+      height: 40px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 500;
+      text-decoration: underline;
+    }
+  
+    .btn2 {
+      width: 170px;
+      height: 40px;
+      background: #212529; 
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      color: white;
+      font-weight: 500;
+    }
+  }
+
   .exitIcon {
     position: absolute;
-    top: 30px;
-    right: 30px;
+    top: 20px;
+    right: 25px;
     cursor: pointer;
   }
 
   .range{
     width: 100%;
 
-    .rc-slider {
-        width: 100%;
-      }
-      
-      .rc-slider-rail {
-        background-color: #ddd;
-        height: 8px;
-        border-radius: 5px;
-      }
-      
-      .rc-slider-track {
-        background-color: #f13657; /* Сильно красный */
-        height: 8px;
-        border-radius: 5px;
-      }
-      
-      .rc-slider-handle {
-        background-color: #f13657; /* Цвет бегунка */
-        border: 3px solid #f13657; /* Красная рамка */
-        width: 20px;
-        height: 20px;
-        border-radius: 50%; /* Круглый бегунок */
-        cursor: pointer;
-      }
-      
-      .rc-slider-handle:focus {
-        box-shadow: 0 0 0 3px rgba(241, 54, 87, 0.3); /* Фокус с эффектом */
-      }
-      
-      .rc-slider-tooltip {
-        display: none; /* Отключаем подсказку */
-      }
-
+    p{
+        margin-bottom: 10px;
+        font-weight: 500;
+        font-size: 22px;
+    }
+   
   }
- /* Стили для rc-slider */
 
-  
   
   /* Анимации */
   @keyframes slideInFromRight {

@@ -24,16 +24,44 @@ export default function ModalFilter({ onClose }) {
     setMaxValue(value[1]);
   };
 
+  const handleMinInputChange = (e) => {
+    const value = Math.max(0, Number(e.target.value.replace(/\D/g, ''))); // Убираем все нецифровые символы
+    setMinValue(value);
+  };
+
+  const handleMaxInputChange = (e) => {
+    const value = Math.max(0, Number(e.target.value.replace(/\D/g, ''))); // Убираем все нецифровые символы
+    setMaxValue(value);
+  };
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
+    // Закрываем модалку при применении
+    setIsClosing(true);
+    setTimeout(() => {
+      onClose();
+    }, 500); // Время на анимацию
+
     // Логика отправки или фильтрации
     console.log('Filters submitted', { minValue, maxValue, productType });
+  };
+
+  const handleClear = () => {
+    setMinValue(0);
+    setMaxValue(12000000);
+    setProductType('iskender'); // Или любое значение по умолчанию для радио
+  };
+
+  // Функция для форматирования чисел
+  const formatNumber = (number) => {
+    return number.toLocaleString('ru-RU'); // Для пробела между тысячами
+    // return number.toLocaleString('de-DE'); // Для точки между тысячами
   };
 
   return (
     <div className={`${styles.overlay} ${isClosing ? styles.fadeOut : ''}`} onClick={handleOverlayClick}>
       <div className={`${styles.wrap} ${isClosing ? styles.fadeOutWrap : ''}`}>
-        <img src={exiticon} alt="exit" onClick={handleOverlayClick} className={styles.exitIcon} />
+        {/* <img src={exiticon} alt="exit" onClick={handleOverlayClick} className={styles.exitIcon} /> */}
         <form onSubmit={handleFormSubmit}>
           <div className={styles.box}>
             <div className={styles.range}>
@@ -42,20 +70,28 @@ export default function ModalFilter({ onClose }) {
                 range
                 min={0}
                 max={12000000}
-                step={1000}
-                defaultValue={[minValue, maxValue]}
+                step={2000}
+                value={[minValue, maxValue]}
                 onChange={handleSliderChange}
-                tipFormatter={(value) => `${value}`} // Форматирование подсказки
+                tipFormatter={(value) => formatNumber(value)} // Форматирование подсказки
               />
             </div>
             <div className={styles.vals}>
               <div>
                 <p>Мин.</p>
-                <input type="text" disabled value={minValue} />
+                <input 
+                  type="text" 
+                  value={formatNumber(minValue)} 
+                  onChange={handleMinInputChange} 
+                />
               </div>
               <div>
                 <p>Макс.</p>
-                <input type="text" disabled value={maxValue} />
+                <input 
+                  type="text" 
+                  value={formatNumber(maxValue)} 
+                  onChange={handleMaxInputChange} 
+                />
               </div>
             </div>
             <div className={styles.radios}>
@@ -80,11 +116,11 @@ export default function ModalFilter({ onClose }) {
                 <p>Продукция партнеров</p>
               </span>
             </div>
-            <div>
-              <button type="button" onClick={() => { /* Очистка значений */ }}>
+            <div className={styles.buttons}>
+              <button className={styles.btn1} type="button" onClick={handleClear}>
                 Очистить
               </button>
-              <button type="submit">Применить</button>
+              <button className={styles.btn2} type="submit">Применить</button>
             </div>
           </div>
         </form>
