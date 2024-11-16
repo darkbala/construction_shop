@@ -102,44 +102,9 @@
         font-weight: 500;
         font-size: 22px;
     }
-
-    .rc-slider {
-        width: 100%;
-      }
-      
-      .rc-slider-rail {
-        background-color: #ddd;
-        height: 8px;
-        border-radius: 5px;
-      }
-      
-      .rc-slider-track {
-        background-color: #f13657 !important; /* Сильно красный */
-        height: 8px;
-        border-radius: 5px;
-      }
-      
-      .rc-slider-handle {
-        background-color: #f13657 !important; /* Цвет бегунка */
-        border: 3px solid #f13657 !important; /* Красная рамка */
-        width: 20px;
-        height: 20px;
-        border-radius: 50%; /* Круглый бегунок */
-        cursor: pointer;
-      }
-      
-      .rc-slider-handle:focus {
-        box-shadow: 0 0 0 3px rgba(241, 54, 87, 0.3); /* Фокус с эффектом */
-      }
-      
-      .rc-slider-tooltip {
-        display: none; /* Отключаем подсказку */
-      }
-
+   
   }
- /* Стили для rc-slider */
 
-  
   
   /* Анимации */
   @keyframes slideInFromRight {
