@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { Fade } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
 import { Link } from "react-router-dom";
@@ -29,15 +30,13 @@ const Header = () => {
                 ))}
             </Fade>
 
-
-
             <div className={styles.content}>
                 <div className={styles.container}>
                     <span>
                         <h1>{t('header.title')}</h1>
                         <h4>{t('header.subtitle')}</h4>
                     </span>
-                    <section className={styles.b2b}>
+                    <section className={styles.b2b} >
                         <p>{t('header.b2b')}</p>
                     </section>
                     <p className={styles.desk}>{t('header.description')}</p>

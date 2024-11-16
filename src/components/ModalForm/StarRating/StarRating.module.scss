@@ -1,0 +1,28 @@
+.rating {
+    display: inline-block;
+    font-size: 24px;
+    color: #ccc;
+  }
+  
+  .star {
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  
+  .star.active {
+    color: #f5c518; /* Цвет активных звезд */
+  }
+  .star {
+    font-size: 30px;
+    cursor: pointer;
+    margin-right: 15px; /* Расстояние между звездами */
+  }
+  
+  .star:last-child {
+    margin-right: 0; /* Убираем отступ у последней звезды */
+  }
+  
+  .active {
+    color: #ff9900; /* Цвет активной звезды */
+  }
+  

@@ -3,12 +3,16 @@ import {Swiper, SwiperSlide} from "swiper/react";
 import {Navigation, Pagination} from "swiper/modules";
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {fetchReviews} from "../../store/slices/reviewsSlice.js";
+import ModalForm from "../ModalForm/ModalForm"; // Подключаем компонент модального окна
+
 
 const Reviews = () => {
     const dispatch = useDispatch();
     const { data: reviews, loading, error } = useSelector((state) => state.reviews);
+    const [isModalOpen, setModalOpen] = useState(false); // Состояние для управления модалкой
+
 
     useEffect(() => {
         dispatch(fetchReviews());
@@ -26,7 +30,7 @@ const Reviews = () => {
         <div className={styles.Reviews}>
             <section className={styles.title}>
                 <h3>Отзывы</h3>
-                <Link to={"/catalog"}>Оставить отзыв</Link>
+                <Link onClick={() => setModalOpen(true)}>Оставить отзыв</Link>
             </section>
             <section className={styles.container}>
                 <Swiper
@@ -91,6 +95,7 @@ const Reviews = () => {
                     </svg>
                 </button>
             </section>
+            {isModalOpen && <ModalForm onClose={() => setModalOpen(false)} />}
         </div>
     );
 };

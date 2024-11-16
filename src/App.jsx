@@ -7,6 +7,7 @@ import Vacancy from "./Pages/Vacancy/Vacancy.jsx";
 import CatalogPage from "./Pages/CatalogPage/CatalogPage.jsx";
 import ProductDetailPage from "./Pages/ProductDetailPage/ProductDetailPage.jsx";
 import './i18n';
+import ModalForm from './components/ModalForm/ModalForm.jsx';
 
 const App = () => {
 
