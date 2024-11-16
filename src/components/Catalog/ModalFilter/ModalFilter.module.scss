@@ -105,7 +105,6 @@
    
   }
 
-  
   /* Анимации */
   @keyframes slideInFromRight {
     0% {
@@ -200,3 +199,32 @@
     box-shadow: 0 0 0 3px rgba(241, 54, 87, 0.3); /* Красное свечение при фокусе */
   }
   
+
+
+
+  @media screen and (max-width:620px) {
+    .wrap{
+        width: 360px;
+    }
+    .box{
+        width: 320px;
+    }
+    .vals input{
+        width: 160px;
+    }
+    
+  }
+  
+
+  @media screen and (max-width:330px) {
+    .wrap{
+        width: 300px;
+    }
+    .box{
+        width: 270px;
+    }
+    .vals input{
+        width: 135px;
+    }
+    
+  }
