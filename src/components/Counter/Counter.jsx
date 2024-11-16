@@ -9,12 +9,12 @@ const Counter = () => {
             id: 2
         },
         {
-            count: "70.000+",
+            count: "70 000+",
             description: "довольных клиентов",
             id: 1
         },
         {
-            count: "70.000",
+            count: "70 000~",
             description: "изделий в год",
             id: 3
         }
