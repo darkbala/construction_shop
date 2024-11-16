@@ -28,15 +28,15 @@ const CategorySlider = ({categories, selectedCategory, onSelectCategory}) => (
             grabCursor={true}
         >
             {/* eslint-disable-next-line react/prop-types */}
-            {categories.map((category) => (<SwiperSlide key={category.id} className={classes.categorySlide}>
-                <button
-
-                    // eslint-disable-next-line react/prop-types
-                    className={`${classes.categoryButton} ${selectedCategory && selectedCategory.id === category.id ? classes.active : ''}`}
-                    onClick={() => onSelectCategory(category)}
-                >
-                    {category.name}
-                </button>
+            {categories.map((category) => (
+                <SwiperSlide key={category.id} className={classes.categorySlide}>
+                    <button
+                        // eslint-disable-next-line react/prop-types
+                        className={`${classes.categoryButton} ${selectedCategory && selectedCategory.id === category.id ? classes.active : ''}`}
+                        onClick={() => onSelectCategory(category)}
+                    >
+                        {category.name}
+                    </button>
             </SwiperSlide>))}
         </Swiper>
 

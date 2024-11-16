@@ -9,7 +9,6 @@ export const fetchAllCollections = createAsyncThunk(
             `http://127.0.0.1:8080/collections?lang=${language}`
         ))
 
-        console.log(response.data)
         return response.data
     }
 )
