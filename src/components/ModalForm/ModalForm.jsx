@@ -73,9 +73,9 @@ export default function ModalForm({ onClose }) {
 
         <form onSubmit={handleSubmit}>
           <div className={styles.box}>
-            <p className={styles.Maintitle}>Оставьте свой отзыв</p>
+            <p className={styles.Maintitle}>Оставьте отзыв</p>
             <div>
-              <p>Оставьте свое ФИО</p>
+              <p>Введите свое ФИО</p>
               <input
                 type="text"
                 name="name"

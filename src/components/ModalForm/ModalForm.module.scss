@@ -13,23 +13,6 @@
     transition: background-color 0.3s ease-out; /* Плавное исчезновение фона */
   }
   
-  @keyframes overlayFadeIn {
-    0% {
-      background-color: rgba(0, 0, 0, 0);
-    }
-    100% {
-      background-color: rgba(0, 0, 0, 0.5);
-    }
-  }
-  
-  @keyframes overlayFadeOut {
-    0% {
-      background-color: rgba(0, 0, 0, 0.5);
-    }
-    100% {
-      background-color: rgba(0, 0, 0, 0);
-    }
-  }
   
   .wrap {
     background-color: white;
@@ -46,24 +29,7 @@
     animation: slideInFromRight 0.5s ease-out forwards; /* Анимация появления окна */
   }
   
-  @keyframes slideInFromRight {
-    0% {
-      transform: translateX(100%);
-    }
-    100% {
-      transform: translateX(0);
-    }
-  }
-  
-  @keyframes slideOutToLeft {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-200%);
-    }
-  }
-  
+ 
   .overlay.fadeOut {
     animation: overlayFadeOut 0.3s ease-in forwards; /* Плавное исчезновение фона */
   }
@@ -81,6 +47,7 @@
   
   .buttons {
     display: flex;
+    flex-direction: row ;
     justify-content: end;
     gap: 10px;
   
@@ -98,7 +65,7 @@
     .btn2 {
       width: 170px;
       height: 40px;
-      background: #212529;
+      background: #212529; 
       border-radius: 10px;
       cursor: pointer;
       font-size: 16px;
@@ -153,4 +120,138 @@
     font-size: 14px;
     margin-top: 5px;
   }
+
+  @keyframes slideInFromRight {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
   
+  @keyframes slideOutToLeft {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-200%);
+    }
+  }
+  
+  @keyframes overlayFadeIn {
+    0% {
+      background-color: rgba(0, 0, 0, 0);
+    }
+    100% {
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+  }
+  
+  @keyframes overlayFadeOut {
+    0% {
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+    100% {
+      background-color: rgba(0, 0, 0, 0);
+    }
+  }
+  
+  
+@media screen and (max-width:376px) {
+  
+  .wrap{
+    width: 320px;
+    height: 580px;
+    padding:10px;
+    padding-top: 50px;
+    border-radius: 20px;
+  }
+  .box{
+    width: 300px;
+    gap: 10px;
+
+    textarea{
+      max-height: 80px;
+    }
+  }
+  }
+  .buttons{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .exitIcon{
+    top: 20px;
+    right: 20px;
+  }
+  .Maintitle{
+    font-size: 18px;
+    margin: 20px 0;
+  }
+  
+
+  
+@media screen and (max-width:426px) {
+  
+  .wrap{
+    width: 320px;
+    height: 580px;
+    padding:10px;
+    padding-top: 50px;
+    border-radius: 20px;
+  }
+  .box{
+    width: 300px;
+    gap: 10px;
+
+    textarea{
+      max-height: 80px;
+    }
+  }
+  }
+  .buttons{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .exitIcon{
+    top: 20px;
+    right: 20px;
+  }
+  .Maintitle{
+    font-size: 18px;
+    margin: 20px 0;
+  }
+
+  @media screen and (max-width:326px) {
+  
+    .wrap{
+      width: 300px;
+      height: 580px;
+      padding:10px;
+      padding-top: 50px;
+      border-radius: 20px;
+    }
+    .box{
+      width: 280px;
+      gap: 10px;
+  
+      textarea{
+        max-height: 80px;
+      }
+    }
+    }
+    .buttons{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+    .exitIcon{
+      top: 20px;
+      right: 20px;
+    }
+    .Maintitle{
+      font-size: 18px;
+      margin: 20px 0;
+    }
