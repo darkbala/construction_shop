@@ -20,11 +20,14 @@ const CatalogPage = () => {
         loading: collectionsLoading,
         error: collectionsError
     } = useSelector((state) => state.collections);
+    const producers = useSelector((state) => state.search.activeFilters.producer);
     const {results: searchResults, status: searchStatus} = useSelector((state) => state.search);
 
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [isModalOpen, setModalOpen] = useState(false); // Состояние для управления модалкой
 
+
+    console.log(producers)
     useEffect(() => {
         dispatch(fetchCategories());
         dispatch(fetchAllCollections());
@@ -47,6 +50,10 @@ const CatalogPage = () => {
             );
         }
 
+        if (selectedCategory && products.length === 0) {
+            return <p>Loading products for category &#34;{selectedCategory.name}&#34;...</p>;
+        }
+
         if (selectedCategory) {
             return products.length > 0 ? (
                 <>
@@ -63,13 +70,13 @@ const CatalogPage = () => {
 
         return collections.length > 0 ? (
             <>
-                <p>Показаны все коллекции</p>
                 <Products products={collections}/>
             </>
         ) : (
             <p>Коллекции не найдены</p>
         );
     };
+
 
     return (
         <div className={styles.CatalogPage}>

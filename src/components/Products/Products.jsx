@@ -1,7 +1,8 @@
 import {useSelector, useDispatch} from "react-redux";
 import styles from "./Products.module.scss";
-import Product from "./Product/Product.jsx";
 import {setPage} from "../../store/slices/paginationSlice.js";
+import {Link} from "react-router-dom";
+import placeholderImage from "../../assets/img.png";
 
 const Products = ({products}) => {
     const dispatch = useDispatch();
@@ -17,18 +18,22 @@ const Products = ({products}) => {
         dispatch(setPage(pageNumber));
     };
 
+
     return (
         <div className={styles.Products}>
             <section className={styles.container}>
-                {currentItems.map((item) => (
-                    <Product
-                        name={item.name}
-                        key={item.id}
-                        price={item.price}
-                        image={item.picture}
-                        id = {item.id}
-
-                    />
+                {currentItems.map((card) => (
+                    <Link to={`product/${card.id}`} className={styles.Product} key={card.id}>
+                        {card.isProducer ? <span className={styles.brand}>iskender</span> : " "}
+                        <div>
+                            <img src={card.photos?.[0]?.url || placeholderImage} alt={card.name}/>
+                            <aside>
+                                <h4>{card.name}</h4>
+                                <div className={styles.line}/>
+                                <p>{card.price} som</p>
+                            </aside>
+                        </div>
+                    </Link>
                 ))}
 
 
