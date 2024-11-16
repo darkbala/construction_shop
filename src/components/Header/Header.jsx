@@ -1,11 +1,11 @@
-import { Fade } from "react-slideshow-image";
+import {Fade} from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
-import { Link } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import {Link} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 import styles from "./Header.module.scss";
 
 const Header = () => {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
 
     const backgrounds = [
         'https://images.unsplash.com/photo-1719937051176-9b98352a6cf4?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
@@ -25,10 +25,9 @@ const Header = () => {
         <div className={styles.sliderContainer}>
             <Fade {...settings}>
                 {backgrounds.map((bg, index) => (
-                    <div key={index} className={styles.bgSlide} style={{ backgroundImage: `url("${bg}")` }} />
+                    <div key={index} className={styles.bgSlide} style={{backgroundImage: `url("${bg}")`}}/>
                 ))}
             </Fade>
-
 
 
             <div className={styles.content}>

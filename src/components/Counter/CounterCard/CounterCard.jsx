@@ -4,7 +4,7 @@ import styles from './CounterCard.module.scss';
 // eslint-disable-next-line react/prop-types
 const CounterCard = ({ counter }) => {
     const [animatedCount, setAnimatedCount] = useState(0);
-    const isNumeric = /^\d+/.test(counter.count); // Проверка на наличие числа в строке
+    const isNumeric = /^\d+/.test(counter.count);
 
     useEffect(() => {
         if (!isNumeric) return;

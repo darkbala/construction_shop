@@ -24,6 +24,7 @@ export const fetchProductById = createAsyncThunk(
     }
 );
 
+
 export const fetchProductInCollection = createAsyncThunk(
     'products/fetchProductInCollection',
     async (productId, {getState}) => {
@@ -64,6 +65,9 @@ export const fetchNewProducts = createAsyncThunk(
         return [...collection, ...item];
     }
 );
+
+
+
 const productsSlice = createSlice({
     name: 'products',
     initialState: {
@@ -115,7 +119,6 @@ const productsSlice = createSlice({
                 state.error = action.error.message;
             })
 
-            // Обработка популярных продуктов
             .addCase(fetchPopularProducts.pending, (state) => {
                 state.loading = true;
                 state.error = null;
@@ -128,8 +131,6 @@ const productsSlice = createSlice({
                 state.loading = false;
                 state.error = action.error.message;
             })
-
-            // Обработка новых продуктов
             .addCase(fetchNewProducts.pending, (state) => {
                 state.loading = true;
                 state.error = null;

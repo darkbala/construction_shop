@@ -8,10 +8,11 @@ import {useDispatch, useSelector} from "react-redux";
 import {fetchLanguages} from "../../store/slices/getLanguages.js";
 import { setLanguage } from "../../store/slices/languageState.js";
 
-const Nav = () => {
+const Nav = ({set}) => {
     const dispatch = useDispatch();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const {t, i18n} = useTranslation();
+    const [query, setQuery] = useState("");
 
     const {data: languages, loading, error} = useSelector(state => state.languages);
 
