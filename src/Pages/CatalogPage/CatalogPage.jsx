@@ -8,6 +8,7 @@ import {fetchAllCollections} from "../../store/slices/getCollcetions.js";
 import CategorySlider from "../../components/CategorySlider/CategorySlider.jsx";
 import Products from "../../components/Products/Products.jsx";
 import ModalFilter from "../../components/Catalog/ModalFilter/ModalFilter.jsx";
+import {clearResults} from "../../store/slices/filters/search.js";
 
 const CatalogPage = () => {
     const dispatch = useDispatch();
@@ -34,48 +35,49 @@ const CatalogPage = () => {
 
     const handleCategoryClick = (category) => {
         setSelectedCategory(category);
+        dispatch(clearResults());
         dispatch(fetchProducts(category.id));
     };
 
     const renderProductsSection = () => {
+        if (searchStatus === "loading") return <p>Идет загрузка результатов поиска...</p>;
 
-        if (searchStatus === "loading") return <p>Loading search results...</p>;
-
-        if (searchResults.length > 0) {
+        if (searchResults.length > 0 && !selectedCategory) {
             return (
                 <>
-                    <p className={styles.show}>Показано {searchResults.length} результатов поиска</p>
-                    <Products products={searchResults}/>
+                    <p className={styles.show}>Найдено {searchResults.length} результатов</p>
+                    <Products products={searchResults} />
                 </>
             );
         }
 
         if (selectedCategory && products.length === 0) {
-            return <p>Loading products for category &#34;{selectedCategory.name}&#34;...</p>;
+            return <p>Идет загрузка товаров для категории "{selectedCategory.name}"...</p>;
         }
 
         if (selectedCategory) {
             return products.length > 0 ? (
                 <>
-                    <p>Показаны товары для категории &#34;{selectedCategory.name}&#34;</p>
-                    <Products products={products}/>
+                    <p>Показаны товары для категории "{selectedCategory.name}"</p>
+                    <Products products={products} />
                 </>
             ) : (
-                <p>Товары для категории &#34;{selectedCategory.name}&#34; не найдены</p>
+                <p>Товары для категории "{selectedCategory.name}" не найдены</p>
             );
         }
 
-        if (collectionsLoading) return <p>Loading collections...</p>;
-        if (collectionsError) return <p>Error loading collections: {collectionsError}</p>;
+        if (collectionsLoading) return <p>Идет загрузка коллекций...</p>;
+        if (collectionsError) return <p>Ошибка загрузки коллекций: {collectionsError}</p>;
 
         return collections.length > 0 ? (
             <>
-                <Products products={collections}/>
+                <Products products={collections} />
             </>
         ) : (
             <p>Коллекции не найдены</p>
         );
     };
+
 
 
     return (
