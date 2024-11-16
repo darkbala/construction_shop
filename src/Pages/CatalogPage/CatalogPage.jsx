@@ -15,7 +15,8 @@ const CatalogPage = () => {
     const language = useSelector((state) => state.language.currentLanguage);
     const {categories, loading: categoriesLoading, error: categoriesError} = useSelector((state) => state.categories);
     const products = useSelector((state) => state.products.data);
-    
+    const [selectedCategory, setSelectedCategory] = useState(null);
+    const [isModalOpen, setModalOpen] = useState(false);
     const {
         collections = [],
         loading: collectionsLoading,
@@ -23,10 +24,6 @@ const CatalogPage = () => {
     } = useSelector((state) => state.collections);
 
     const {results: searchResults, status: searchStatus} = useSelector((state) => state.search);
-
-    const [selectedCategory, setSelectedCategory] = useState(null);
-    const [isModalOpen, setModalOpen] = useState(false);
-
 
     useEffect(() => {
         dispatch(fetchCategories());
@@ -41,6 +38,8 @@ const CatalogPage = () => {
 
     const renderProductsSection = () => {
         if (searchStatus === "loading") return <p>Идет загрузка результатов поиска...</p>;
+
+        if (searchStatus === "failed") return <p>Ошибка загрузки результатов поиска. Попробуйте еще раз позже.</p>;
 
         if (searchResults.length > 0 && !selectedCategory) {
             return (
@@ -69,14 +68,13 @@ const CatalogPage = () => {
         if (collectionsLoading) return <p>Идет загрузка коллекций...</p>;
         if (collectionsError) return <p>Ошибка загрузки коллекций: {collectionsError}</p>;
 
-        return collections.length > 0 ? (
-            <>
-                <Products products={collections} />
-            </>
-        ) : (
-            <p>Коллекции не найдены</p>
-        );
+        if (!collections.length) {
+            return <p>Коллекции не найдены</p>;
+        }
+
+        return <Products products={collections} />;
     };
+
 
 
 
