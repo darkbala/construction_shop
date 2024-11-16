@@ -6,7 +6,7 @@ import exiticon from '../../assets/x.png';
 export default function ModalForm({ onClose }) {
   const [formData, setFormData] = useState({
     name: '',
-    rating: 0,
+    rating: 0,  // Изначально рейтинг = 0
     email: '',
     review: ''
   });
@@ -36,13 +36,14 @@ export default function ModalForm({ onClose }) {
     if (!formData.name) formErrors.name = 'Имя обязательно';
     if (!formData.email || !/\S+@\S+\.\S+/.test(formData.email)) formErrors.email = 'Введите корректный Email';
     if (!formData.review) formErrors.review = 'Отзыв обязателен';
+    if (formData.rating === 0) formErrors.rating = 'Оценка обязательна'; // Валидация для рейтинга
     return formErrors;
   };
 
   const handleClear = () => {
     setFormData({
       name: '',
-      rating: 0,
+      rating: 0, // Сбрасываем рейтинг на 0
       email: '',
       review: ''
     });
@@ -87,7 +88,11 @@ export default function ModalForm({ onClose }) {
             </div>
             <div>
               <p>Оценка</p>
-              <StarRating rating={formData.rating} onRatingChange={handleRatingChange} />
+              <StarRating 
+                rating={formData.rating} 
+                onRatingChange={handleRatingChange} 
+                error={errors.rating} // Передаем ошибку для звезд
+              />
             </div>
             <div>
               <p>Email</p>

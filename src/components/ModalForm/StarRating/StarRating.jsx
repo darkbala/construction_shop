@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
-import styles from './StarRating.module.scss'; // Используйте module.css для CSS-модулей
+import React, { useState, useEffect } from 'react';
+import styles from './StarRating.module.scss';
 
-const StarRating = () => {
-  const [rating, setRating] = useState(0); // Текущее значение рейтинга
-  const [hover, setHover] = useState(0);   // Значение для наведения
+const StarRating = ({ rating, onRatingChange, error }) => {
+  const [hover, setHover] = useState(0); // Значение для наведения
+
+  useEffect(() => {
+    if (rating === 0) {
+      setHover(0); // При сбросе рейтинга, сбрасываем hover
+    }
+  }, [rating]);
 
   return (
     <div className={styles.rating}>
@@ -13,8 +18,8 @@ const StarRating = () => {
         return (
           <span
             key={starValue}
-            className={`${styles.star} ${starValue <= (hover || rating) ? styles.active : ''}`}
-            onClick={() => setRating(starValue)}
+            className={`${styles.star} ${starValue <= (hover || rating) ? styles.active : ''} ${error ? styles.error : ''}`}
+            onClick={() => onRatingChange(starValue)} // Передаем значение рейтинга в родительский компонент
             onMouseEnter={() => setHover(starValue)}
             onMouseLeave={() => setHover(0)}
           >
