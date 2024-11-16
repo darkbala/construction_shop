@@ -36,8 +36,20 @@ export default function ModalFilter({ onClose }) {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
+    // Закрываем модалку при применении
+    setIsClosing(true);
+    setTimeout(() => {
+      onClose();
+    }, 500); // Время на анимацию
+
     // Логика отправки или фильтрации
     console.log('Filters submitted', { minValue, maxValue, productType });
+  };
+
+  const handleClear = () => {
+    setMinValue(0);
+    setMaxValue(12000000);
+    setProductType('iskender'); // Или любое значение по умолчанию для радио
   };
 
   // Функция для форматирования чисел
@@ -49,7 +61,7 @@ export default function ModalFilter({ onClose }) {
   return (
     <div className={`${styles.overlay} ${isClosing ? styles.fadeOut : ''}`} onClick={handleOverlayClick}>
       <div className={`${styles.wrap} ${isClosing ? styles.fadeOutWrap : ''}`}>
-        <img src={exiticon} alt="exit" onClick={handleOverlayClick} className={styles.exitIcon} />
+        {/* <img src={exiticon} alt="exit" onClick={handleOverlayClick} className={styles.exitIcon} /> */}
         <form onSubmit={handleFormSubmit}>
           <div className={styles.box}>
             <div className={styles.range}>
@@ -104,11 +116,11 @@ export default function ModalFilter({ onClose }) {
                 <p>Продукция партнеров</p>
               </span>
             </div>
-            <div>
-              <button type="button" onClick={() => { /* Очистка значений */ }}>
+            <div className={styles.buttons}>
+              <button className={styles.btn1} type="button" onClick={handleClear}>
                 Очистить
               </button>
-              <button type="submit">Применить</button>
+              <button className={styles.btn2} type="submit">Применить</button>
             </div>
           </div>
         </form>
