@@ -12,11 +12,15 @@ import ModalFilter from "../../components/Catalog/ModalFilter/ModalFilter.jsx";
 const CatalogPage = () => {
     const dispatch = useDispatch();
     const language = useSelector((state) => state.language.currentLanguage);
-    const { categories, loading: categoriesLoading, error: categoriesError } = useSelector((state) => state.categories);
-    const { products = [], loading: productsLoading, error: productsError } = useSelector((state) => state.products);
-    const { collections, loading: collectionsLoading, error: collectionsError } = useSelector((state) => state.collections);
-    const searchResults = useSelector((state) => state.search.results);
-    const searchStatus = useSelector((state) => state.search.status);
+    const {categories, loading: categoriesLoading, error: categoriesError} = useSelector((state) => state.categories);
+    const products = useSelector((state) => state.products.data);
+    const {
+        collections = [],
+        loading: collectionsLoading,
+        error: collectionsError
+    } = useSelector((state) => state.collections);
+    const {results: searchResults, status: searchStatus} = useSelector((state) => state.search);
+
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [isModalOpen, setModalOpen] = useState(false); // Состояние для управления модалкой
 
@@ -30,14 +34,48 @@ const CatalogPage = () => {
         dispatch(fetchProducts(category.id));
     };
 
+    const renderProductsSection = () => {
+        if (searchStatus === "loading") return <p>Loading search results...</p>;
 
+        if (searchResults.length > 0) {
+            return (
+                <>
+                    <p className={styles.show}>Показано {searchResults.length} результатов поиска</p>
+                    <Products products={searchResults}/>
+                </>
+            );
+        }
+
+        if (selectedCategory) {
+            return products.length > 0 ? (
+                <>
+                    <p>Показаны товары для категории &#34;{selectedCategory.name}&#34;</p>
+                    <Products products={products}/>
+                </>
+            ) : (
+                <p>Товары для категории &#34;{selectedCategory.name}&#34; не найдены</p>
+            );
+        }
+
+        if (collectionsLoading) return <p>Loading collections...</p>;
+        if (collectionsError) return <p>Error loading collections: {collectionsError}</p>;
+
+        return collections.length > 0 ? (
+            <>
+                <p>Показаны все коллекции</p>
+                <Products products={collections}/>
+            </>
+        ) : (
+            <p>Коллекции не найдены</p>
+        );
+    };
 
     return (
         <div className={styles.CatalogPage}>
             <section className={styles.searchbar}>
                 <div className={styles.top}>
                     <SearchBar />
-                    <button className={styles.filter} onClick={() => setModalOpen(true)}>Фильтры</button>
+                    <button className={styles.filter}>Фильтры</button>
                 </div>
                 <div>
                     {!categoriesLoading && !categoriesError && (
@@ -47,38 +85,13 @@ const CatalogPage = () => {
                             onSelectCategory={handleCategoryClick}
                         />
                     )}
+                    {categoriesLoading && <p>Loading categories...</p>}
+                    {categoriesError && <p>Error loading categories: {categoriesError}</p>}
                 </div>
             </section>
 
             <section className={styles.results_container}>
-                {searchStatus === "loading" ? (
-                    <p>Loading search results...</p>
-                ) : searchResults.length > 0 ? (
-                    <>
-                        <p className={styles.show}>Показано {searchResults.length} результатов поиска</p>
-                        <Products products={searchResults} />
-                    </>
-                ) : collectionsLoading ? (
-                    <p>Loading collections...</p>
-                ) : collectionsError ? (
-                    <p>Error loading collections: {collectionsError}</p>
-                ) : selectedCategory ? (
-                    productsLoading.length > 0 ? (
-                        <>
-                            <p>Показаны товары для категории "{selectedCategory.name}"</p>
-                            <Products products={products} />
-                        </>
-                    ) : (
-                        <p>Товары для категории "{selectedCategory.name}" не найдены</p>
-                    )
-                ) : collections.length > 0 ? (
-                    <>
-                        <p>Показаны все коллекции</p>
-                        <Products products={collections} />
-                    </>
-                ) : (
-                    <p>Коллекции не найдены</p>
-                )}
+                {renderProductsSection()}
             </section>
             {isModalOpen && <ModalFilter onClose={() => setModalOpen(false)} />}
         </div>
