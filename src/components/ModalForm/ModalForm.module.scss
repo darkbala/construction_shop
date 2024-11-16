@@ -121,6 +121,19 @@
     margin-top: 5px;
   }
 
+    /* Добавьте это в ваш файл стилей */
+  input::placeholder,
+  textarea::placeholder {
+    color: #aaa; /* Цвет плейсхолдера по умолчанию */
+  }
+
+  /* Стили для ошибки в плейсхолдерах */
+  input.error::placeholder,
+  textarea.error::placeholder {
+    color: red; /* Цвет текста ошибки */
+  }
+
+
   @keyframes slideInFromRight {
     0% {
       transform: translateX(100%);

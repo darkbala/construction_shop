@@ -81,9 +81,9 @@ export default function ModalForm({ onClose }) {
                 name="name"
                 value={formData.name}
                 onChange={handleInputChange}
-                placeholder="..."
+                placeholder={errors.name || '...'}
+                className={errors.name ? styles.error : ''}
               />
-              {errors.name && <span className={styles.error}>{errors.name}</span>}
             </div>
             <div>
               <p>Оценка</p>
@@ -96,9 +96,9 @@ export default function ModalForm({ onClose }) {
                 name="email"
                 value={formData.email}
                 onChange={handleInputChange}
-                placeholder="..."
+                placeholder={errors.email || '...'}
+                className={errors.email ? styles.error : ''}
               />
-              {errors.email && <span className={styles.error}>{errors.email}</span>}
             </div>
             <div>
               <p>Отзыв</p>
@@ -106,9 +106,9 @@ export default function ModalForm({ onClose }) {
                 name="review"
                 value={formData.review}
                 onChange={handleInputChange}
-                placeholder="..."
+                placeholder={errors.review || '...'}
+                className={errors.review ? styles.error : ''}
               />
-              {errors.review && <span className={styles.error}>{errors.review}</span>}
             </div>
             <div className={styles.buttons}>
               <button className={styles.btn1} type="button" onClick={handleClear}>Очистить</button>
