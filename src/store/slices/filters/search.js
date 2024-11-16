@@ -1,7 +1,6 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import axios from "axios";
 import {API_URI} from "../../api/api.js";
-import * as logger from "react-dom/test-utils";
 
 export const searchByProducer = createAsyncThunk(
     "search/searchByProducer",
@@ -10,10 +9,10 @@ export const searchByProducer = createAsyncThunk(
             const language = getState().language.currentLanguage;
             const response = await axios.get(`${API_URI}/search?lang=${language}&is_producer=true`);
 
-            console.log(response.data)
-            return response.data;
+            const collection = Array.isArray(response.data.collections) ? response.data.collections : [];
+
+            return [...collection];
         } catch (error) {
-            console.log(error);
             return rejectWithValue(error.response?.data || "An error occurred");
         }
     }
@@ -45,7 +44,7 @@ export const search = createSlice({
         results: [],
         savedResults: [],
         activeFilters: {
-            producer: null,
+            producer: [],
             inputValue: ""
         },
         status: "idle",

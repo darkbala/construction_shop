@@ -20,14 +20,13 @@ const CatalogPage = () => {
         loading: collectionsLoading,
         error: collectionsError
     } = useSelector((state) => state.collections);
-    const producers = useSelector((state) => state.search.activeFilters.producer);
+
     const {results: searchResults, status: searchStatus} = useSelector((state) => state.search);
 
     const [selectedCategory, setSelectedCategory] = useState(null);
-    const [isModalOpen, setModalOpen] = useState(false); // Состояние для управления модалкой
+    const [isModalOpen, setModalOpen] = useState(false);
 
 
-    console.log(producers)
     useEffect(() => {
         dispatch(fetchCategories());
         dispatch(fetchAllCollections());
@@ -39,6 +38,7 @@ const CatalogPage = () => {
     };
 
     const renderProductsSection = () => {
+
         if (searchStatus === "loading") return <p>Loading search results...</p>;
 
         if (searchResults.length > 0) {
