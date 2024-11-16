@@ -54,3 +54,7 @@ body{
   display: flex;
   justify-content: center !important;
 }
+
+.rc-slider-track, .rc-slider-tracks {
+  background-color: red !important;
+}
