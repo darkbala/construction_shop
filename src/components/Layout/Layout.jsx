@@ -1,7 +1,9 @@
 import Nav from "../Nav/Nav.jsx";
+import {useDispatch} from "react-redux";
 
 const Layout = ({children}) => {
-    return(
+
+    return (
         <>
             <header>
                 <Nav/>
