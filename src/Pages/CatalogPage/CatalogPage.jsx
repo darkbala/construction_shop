@@ -7,12 +7,14 @@ import {fetchProducts} from "../../store/slices/getProducts.js";
 import {fetchAllCollections} from "../../store/slices/getCollcetions.js";
 import CategorySlider from "../../components/CategorySlider/CategorySlider.jsx";
 import Products from "../../components/Products/Products.jsx";
+import ModalFilter from "../../components/Catalog/ModalFilter/ModalFilter.jsx";
 
 const CatalogPage = () => {
     const dispatch = useDispatch();
     const language = useSelector((state) => state.language.currentLanguage);
     const {categories, loading: categoriesLoading, error: categoriesError} = useSelector((state) => state.categories);
     const products = useSelector((state) => state.products.data);
+    
     const {
         collections = [],
         loading: collectionsLoading,
@@ -22,6 +24,7 @@ const CatalogPage = () => {
     const {results: searchResults, status: searchStatus} = useSelector((state) => state.search);
 
     const [selectedCategory, setSelectedCategory] = useState(null);
+    const [isModalOpen, setModalOpen] = useState(false); // Состояние для управления модалкой
 
 
     console.log(producers)
@@ -79,8 +82,8 @@ const CatalogPage = () => {
         <div className={styles.CatalogPage}>
             <section className={styles.searchbar}>
                 <div className={styles.top}>
-                    <SearchBar/>
-                    <button className={styles.filter}>Фильтры</button>
+                    <SearchBar />
+                    <button className={styles.filter} onClick={() => setModalOpen(true)}>Фильтры</button>
                 </div>
                 <div>
                     {!categoriesLoading && !categoriesError && (
@@ -98,6 +101,7 @@ const CatalogPage = () => {
             <section className={styles.results_container}>
                 {renderProductsSection()}
             </section>
+            {isModalOpen && <ModalFilter onClose={() => setModalOpen(false)} />}
         </div>
     );
 };

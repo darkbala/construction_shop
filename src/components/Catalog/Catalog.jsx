@@ -16,6 +16,7 @@ const Catalog = () => {
         {id: 5, name: 'Тумба Омега (100)', price: '123.000 сом', brand: ''},
         {id: 6, name: 'Тумба Омега (100)', price: '123.000 сом', brand: ''},
     ];
+    
 
     return (
         <div className={styles.catalog}>
