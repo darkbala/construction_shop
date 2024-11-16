@@ -116,7 +116,7 @@
   }
   
   .error {
-    color: red;
+    color:#F13657;
     font-size: 14px;
     margin-top: 5px;
   }
@@ -130,7 +130,7 @@
   /* Стили для ошибки в плейсхолдерах */
   input.error::placeholder,
   textarea.error::placeholder {
-    color: red; /* Цвет текста ошибки */
+    color: #F13657; /* Цвет текста ошибки */
   }
 
 
