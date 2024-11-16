@@ -7,14 +7,18 @@ import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchLanguages} from "../../store/slices/getLanguages.js";
 import { setLanguage } from "../../store/slices/languageState.js";
+import {searchByProducer} from "../../store/slices/filters/search.js";
+import { useNavigate } from "react-router-dom";
 
 const Nav = ({set}) => {
     const dispatch = useDispatch();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const {t, i18n} = useTranslation();
     const [query, setQuery] = useState("");
+    const navigate = useNavigate();
 
     const {data: languages, loading, error} = useSelector(state => state.languages);
+
 
     const toggleMenu = () => {
         setIsMenuOpen((prev) => !prev);
@@ -32,6 +36,11 @@ const Nav = ({set}) => {
     if (loading) return <div>Загрузка языков...</div>;
     if (error) return <div>Ошибка загрузки языков: {error}</div>;
 
+    const handleSearchByProducer = () => {
+        dispatch(searchByProducer());
+        navigate("/catalog");
+    };
+
 
     return (
         <nav className={classes.Nav}>
@@ -46,7 +55,7 @@ const Nav = ({set}) => {
                                 {t('nav.production')}
                                 <div className={classes.dropdownMenu}>
                                     <div className={`${classes.inner} ${classes.custom}`}>
-                                        <div>{t('nav.item1')}</div>
+                                        <div onClick={handleSearchByProducer}  >{t('nav.item1')}</div>
                                         <div>{t('nav.item2')}</div>
                                     </div>
                                 </div>
@@ -63,6 +72,7 @@ const Nav = ({set}) => {
                                 </div>
                             </div>
                         </div>
+
                         <NavItem to="/vacancy">{t('nav.vacancies')}</NavItem>
 
                         <div className={classes.languageSelector}>
