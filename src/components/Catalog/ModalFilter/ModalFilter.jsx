@@ -70,7 +70,7 @@ export default function ModalFilter({ onClose }) {
                 range
                 min={0}
                 max={12000000}
-                step={1000}
+                step={2000}
                 value={[minValue, maxValue]}
                 onChange={handleSliderChange}
                 tipFormatter={(value) => formatNumber(value)} // Форматирование подсказки

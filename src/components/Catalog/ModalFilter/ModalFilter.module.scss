@@ -97,6 +97,12 @@
   .range{
     width: 100%;
 
+    p{
+        margin-bottom: 10px;
+        font-weight: 500;
+        font-size: 22px;
+    }
+
     .rc-slider {
         width: 100%;
       }
@@ -108,14 +114,14 @@
       }
       
       .rc-slider-track {
-        background-color: #f13657; /* Сильно красный */
+        background-color: #f13657 !important; /* Сильно красный */
         height: 8px;
         border-radius: 5px;
       }
       
       .rc-slider-handle {
-        background-color: #f13657; /* Цвет бегунка */
-        border: 3px solid #f13657; /* Красная рамка */
+        background-color: #f13657 !important; /* Цвет бегунка */
+        border: 3px solid #f13657 !important; /* Красная рамка */
         width: 20px;
         height: 20px;
         border-radius: 50%; /* Круглый бегунок */
