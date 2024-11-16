@@ -33,7 +33,7 @@ export default function ModalFilter({ onClose }) {
   return (
     <div className={`${styles.overlay} ${isClosing ? styles.fadeOut : ''}`} onClick={handleOverlayClick}>
       <div className={`${styles.wrap} ${isClosing ? styles.fadeOutWrap : ''}`}>
-        <img src={exiticon} alt="exit" onClick={() => setIsClosing(true)} className={styles.exitIcon} />
+        <img src={exiticon} alt="exit" onClick={handleOverlayClick} className={styles.exitIcon} />
         <form onSubmit={handleFormSubmit}>
           <div className={styles.box}>
             <div className={styles.range}>

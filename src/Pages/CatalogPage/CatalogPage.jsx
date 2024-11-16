@@ -14,6 +14,7 @@ const CatalogPage = () => {
     const language = useSelector((state) => state.language.currentLanguage);
     const {categories, loading: categoriesLoading, error: categoriesError} = useSelector((state) => state.categories);
     const products = useSelector((state) => state.products.data);
+    
     const {
         collections = [],
         loading: collectionsLoading,
@@ -75,7 +76,7 @@ const CatalogPage = () => {
             <section className={styles.searchbar}>
                 <div className={styles.top}>
                     <SearchBar />
-                    <button className={styles.filter}>Фильтры</button>
+                    <button className={styles.filter} onClick={() => setModalOpen(true)}>Фильтры</button>
                 </div>
                 <div>
                     {!categoriesLoading && !categoriesError && (
