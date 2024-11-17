@@ -1,18 +1,27 @@
+import { useDispatch, useSelector } from 'react-redux';
+import {
+    resetFiltered,
+    resetProducts,
+    searchByInputValue,
+    setInputValue
+} from '../../store/slices/getProducts.js';
 import styles from './SearchBar.module.scss';
-import {useDispatch, useSelector} from "react-redux";
-import {searchByFilters, setInputValue} from "../../store/slices/filters/search.js";
 
 const SearchBar = () => {
     const dispatch = useDispatch();
-    const inputValue = useSelector((state) => state.search.activeFilters.inputValue);
+    const inputValue = useSelector((state) => state.products.inputValue);
 
     const handleInputChange = (e) => {
-        dispatch(setInputValue(e.target.value));
+        dispatch(setInputValue(e.target.value)); // Обновляем состояние inputValue
     };
 
     const handleSearch = () => {
-        if (inputValue.trim()) {
-            dispatch(searchByFilters(inputValue));
+        const trimmedInputValue = inputValue.trim();
+
+        if (trimmedInputValue) {
+            dispatch(resetProducts());
+            dispatch(resetFiltered());
+            dispatch(searchByInputValue(trimmedInputValue));
         }
     };
 
@@ -21,8 +30,8 @@ const SearchBar = () => {
             <input
                 type="text"
                 placeholder="Поиск"
-                onChange={handleInputChange}
-                value={inputValue}
+                onChange={handleInputChange} // Обработка ввода
+                value={inputValue} // Значение в input из состояния Redux
                 className={styles.searchInput}
             />
             <button className={styles.searchButton} onClick={handleSearch}>

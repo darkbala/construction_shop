@@ -8,11 +8,9 @@ export const fetchAllCollections = createAsyncThunk(
         const response = await axios.get((
             `http://127.0.0.1:8080/collections?lang=${language}`
         ))
-
         return response.data
     }
 )
-
 
 export const collectionsSlice = createSlice({
     name: 'collections',
@@ -40,4 +38,3 @@ export const collectionsSlice = createSlice({
 
 
 export default collectionsSlice.reducer;
-;
