@@ -5,10 +5,11 @@ import classes from "./Nav.module.scss";
 import Logo from "../UI/Logo/Logo.jsx";
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchLanguages} from "../../store/slices/getLanguages.js";
 import { setLanguage } from "../../store/slices/languageState.js";
-import {searchByProducer} from "../../store/slices/filters/search.js";
 import { useNavigate } from "react-router-dom";
+import {fetchLanguages} from "../../store/slices/getLanguages.js";
+import {fetchByProducer, resetNewProducts, resetProducts} from "../../store/slices/getProducts.js";
+
 
 const Nav = ({set}) => {
     const dispatch = useDispatch();
@@ -37,7 +38,9 @@ const Nav = ({set}) => {
     if (error) return <div>Ошибка загрузки языков: {error}</div>;
 
     const handleSearchByProducer = () => {
-        dispatch(searchByProducer());
+        dispatch(resetProducts());
+        dispatch(resetNewProducts());
+        dispatch(fetchByProducer());
         navigate("/catalog");
     };
 

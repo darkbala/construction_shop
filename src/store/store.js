@@ -6,7 +6,6 @@ import languageReducers from "./slices/getLanguages.js";
 import languageReducer from './slices/languageState.js'
 import reviewsReducer from "./slices/reviewsSlice.js"
 import vacanciesReducer from "./slices/getVacancy.js"
-import searchReducer from "./slices/filters/search.js"
 import collectionReducer from "./slices/getCollcetions.js"
 
 const store = configureStore({
@@ -18,7 +17,6 @@ const store = configureStore({
         language: languageReducer,
         reviews: reviewsReducer,
         vacancies: vacanciesReducer,
-        search: searchReducer,
         collections: collectionReducer,
     },
 });
