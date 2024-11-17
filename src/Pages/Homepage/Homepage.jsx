@@ -10,6 +10,8 @@ import Brands from "../../components/Brands/Brands.jsx";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import {fetchPopularProducts} from "../../store/slices/getProducts.js";
+import Footer from '../../components/Footer/Footer.jsx';
+import EndLine from '../../components/EndLine/EndLine.jsx';
 
 const Homepage = () => {
 
@@ -26,6 +28,8 @@ const Homepage = () => {
             <Reviews/>
 
             <Brands/>
+            <Footer/>
+            <EndLine/>
         </main>
     )
 }
