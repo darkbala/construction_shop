@@ -185,7 +185,7 @@
         .content{
             width: 950px !important;
             display: flex;
-            justify-content: space-between;
+            justify-content: space-around;
     
             .map{
                 width: 400px;
@@ -202,17 +202,106 @@
             .adresses {
                 display: flex;
                 flex-direction: column;
-                gap: 10px;
+                gap: 20px;
                 h6{
                     width: 100px;
                     padding-bottom: 10px;  
-                    font-size: 18px;
+                    font-size: 22px;
                     border-bottom: 2px solid #E7572A;
                 }
                 ul{
                     display: flex;
                     flex-direction: column;
-                    gap: 10px;
+                    gap: 15px;
+                }
+    
+            }
+            .contacts {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                h6{
+                    width: 150px;
+                    padding-bottom: 10px;  
+                    font-size: 22px;
+                    border-bottom: 2px solid #E7572A;
+                }
+                ul{
+                    display: flex;
+                    flex-direction: column;
+                    gap: 15px;
+                }
+    
+            }
+            .vacancies {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                h6{
+                    width: 120px;
+                    padding-bottom: 10px;  
+                    font-size: 22px;
+                    border-bottom: 2px solid #E7572A;
+                }
+                ul{
+                    display: flex;
+                    flex-direction: column;
+                    gap: 15px;
+                }
+    
+            }
+        }
+    }
+}
+
+@media screen and (max-width:800px) {
+    .wrap{
+        background-color: #212529;
+        max-width: 2550px;
+        height: 600px;
+        display: flex;
+        justify-content: center;
+        align-items: center;   
+        color: white;
+        a{
+            color: white;
+        }
+    
+        .content{
+            width: 700px !important;
+            display: flex;
+            justify-content: space-around;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+    
+            .map{
+                width: 650px;
+                height: 300px;
+                border: 2px solid white;
+            }
+            .info{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                width: 90%;
+                gap: 40px;
+            }
+    
+            .adresses {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                h6{
+                    width: 100px;
+                    padding-bottom: 10px;  
+                    font-size: 22px;
+                    border-bottom: 2px solid #E7572A;
+                }
+                ul{
+                    display: flex;
+                    flex-direction: column;
+                    gap: 15px;
                 }
     
             }
