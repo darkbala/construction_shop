@@ -48,20 +48,16 @@ const CatalogPage = () => {
         dispatch(resetFiltered());
         dispatch(resetNewProducts());
 
-        // Проверяем, есть ли уже товары для выбранной категории
         if (selectedCategory && selectedCategory.id === category.id && products.length > 0) {
-            return; // Если товары уже загружены, не делаем повторный запрос
+            return;
         }
-
-        // Если товаров для категории нет, загружаем их
         setSelectedCategory(category);
         dispatch(fetchProducts(category.id));
     };
 
-    // Проверка, если нет товаров для выбранной категории, деактивируем категорию
     useEffect(() => {
         if (selectedCategory && products.length === 0) {
-            setSelectedCategory(null); // Деактивируем выбранную категорию, если товаров нет
+            setSelectedCategory(null);
         }
     }, [products, selectedCategory]);
 

@@ -84,8 +84,6 @@ export const searchByInputValue = createAsyncThunk(
         try {
             const language = getState().language.currentLanguage;
             const response = await axios.get(`${API_URI}/search?lang=${language}&q=${inputValue}`);
-
-            console.log(response.data)
             return [...response.data.collections, ...response.data.items];
         } catch (error) {
             return rejectWithValue(error.response?.data || 'Failed to fetch data');
