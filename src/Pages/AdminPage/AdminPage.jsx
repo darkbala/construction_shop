@@ -1,12 +1,12 @@
 import ModifySpecialOffer from "../../components/ModifySpecialOffer/ModifySpecialOffer.jsx";
 import styles from "./AdminPage.module.scss";
-import AddVacancy from "../../components/AddVacancy/AddVacancy.jsx";
+import AllProducts from "../../components/AllProducts/AllProducts.jsx";
 
 const AdminPage = () => {
     return (
         <div className={styles.admin}>
             {/*<ModifySpecialOffer/>*/}
-            <AddVacancy/>
+            <AllProducts/>
         </div>
     )
 }
