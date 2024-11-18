@@ -2,14 +2,16 @@ import ModifySpecialOffer from "../../components/ModifySpecialOffer/ModifySpecia
 import styles from "./AdminPage.module.scss";
 import AllProducts from "../../components/AllProducts/AllProducts.jsx";
 import AllCollections from "../../components/AllCollections/AllCollections.jsx";
+import ChangeCollection from "../../components/ChangeCollection/ChangeCollection.jsx";
 
 const AdminPage = () => {
     return (
         <div className={styles.admin}>
-            <ModifySpecialOffer/>
-            <AllProducts/>
-            <AllCollections/>
+            {/*<ModifySpecialOffer/>*/}
+            {/*<AllProducts/>*/}
+            {/*<AllCollections/>*/}
 
+            <ChangeCollection/>
         </div>
     )
 }
