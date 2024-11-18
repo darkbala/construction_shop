@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
-import styles from "./AllProducts.module.scss";
+import styles from "./AllCollections.module.scss";
 import SearchBar from "../SearchBar/SearchBar.jsx";
 import { FaEdit, FaTrash, FaEye } from 'react-icons/fa';
 import {setPage} from "../../store/slices/paginationSlice.js";
 
-const AllProducts = () => {
+const AllCollections = () => {
     const items = new Array(31).fill({
         name: 'Тумба Омега (100) Тумба Омега (100)Тумба  Тумба Омега (100) Тумба Омега (100)Тумба Тумба Омега (100) Тумба Омега (100)Тумба ',
         category: 'Коллекция Искендер',
@@ -25,7 +25,7 @@ const AllProducts = () => {
     };
 
     return (
-        <div className={styles.AllProducts}>
+        <div className={styles.AllCollections}>
             <section className={styles.search}>
                 <SearchBar/>
                 <button className={styles.filter}>Фильтры</button>
@@ -44,7 +44,6 @@ const AllProducts = () => {
                     <thead>
                     <tr>
                         <th>Наименование</th>
-                        <th>Категория</th>
                         <th>Цена</th>
                         <th></th>
                     </tr>
@@ -53,7 +52,6 @@ const AllProducts = () => {
                     {currentItems.map((item, index) => (
                         <tr key={index}>
                             <td className={styles.title}>{item.name}</td>
-                            <td>{item.category}</td>
                             <td>{item.price}</td>
                             <td className={styles.actions}>
                                 <button className={styles.actionButton}>
@@ -99,4 +97,4 @@ const AllProducts = () => {
     );
 };
 
-export default AllProducts;
+export default AllCollections;

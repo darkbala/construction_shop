@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     currentPage: 1,
     itemsPerPage: 12,
+    itemsPerPage2: 6,
 };
 
 const paginationSlice = createSlice({
