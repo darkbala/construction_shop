@@ -1,0 +1,103 @@
+.promotionForm {
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  h2 {
+    margin-bottom: 15px;
+    font-size: 30px;
+  }
+
+  .select_section {
+    max-width: 500px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+  }
+
+  .checkbox_container {
+    border: 1px solid #E7572A;
+    padding: 20px;
+
+    .inner_checkbox_container {
+
+    }
+  }
+
+  .line{
+    background: #E0E0E2;
+    height: 4px;
+    width: 100%;
+  }
+
+
+  .dateInputContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+
+    .inner_container {
+      display: flex;
+      justify-content: flex-start;
+      gap: 30px;
+
+      > label {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        font-size: 18px;
+
+        input {
+          width: 350px;
+          padding: 10px 20px;
+        }
+      }
+    }
+  }
+}
+
+.tableContainer {
+  padding: 20px 10px;
+  border-radius: 8px;
+  height: auto;
+  border: 1px solid #ddd;
+  margin: 20px 0;
+}
+
+.customTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tableCell {
+  padding: 20px 10px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.checkboxContainer {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+}
+
+.saveButton{
+  border: none;
+  padding: 15px 20px;
+  background-color: #4759FF;
+  color: white;
+}
