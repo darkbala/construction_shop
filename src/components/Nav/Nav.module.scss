@@ -13,18 +13,25 @@ $bg-dark: #212529;
     background-color: white;
     position: absolute;
     top: 0;
-    right: 0;
+    right: -100%;
     z-index: 10;
     display: flex;
     justify-content: center;
     flex-direction: column;
     gap: 10px;
-
+    transform: translateX(100%);
+    opacity: 0;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
 
     -webkit-box-shadow: inset 3px 0 4px 1px rgba(179, 179, 179, 0.48);
     -moz-box-shadow: inset 3px 0 4px 1px rgba(179, 179, 179, 0.48);
     box-shadow: inset 3px 0 4px 1px rgba(179, 179, 179, 0.48);
 
+    &.active {
+      transform: translateX(0); /* Выдвигает меню в видимую область */
+      opacity: 1;
+      right: 0;
+    }
 
     div {
       width: 80%;

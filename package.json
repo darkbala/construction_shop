@@ -13,6 +13,7 @@
     "@reduxjs/toolkit": "^2.3.0",
     "axios": "^1.7.7",
     "construction_shop": "file:",
+    "google-map-react": "^2.2.1",
     "i18next": "^23.16.5",
     "rc-slider": "^11.1.7",
     "react": "^18.3.1",

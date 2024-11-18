@@ -1,0 +1,82 @@
+.wrap{
+    background-color: #212529;
+    max-width: 2550px;
+    height: 620px;
+    display: flex;
+    justify-content: center;
+    align-items: center;   
+    color: white;
+    a{
+        color: white;
+    }
+
+    .content{
+        width: 1320px;
+        display: flex;
+        justify-content: space-between;
+
+        .map{
+            width: 650px;
+            height: 420px;
+            border: 2px solid white;
+        }
+        .info{
+            display: flex;
+            width: 40%;
+            gap: 100px;
+            flex-wrap: wrap;
+        }
+
+        .adresses {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            h6{
+                width: 100px;
+                padding-bottom: 10px;  
+                font-size: 22px;
+                border-bottom: 2px solid #E7572A;
+            }
+            ul{
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+        }
+        .contacts {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            h6{
+                width: 150px;
+                padding-bottom: 10px;  
+                font-size: 22px;
+                border-bottom: 2px solid #E7572A;
+            }
+            ul{
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+        }
+        .vacancies {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            h6{
+                width: 120px;
+                padding-bottom: 10px;  
+                font-size: 22px;
+                border-bottom: 2px solid #E7572A;
+            }
+            ul{
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+        }
+    }
+}
