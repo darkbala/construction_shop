@@ -1,0 +1,60 @@
+.Products {
+  max-width: 2560px;
+  padding: 20px;
+}
+.Products .container {
+  margin: 0 auto;
+  max-width: 1440px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  gap: 50px;
+}
+@media (max-width: 1280px) {
+  .Products .container {
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+}
+.Products .pagination {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 20px;
+  gap: 10px;
+}
+.Products .pagination button {
+  border: none;
+  background: none;
+  font-size: 22px;
+  color: #444;
+  cursor: pointer;
+  -webkit-transition: color 0.3s;
+  transition: color 0.3s;
+}
+.Products .pagination button.active {
+  color: #f4a261;
+  font-weight: bold;
+}
+.Products .pagination button:hover:not(.active) {
+  color: #888;
+}
+.Products .pagination button:disabled {
+  color: #ccc;
+  cursor: default;
+}
