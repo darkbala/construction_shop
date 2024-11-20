@@ -138,7 +138,7 @@
 
   &:hover {
     background-color: white;
-    transition: .4s ease-in all;
+    transition: .2s ease-in all;
     box-shadow: 0 0 15px gray;
     cursor: pointer;
   }
@@ -148,7 +148,7 @@
   max-width: 100%;
   height: auto;
   margin-bottom: 10px;
-  transition: .4s ease-in all;
+  transition: .2s ease-in all;
 }
 
 .productCard:hover .productImage {
