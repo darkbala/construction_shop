@@ -12,7 +12,6 @@ import {
     resetNewProducts,
     resetProducts,
     searchByInputValue,
-    setInputValue
 } from '../../store/slices/getProducts.js';
 import styles from './CatalogPage.module.scss';
 
