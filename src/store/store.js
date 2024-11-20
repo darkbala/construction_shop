@@ -7,6 +7,7 @@ import languageReducer from './slices/languageState.js'
 import reviewsReducer from "./slices/reviewsSlice.js"
 import vacanciesReducer from "./slices/getVacancy.js"
 import collectionReducer from "./slices/getCollcetions.js"
+import authReducer from "./slices/auth/auth.js";
 
 const store = configureStore({
     reducer: {
@@ -18,6 +19,7 @@ const store = configureStore({
         reviews: reviewsReducer,
         vacancies: vacanciesReducer,
         collections: collectionReducer,
+        auth: authReducer,
     },
 });
 

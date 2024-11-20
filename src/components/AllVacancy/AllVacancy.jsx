@@ -1,28 +1,30 @@
-import {useDispatch, useSelector} from "react-redux";
-import {setPage} from "../../store/slices/paginationSlice.js";
 import styles from "../AllVacancy/AllVacancy.module.scss";
 import SearchBar from "../SearchBar/SearchBar.jsx";
-import {FaEdit, FaEye, FaTrash} from "react-icons/fa";
+import {FaEdit, FaTrash} from "react-icons/fa";
+import {useDispatch, useSelector} from "react-redux";
+import {setPage} from "../../store/slices/paginationSlice.js";
 
 const AllVacancy = () => {
+    const dispatch = useDispatch();
+    const {currentPage, itemsPerPage2} = useSelector((state) => state.pagination);
     const items = new Array(31).fill({
         name: 'Менеджер по продажам ',
         salary: 'от 35.000',
         date: '03.10.20024'
     });
 
-    const dispatch = useDispatch();
-    const {currentPage, itemsPerPage2} = useSelector((state) => state.pagination);
-
     const startIndex = (currentPage - 1) * itemsPerPage2;
     const endIndex = startIndex + itemsPerPage2;
-    const currentItems = items.slice(startIndex, endIndex);
+
 
     const totalPages = Math.ceil(items.length / itemsPerPage2);
+    const currentItems = items.slice(startIndex, endIndex);
+
 
     const handlePageChange = (page) => {
         dispatch(setPage(page));
     };
+
 
     return (
         <div className={styles.AllVacancy}>
