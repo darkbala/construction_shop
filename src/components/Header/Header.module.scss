@@ -135,7 +135,14 @@
         background: rgba(241, 54, 87, 0.80);
         color: white;
         width: auto;
+        transition: all 0.2s ease; /* Плавный переход */
       }
+      
+      .btn_to_category:hover {
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.5); /* Тень снизу */
+        transform: translateY(-2px); /* Лёгкий "выступ" */
+      }
+      
     }
   }
 
