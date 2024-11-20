@@ -4,7 +4,7 @@ import {API_URI} from "../../../api/api.js";
 
 export const fetchAllCollections = createAsyncThunk(
     'admin/collections/fetchAllCollections',
-    async (language , {rejectWithValue}) => {
+    async (language, {rejectWithValue}) => {
         try {
             const collections = await axios.get(`${API_URI}/collections?lang=ru`);
             return collections.data;
@@ -19,7 +19,7 @@ export const deleteCollectionById = createAsyncThunk(
     'admin/collections/deleteCollectionById',
     async (collectionId, {rejectWithValue}) => {
         try {
-            const collection = await axios.delete(`${API_URI}/collections/${collectionId}`);
+            const collection = await axios.delete(`${API_URI}collections/${collectionId}`);
             return collection.data;
         } catch (error) {
             return rejectWithValue(error.response?.data || error.message);
@@ -42,21 +42,31 @@ export const collectionUpdateById = createAsyncThunk(
 
 export const createCollection = createAsyncThunk(
     'admin/collections/createCollection',
-    async (formData, {rejectWithValue}) => {
+    async (formData, { rejectWithValue }) => {
         try {
-            const collection = await axios.post(`${API_URI}/collection`, formData);
+
+            console.log(formData)
+            // Убедитесь, что formData это объект FormData
+            const collection = await axios.post(`${API_URI}collection`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data', // Указание типа контента как multipart
+                }
+            });
+
+            console.log(collection);
             return collection.data;
         } catch (error) {
             return rejectWithValue(error.response?.data || error.message);
         }
     }
-)
+);
 
 
 const collectionsSlice = createSlice({
     name: 'collections',
     initialState: {
         data: [],
+        collections: [],
         loading: false,
         error: null,
     },
@@ -110,7 +120,7 @@ const collectionsSlice = createSlice({
             })
             .addCase(createCollection.fulfilled, (state, action) => {
                 state.loading = false;
-                state.data.push(action.payload);
+                state.collection.push(action.payload);
             })
             .addCase(createCollection.rejected, (state, action) => {
                 state.loading = false;

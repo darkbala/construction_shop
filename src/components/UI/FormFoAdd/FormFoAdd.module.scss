@@ -1,4 +1,4 @@
-.ChangeCollection {
+.Form {
   max-width: 1350px;
   margin: 0 auto;
   display: flex;
@@ -10,18 +10,6 @@
     height: 5px;
     width: 100%;
     background: #d0d0d2;
-  }
-
-  .title {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-
-    h2 {
-      font-size: 20px;
-    }
-
-
   }
 
   .info_container {

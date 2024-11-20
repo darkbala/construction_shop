@@ -10,12 +10,13 @@ import './i18n';
 import AdminPage from "./Pages/AdminPage/AdminPage.jsx";
 import AllProducts from "./components/AllProducts/AllProducts.jsx";
 import ModifySpecialOffer from "./components/ModifySpecialOffer/ModifySpecialOffer.jsx";
-import ChangeCollection from "./components/ChangeCollection/ChangeCollection.jsx";
+import ChangeCollection from "./components/AllCollections/ChangeCollection/ChangeCollection.jsx";
 import AddCategory from "./components/AddCategory/AddCategory.jsx";
 import AllVacancy from "./components/AllVacancy/AllVacancy.jsx";
 import AllCollections from "./components/AllCollections/AllCollections.jsx";
 import Register from "./components/Auth/Register/Register.jsx";
 import Login from "./components/Auth/Login/Login.jsx";
+import AddCollection from "./components/AllCollections/AddCollection/AddCollection.jsx";
 
 // Проверка аутентификации
 const isAuthenticated = () => {
@@ -61,8 +62,9 @@ const App = () => {
                         }/>
                         <Route path="/admin/all-products" element={<AllProducts/>}/>
                         <Route path="/admin/all-collections" element={<AllCollections/>}/>
-                        <Route path="/admin/discount" element={<ModifySpecialOffer/>}/>
+                        <Route path="/admin/add-collection" element={<AddCollection/>}/>
                         <Route path="/admin/change-collections/:id" element={<ChangeCollection/>}/>
+                        <Route path="/admin/discount" element={<ModifySpecialOffer/>}/>
                         <Route path="/admin/add-category" element={<AddCategory/>}/>
                         <Route path="/admin/all-vacancies" element={<AllVacancy/>}/>
                     </>
