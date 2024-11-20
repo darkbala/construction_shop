@@ -19,8 +19,8 @@ const SpecialProductCard = () => {
 
             <div className={styles.slider_container}>
                 <span className={styles.btn_cont}>
-                    <button className={styles.arrow_left}>axax</button>
-                    <button className={styles.arrow_right}>axax</button>
+                    <button className={styles.arrow_left}>left</button>
+                    <button className={styles.arrow_right}>right</button>
                 </span>
 
                 <Swiper
