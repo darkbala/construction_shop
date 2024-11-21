@@ -25,9 +25,6 @@ const AllCollections = () => {
         dispatch(fetchAllCollections());
     }, [dispatch]);
 
-    const handleEdit = (id) => {
-        console.log("Edit item with id:", id);
-    };
 
     const handleDelete = (id) => {
         console.log("Delete item with id:", id);
@@ -37,8 +34,6 @@ const AllCollections = () => {
         console.log("View item with id:", id);
     };
 
-
-    console.log(currentItems)
 
     return (
         <div className={styles.AllCollections}>
@@ -52,9 +47,9 @@ const AllCollections = () => {
                             fill="white"/>
                     </svg>
 
-                        <p>
-                            Добавить новую коллекцию
-                        </p></Link>
+                    <p>
+                        Добавить новую коллекцию
+                    </p></Link>
 
             </section>
 
@@ -73,8 +68,10 @@ const AllCollections = () => {
                             <td className={styles.title}>{item.collections[0].name}</td>
                             <td>{item.price}</td>
                             <td className={styles.actions}>
-                                <button className={styles.actionButton} onClick={() => handleEdit(item.id)}>
-                                    <FaEdit/>
+                                <button className={styles.actionButton}>
+                                    <Link to={`/admin/change-collections/${item.ID}`}>
+                                        <FaEdit/>
+                                    </Link>
                                 </button>
                                 <button className={styles.actionButton} onClick={() => handleDelete(item.id)}>
                                     <FaTrash/>

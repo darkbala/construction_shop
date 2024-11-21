@@ -1,10 +1,12 @@
 .AllCollections {
-  max-width: 1400px;
-  margin: 0 auto;
+
   padding: 30px 0;
   background-color: #FFFFFF;
 
   .search {
+    padding: 30px 0;
+    max-width: 1400px;
+    margin: 0 auto;
     display: flex;
     gap: 10px;
 
@@ -41,6 +43,8 @@
   }
 
   .tableContainer {
+    max-width: 1400px;
+    margin: 0 auto;
     min-height: 670px;
     width: 100%;
     border-radius: 8px;
@@ -73,6 +77,7 @@
 
   .actions {
     display: flex;
+    justify-content: flex-end;
     gap: 10px;
 
   }
@@ -99,6 +104,8 @@
 
 
   .pagination {
+    max-width: 1400px;
+    margin: 0 auto;
     display: flex;
     justify-content: flex-start;
     align-items: center;

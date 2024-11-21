@@ -18,9 +18,9 @@ export const fetchAllCollections = createAsyncThunk(
 
 export const deleteCollectionById = createAsyncThunk(
     'admin/collections/deleteCollectionById',
-    async (collectionId, {rejectWithValue}) => {
+    async (id, {rejectWithValue}) => {
         try {
-            const collection = await axios.delete(`${API_URI}collections/${collectionId}`);
+            const collection = await axios.delete(`http://127.0.0.1:8080/collections?collection_id={id}`);
             return collection.data;
         } catch (error) {
             return rejectWithValue(error.response?.data || error.message);
@@ -30,17 +30,34 @@ export const deleteCollectionById = createAsyncThunk(
 
 export const collectionUpdateById = createAsyncThunk(
     'admin/collections/updateCollectionById',
-    async ({collectionId, data, language}, {rejectWithValue}) => {
+    async ({ id, data }, { rejectWithValue }) => {
         try {
-            const response = await axios.put(`${API_URI}/collections/${collectionId}?lang=${language}`, data,);
+            const formData = new FormData();
+
+            // Добавляем данные в `formData`
+            formData.append('collection', JSON.stringify(data.collection)); // JSON-строка
+            formData.append('photos', data.photos); // Файл
+            formData.append('isMain_' + data.photos.name, data.isMain); // Основное фото
+            formData.append(
+                'hashColor_' + data.photos.name,
+                data.hashColor // Hash для фото
+            );
+
+            console.log(formData)
+            const response = await axios.put(`${API_URI}/collections?collection_id=${id}`, formData, {
+                headers: {
+                    Authorization: `Bearer ${data.token}`,
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+
+            console.log(response.data);
             return response.data;
         } catch (error) {
             return rejectWithValue(error.response?.data || error.message);
         }
     }
 );
-
-
 
 
 const collectionsSlice = createSlice({
