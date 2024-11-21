@@ -4,7 +4,7 @@ import SearchBar from "../SearchBar/SearchBar.jsx";
 import {FaEdit, FaEye, FaTrash} from 'react-icons/fa';
 import {setPage} from "../../store/slices/paginationSlice.js";
 import {useEffect} from "react";
-import {fetchAllCollections} from "../../store/slices/admin/collections/collections.js";
+import {deleteCollectionById, fetchAllCollections} from "../../store/slices/admin/collections/collections.js";
 import {Link} from "react-router-dom";
 
 const AllCollections = () => {
@@ -21,18 +21,41 @@ const AllCollections = () => {
         dispatch(setPage(page));
     };
 
+
     useEffect(() => {
         dispatch(fetchAllCollections());
     }, [dispatch]);
 
 
     const handleDelete = (id) => {
-        console.log("Delete item with id:", id);
+        dispatch(deleteCollectionById(id))
+            .unwrap()
+            .then(() => {
+                alert("Коллекция успешно удалена");
+            })
+            .catch((error) => {
+                console.error("Ошибка при удалении коллекции:", error);
+                alert(error.message || "Не удалось удалить коллекцию.");
+            });
     };
 
-    const handleView = (id) => {
-        console.log("View item with id:", id);
-    };
+    // const handleDelete = async (id) => {
+    //     try {
+    //         const response = await axios.delete("http://127.0.0.1:8080/collection", {
+    //             headers: {
+    //                 Authorization: `Bearer ${localStorage.getItem("token")}`,
+    //             },
+    //             data: {
+    //                 id: id,
+    //             },
+    //         });
+    //         alert("Коллекция успешно удалена!");
+    //     } catch (error) {
+    //         console.error("Ошибка при удалении коллекции:", error);
+    //         alert("Не удалось удалить коллекцию.");
+    //     }
+    // };
+
 
 
     return (
@@ -68,13 +91,13 @@ const AllCollections = () => {
                             <td className={styles.title}>{item.collections[0].name}</td>
                             <td>{item.price}</td>
                             <td className={styles.actions}>
-                                <button className={styles.actionButton}>
-                                    <Link to={`/admin/change-collections/${item.ID}`}>
+                                <Link className={styles.actionButton} to={`/admin/change-collections/${item.ID}`}>
                                         <FaEdit/>
-                                    </Link>
-                                </button>
-                                <button className={styles.actionButton} onClick={() => handleDelete(item.id)}>
-                                    <FaTrash/>
+                                </Link>
+                                <button
+                                    className={styles.actionButton}
+                                    onClick={() => handleDelete(item.ID)}>
+                                   <FaTrash/>
                                 </button>
                                 <button className={styles.actionButton} onClick={() => handleView(item.id)}>
                                     <FaEye/>

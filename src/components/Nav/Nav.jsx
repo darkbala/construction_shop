@@ -3,12 +3,17 @@ import {useTranslation} from "react-i18next";
 import NavItem from "./NavItem/NavItem.jsx";
 import classes from "./Nav.module.scss";
 import Logo from "../UI/Logo/Logo.jsx";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import { setLanguage } from "../../store/slices/languageState.js";
-import { useNavigate } from "react-router-dom";
+import {setLanguage} from "../../store/slices/languageState.js";
 import {fetchLanguages} from "../../store/slices/getLanguages.js";
-import {fetchByProducer, resetNewProducts, resetProducts} from "../../store/slices/getProducts.js";
+import {
+    fetchByDistributiv,
+    fetchByProducer,
+    fetchByProducerIsPainted,
+    resetNewProducts,
+    resetProducts
+} from "../../store/slices/getProducts.js";
 
 
 const Nav = ({set}) => {
@@ -44,6 +49,19 @@ const Nav = ({set}) => {
         navigate("/catalog");
     };
 
+    const handleSearchByProducerIsPainted = () => {
+        dispatch(resetProducts());
+        dispatch(resetNewProducts());
+        dispatch(fetchByProducerIsPainted());
+        navigate("/catalog");
+    };
+
+    const handleSearchByDistributiv = () => {
+        dispatch(resetProducts());
+        dispatch(resetNewProducts());
+        dispatch(fetchByDistributiv());
+        navigate("/catalog");
+    };
 
     return (
         <nav className={classes.Nav}>
@@ -58,22 +76,16 @@ const Nav = ({set}) => {
                                 {t('nav.production')}
                                 <div className={classes.dropdownMenu}>
                                     <div className={`${classes.inner} ${classes.custom}`}>
-                                        <div onClick={handleSearchByProducer}  >{t('nav.item1')}</div>
-                                        <div>{t('nav.item2')}</div>
+                                        <div onClick={handleSearchByProducer}>{t('nav.item1')}</div>
+                                        <div onClick={handleSearchByProducerIsPainted}>{t('nav.item2')}</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div className={classes.languageSelector}>
+                        <div className={classes.languageSelector} onClick={handleSearchByDistributiv}>
                             {t('nav.distribution')}
-                            <div className={classes.dropdownMenu}>
-                                <div className={`${classes.inner} `}>
-                                    <div>{t('nav.distribution_item1')}</div>
-                                    <div>{t('nav.distribution_item2')}</div>
-                                    <div>{t('nav.distribution_item3')}</div>
-                                </div>
-                            </div>
+
                         </div>
 
                         <NavItem to="/vacancy">{t('nav.vacancies')}</NavItem>

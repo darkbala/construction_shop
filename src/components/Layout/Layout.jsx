@@ -1,6 +1,7 @@
 import Nav from "../Nav/Nav.jsx";
 import Footer from "../Footer/Footer.jsx";
 import EndLine from "../EndLine/EndLine.jsx";
+
 const Layout = ({children}) => {
 
     return (
@@ -8,7 +9,7 @@ const Layout = ({children}) => {
             <header>
                 <Nav/>
             </header>
-            <main>
+            <main style={{minHeight: "100vh"}}>
                 {children}
             </main>
             <Footer/>

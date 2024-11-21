@@ -43,7 +43,7 @@ const CardSlider = ({cards}) => {
                 {cards.map((card) => (
                     <SwiperSlide key={card.id} className={styles.card}>
                         <Link to={`product/${card.id}`} className={styles.Product}>
-                            {card.isProducer ? <span className={styles.brand}>iskender</span> : "lox"}
+                            {card.isProducer ? <span className={styles.brand}>iskender</span> : ""}
                             <div>
                                 <img src={card.photos?.[0]?.url || placeholderImage} alt={card.name}/>
                                 <aside>

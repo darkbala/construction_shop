@@ -91,7 +91,7 @@ const FormFoAdd = () => {
         }
 
         try {
-            const response = await axios.post(`${API_URI}collection`, formData, {
+            const response = await axios.post(`${API_URI}/collection`, formData, {
                 headers: { "Content-Type": "multipart/form-data" },
             });
             alert("Success:", response.data);

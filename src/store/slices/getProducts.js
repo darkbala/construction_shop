@@ -78,6 +78,26 @@ export const fetchByProducer = createAsyncThunk(
     }
 )
 
+export const fetchByProducerIsPainted = createAsyncThunk(
+    'products/fetchByProducerIsPainted',
+    async (_, {getState}) => {
+        const language = getState().language.currentLanguage;
+        const response = await axios.get(`${API_URI}/search?lang=${language}&is_producer=true&is_painted=true`,)
+
+        return [...response.data.items, ...response.data.collections];
+    }
+)
+
+export const fetchByDistributiv = createAsyncThunk(
+    'products/fetchByDistributiv',
+    async (_, {getState}) => {
+        const language = getState().language.currentLanguage;
+        const response = await axios.get(`${API_URI}/search?lang=${language}&is_producer=false`,)
+
+        return [...response.data.items, ...response.data.collections];
+    }
+)
+
 export const searchByInputValue = createAsyncThunk(
     'products/searchByInputValue',
     async (inputValue, {getState, rejectWithValue}) => {
@@ -92,6 +112,20 @@ export const searchByInputValue = createAsyncThunk(
 );
 
 
+export const fetchRecomendationCollection = createAsyncThunk(
+    'products/fetchRecomendationCollection',
+    async (_, {rejectWithValue, getState}) => {
+        try {
+            const language = getState().language.currentLanguage;
+            const response = await axios.get(`${API_URI}/collections/rec?lang=${language}`);
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response?.data || 'Failed to fetch data');
+        }
+    }
+)
+
+
 const productsSlice = createSlice({
     name: 'products',
     initialState: {
@@ -100,7 +134,8 @@ const productsSlice = createSlice({
         productsInCollection: [],
         popularProducts: [],
         newProducts: [],
-        filteredProducts: [],
+        filteredProducts:[],
+        recommendationCollections: [],
         loading: false,
         error: null,
         inputValue: '',
@@ -134,6 +169,8 @@ const productsSlice = createSlice({
                 state.loading = false;
                 state.error = action.error.message;
             })
+
+
             .addCase(fetchProductById.pending, (state) => {
                 state.loading = true;
                 state.error = null;
@@ -146,6 +183,8 @@ const productsSlice = createSlice({
                 state.loading = false;
                 state.error = action.error.message;
             })
+
+
             .addCase(fetchProductInCollection.pending, (state) => {
                 state.loading = true;
                 state.error = null;
@@ -158,6 +197,8 @@ const productsSlice = createSlice({
                 state.loading = false;
                 state.error = action.error.message;
             })
+
+
             .addCase(fetchPopularProducts.pending, (state) => {
                 state.loading = true;
                 state.error = null;
@@ -170,6 +211,21 @@ const productsSlice = createSlice({
                 state.loading = false;
                 state.error = action.error.message;
             })
+
+            .addCase(fetchNewProducts.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(fetchNewProducts.fulfilled, (state, action) => {
+                state.loading = false;
+                state.newProducts = action.payload;
+            })
+            .addCase(fetchNewProducts.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message;
+            })
+
+
             .addCase(fetchByProducer.pending, (state) => {
                 state.loading = true;
                 state.error = null;
@@ -182,6 +238,35 @@ const productsSlice = createSlice({
                 state.loading = false;
                 state.error = action.error.message;
             })
+
+            .addCase(fetchByProducerIsPainted.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(fetchByProducerIsPainted.fulfilled, (state, action) => {
+                state.loading = false;
+                state.filteredProducts = action.payload;
+            })
+            .addCase(fetchByProducerIsPainted.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message;
+            })
+
+
+            .addCase(fetchByDistributiv.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(fetchByDistributiv.fulfilled, (state, action) => {
+                state.loading = false;
+                state.filteredProducts = action.payload;
+            })
+            .addCase(fetchByDistributiv.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message;
+            })
+
+
             .addCase(searchByInputValue.pending, (state) => {
                 state.loading = true;
                 state.error = null;
@@ -193,8 +278,23 @@ const productsSlice = createSlice({
             .addCase(searchByInputValue.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.error.message;
-            });
-    },
+            })
+
+
+            .addCase(fetchRecomendationCollection.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(fetchRecomendationCollection.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message;
+            })
+            .addCase(fetchRecomendationCollection.fulfilled, (state, action) => {
+                state.loading = false;
+                state.recommendationCollections = action.payload;
+            })
+
+    }
 });
 
 export const {setInputValue, resetNewProducts, resetProducts, resetFiltered} = productsSlice.actions;

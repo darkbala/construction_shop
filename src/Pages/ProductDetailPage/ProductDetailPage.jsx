@@ -4,7 +4,11 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import styles from "./ProductDetailPage.module.scss";
-import {fetchProductById, fetchProductInCollection} from "../../store/slices/getProducts.js";
+import {
+    fetchProductById,
+    fetchProductInCollection,
+    fetchRecomendationCollection
+} from "../../store/slices/getProducts.js";
 import {useDispatch, useSelector} from "react-redux";
 import placeholderImage from "../../assets/img.png";
 import CardSlider from "../../components/UI/CardSlider/CardSlider.jsx";
@@ -18,12 +22,19 @@ const ProductDetailPage = () => {
     const loading = useSelector((state) => state.products.loading);
     const error = useSelector((state) => state.products.error);
     const [currentIndex, setCurrentIndex] = useState(0);
+    const rec = useSelector((state) => state.products.recommendationCollections)
+
+
 
     useEffect(() => {
         if (id) {
             dispatch(fetchProductById(id));
         }
     }, [id, dispatch, language]);
+
+    useEffect(() => {
+        dispatch(fetchRecomendationCollection())
+    }, [dispatch]);
 
     useEffect(() => {
         if (product?.collection_id) {
@@ -115,10 +126,10 @@ const ProductDetailPage = () => {
                 </section>
             )}
 
-            {product.relatedProducts && product.relatedProducts.length > 0 && (
+            {rec && rec.length > 0 && (
                 <section className={styles.cont2}>
-                    <h3>Связанные продукты</h3>
-                    <CardSlider cards={product.relatedProducts}/>
+                    <h3>Похожие продукты</h3>
+                    <CardSlider cards={rec} style={{padding: 0}}/>
                 </section>
             )}
         </div>

@@ -27,7 +27,7 @@ const SwitchSection = () => {
     return (
         <section className={styles.SwitchSection}>
             <SwitchButtons active={active} onClick={handleClick} />
-            <CardSlider cards={active === 'pop' ? popularProducts : newProducts} />
+            <CardSlider cards={active === 'new' ?  newProducts : popularProducts} />
         </section>
     );
 };

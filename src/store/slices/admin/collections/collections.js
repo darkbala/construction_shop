@@ -1,6 +1,7 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import axios from "axios";
 import {API_URI} from "../../../api/api.js";
+import header from "../../../../components/Header/Header.jsx";
 
 export const fetchAllCollections = createAsyncThunk(
     'admin/collections/fetchAllCollections',
@@ -18,19 +19,26 @@ export const fetchAllCollections = createAsyncThunk(
 
 export const deleteCollectionById = createAsyncThunk(
     'admin/collections/deleteCollectionById',
-    async (id, {rejectWithValue}) => {
+    async (id, { rejectWithValue }) => {
         try {
-            const collection = await axios.delete(`http://127.0.0.1:8080/collections?collection_id={id}`);
-            return collection.data;
+            console.log(id)
+            const response = await axios.delete(`http://127.0.0.1:8080/collection`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                },
+                data: { id },
+            });
+            return response.data;
         } catch (error) {
             return rejectWithValue(error.response?.data || error.message);
         }
     }
-)
+);
+
 
 export const collectionUpdateById = createAsyncThunk(
     'admin/collections/updateCollectionById',
-    async ({ id, data }, { rejectWithValue }) => {
+    async ({id, data}, {rejectWithValue}) => {
         try {
             const formData = new FormData();
 
@@ -87,13 +95,18 @@ const collectionsSlice = createSlice({
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(deleteCollectionById.fulfilled, (state, action) => {
-                state.loading = false;
-                state.data = state.data.filter((item) => item.id !== action.payload.id);
-            })
             .addCase(deleteCollectionById.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.payload || action.error.message;
+                if (action.payload) {
+                    state.error = action.payload;
+                } else {
+                    state.error = action.error.message || "Произошла ошибка";
+                }
+            })
+            .addCase(deleteCollectionById.fulfilled, (state, action) => {
+                state.loading = false;
+                // Используйте ID из meta.arg, если в payload нет нужного id
+                state.data = state.data.filter((item) => item.id !== action.meta.arg);
             })
 
             .addCase(collectionUpdateById.pending, (state) => {
