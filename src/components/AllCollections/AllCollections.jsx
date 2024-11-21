@@ -10,9 +10,7 @@ import {Link} from "react-router-dom";
 const AllCollections = () => {
     const dispatch = useDispatch();
     const {currentPage, itemsPerPage2} = useSelector((state) => state.pagination);
-    const data = useSelector((state) => state.collections.collections);
-
-    console.log(data)
+    const data = useSelector((state) => state.collections.data);
 
     const startIndex = (currentPage - 1) * itemsPerPage2;
     const endIndex = startIndex + itemsPerPage2;
@@ -38,6 +36,9 @@ const AllCollections = () => {
     const handleView = (id) => {
         console.log("View item with id:", id);
     };
+
+
+    console.log(currentItems)
 
     return (
         <div className={styles.AllCollections}>
@@ -69,7 +70,7 @@ const AllCollections = () => {
                     <tbody>
                     {currentItems.map((item, index) => (
                         <tr key={index}>
-                            <td className={styles.title}>{item.name}</td>
+                            <td className={styles.title}>{item.collections[0].name}</td>
                             <td>{item.price}</td>
                             <td className={styles.actions}>
                                 <button className={styles.actionButton} onClick={() => handleEdit(item.id)}>

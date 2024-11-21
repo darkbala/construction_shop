@@ -6,7 +6,7 @@ import languageReducers from "./slices/getLanguages.js";
 import languageReducer from './slices/languageState.js'
 import reviewsReducer from "./slices/reviewsSlice.js"
 import vacanciesReducer from "./slices/getVacancy.js"
-import collectionReducer from "./slices/getCollcetions.js"
+import collectionReducer from "./slices/admin/collections/collections.js"
 import authReducer from "./slices/auth/auth.js";
 
 const store = configureStore({

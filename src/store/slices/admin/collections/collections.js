@@ -4,10 +4,11 @@ import {API_URI} from "../../../api/api.js";
 
 export const fetchAllCollections = createAsyncThunk(
     'admin/collections/fetchAllCollections',
-    async (language, {rejectWithValue}) => {
+    async (_, {rejectWithValue}) => {
         try {
-            const collections = await axios.get(`${API_URI}/collections?lang=ru`);
-            return collections.data;
+            const response = await axios.get(`http://127.0.0.1:8080/getAllCollection`);
+
+            return response.data;
         } catch (error) {
             return rejectWithValue(error.response?.data || error.message);
         }
@@ -40,33 +41,12 @@ export const collectionUpdateById = createAsyncThunk(
 );
 
 
-export const createCollection = createAsyncThunk(
-    'admin/collections/createCollection',
-    async (formData, { rejectWithValue }) => {
-        try {
-
-            console.log(formData)
-            // Убедитесь, что formData это объект FormData
-            const collection = await axios.post(`${API_URI}collection`, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data', // Указание типа контента как multipart
-                }
-            });
-
-            console.log(collection);
-            return collection.data;
-        } catch (error) {
-            return rejectWithValue(error.response?.data || error.message);
-        }
-    }
-);
 
 
 const collectionsSlice = createSlice({
     name: 'collections',
     initialState: {
         data: [],
-        collections: [],
         loading: false,
         error: null,
     },
@@ -114,18 +94,7 @@ const collectionsSlice = createSlice({
                 state.error = action.payload || action.error.message;
             })
 
-            .addCase(createCollection.pending, (state) => {
-                state.loading = true;
-                state.error = null;
-            })
-            .addCase(createCollection.fulfilled, (state, action) => {
-                state.loading = false;
-                state.collection.push(action.payload);
-            })
-            .addCase(createCollection.rejected, (state, action) => {
-                state.loading = false;
-                state.error = action.payload || action.error.message;
-            });
+
     },
 });
 
