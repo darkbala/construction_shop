@@ -63,7 +63,6 @@ const ChangeCollection = () => {
 
         const formData = new FormData();
 
-        // Добавляем данные коллекции в формате JSON
         formData.append(
             "collection",
             JSON.stringify({
@@ -107,7 +106,7 @@ const ChangeCollection = () => {
         <main className={styles.Form}>
             <form onSubmit={handleSubmit}>
                 <section className={styles.title}>
-                    <h2>Коллекции / Изменить коллекцию</h2>
+                    <h2>Коллекции / Изменить коллекцию {id}</h2>
                     <div className={styles.line}></div>
                 </section>
 
