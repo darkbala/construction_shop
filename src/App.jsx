@@ -18,7 +18,7 @@ import Register from "./components/Auth/Register/Register.jsx";
 import Login from "./components/Auth/Login/Login.jsx";
 import AddCollection from "./components/AllCollections/AddCollection/AddCollection.jsx";
 
-// Проверка аутентификации
+
 const isAuthenticated = () => {
     const token = localStorage.getItem("token");
     if (!token) return false;
@@ -49,10 +49,10 @@ const App = () => {
                 <Route path="/login" element={<Login/>}/>
                 <Route path="/vacancy" element={<Vacancy/>}/>
                 <Route path="/catalog" element={<CatalogPage/>}/>
-                <Route path="/catalog/product/:id" element={<ProductDetailPage/>}/>
+                <Route path="/catalog/:type/:id" element={<ProductDetailPage/>}/>
                 <Route path="*" element={<ErrorPage/>}/>
 
-                {/* Админские маршруты */}
+
                 {isAdmin && (
                     <>
                         <Route path="/admin/" element={

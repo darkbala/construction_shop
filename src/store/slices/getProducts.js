@@ -3,6 +3,17 @@ import axios from 'axios';
 import {API_URI} from "../api/api.js";
 
 
+export const fetchCollectionById = createAsyncThunk(
+    'products/fetchCollectionById',
+    async (collectionId, {getState}) => {
+        const language = getState().language.currentLanguage;
+        const response = await axios.get(
+            `http://127.0.0.1:8080/collection?collection_id=${collectionId}&lang=${language}`
+        );
+        return response.data;
+    }
+);
+
 export const fetchProductById = createAsyncThunk(
     'products/fetchProductById',
     async (productId, {getState}) => {
@@ -13,6 +24,7 @@ export const fetchProductById = createAsyncThunk(
         return response.data;
     }
 );
+
 
 
 export const fetchProductInCollection = createAsyncThunk(
@@ -84,6 +96,9 @@ export const fetchByProducerIsPainted = createAsyncThunk(
         const language = getState().language.currentLanguage;
         const response = await axios.get(`${API_URI}/search?lang=${language}&is_producer=true&is_painted=true`,)
 
+
+        console.log(response.data.items ,"aaxaxaaxaaa")
+        console.log(response.data.collections ,"ssssssssaxaaa")
         return [...response.data.items, ...response.data.collections];
     }
 )
@@ -131,6 +146,7 @@ const productsSlice = createSlice({
     initialState: {
         data: [],
         selectedProduct: null,
+        selectedCollection: null,
         productsInCollection: [],
         popularProducts: [],
         newProducts: [],
@@ -180,6 +196,19 @@ const productsSlice = createSlice({
                 state.selectedProduct = action.payload;
             })
             .addCase(fetchProductById.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message;
+            })
+
+            .addCase(fetchCollectionById.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(fetchCollectionById.fulfilled, (state, action) => {
+                state.loading = false;
+                state.selectedProduct = action.payload;
+            })
+            .addCase(fetchCollectionById.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.error.message;
             })

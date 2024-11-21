@@ -23,6 +23,7 @@ const CardSlider = ({cards}) => {
         }
     }, []);
 
+
     return (
         <div className={styles.cardSlider}>
             <ArrowButton prevRef={prevButtonRef} nextRef={nextButtonRef}/>
@@ -42,17 +43,21 @@ const CardSlider = ({cards}) => {
                 {/* eslint-disable-next-line react/prop-types */}
                 {cards.map((card) => (
                     <SwiperSlide key={card.id} className={styles.card}>
-                        <Link to={`product/${card.id}`} className={styles.Product}>
+                        <Link
+                            to={`/catalog/${card.collection_id ? "product" : "collection"}/${card.id}`}
+                            className={styles.Product}
+                        >
                             {card.isProducer ? <span className={styles.brand}>iskender</span> : ""}
                             <div>
-                                <img src={card.photos?.[0]?.url || placeholderImage} alt={card.name}/>
+                                <img src={card.photos?.[0]?.url || placeholderImage} alt={card.name} />
                                 <aside>
                                     <h4>{card.name}</h4>
-                                    <div className={styles.line}/>
+                                    <div className={styles.line} />
                                     <p>{card.price} som</p>
                                 </aside>
                             </div>
                         </Link>
+
                     </SwiperSlide>
                 ))}
             </Swiper>
