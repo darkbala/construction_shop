@@ -1,11 +1,11 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {useEffect, useState} from 'react';
 import SearchBar from '../../components/SearchBar/SearchBar.jsx';
 import CategorySlider from '../../components/CategorySlider/CategorySlider.jsx';
 import Products from '../../components/Products/Products.jsx';
 import ModalFilter from '../../components/Catalog/ModalFilter/ModalFilter.jsx';
-import { fetchCategories } from '../../store/slices/getCategories.js';
-import { fetchAllCollections } from '../../store/slices/getCollcetions.js';
+import {fetchCategories} from '../../store/slices/getCategories.js';
+import {fetchAllCollections} from '../../store/slices/getCollcetions.js';
 import {
     fetchProducts,
     resetFiltered,
@@ -18,7 +18,7 @@ import styles from './CatalogPage.module.scss';
 const CatalogPage = () => {
     const dispatch = useDispatch();
     const language = useSelector((state) => state.language.currentLanguage);
-    const { categories, loading: categoriesLoading, error: categoriesError } = useSelector((state) => state.categories);
+    const {categories, loading: categoriesLoading, error: categoriesError} = useSelector((state) => state.categories);
     const products = useSelector((state) => state.products.data);
     const searchResults = useSelector((state) => state.products.filteredProducts);
     const newProducts = useSelector((state) => state.products.newProducts);
@@ -68,7 +68,7 @@ const CatalogPage = () => {
             return (
                 <>
                     <p className={styles.show}>Найдено {searchResults.length} результатов</p>
-                    <Products products={searchResults} />
+                    <Products products={searchResults}/>
                 </>
             );
         }
@@ -81,7 +81,7 @@ const CatalogPage = () => {
             return products.length > 0 ? (
                 <>
                     <p>Показаны товары для категории "{selectedCategory.name}"</p>
-                    <Products products={products} />
+                    <Products products={products}/>
                 </>
             ) : (
                 <p>Товары для категории "{selectedCategory.name}" не найдены</p>
@@ -92,19 +92,19 @@ const CatalogPage = () => {
             return (
                 <>
                     <p>Показаны новые товары</p>
-                    <Products products={newProducts} />
+                    <Products products={newProducts}/>
                 </>
             );
         }
 
-        return <p>Нет товаров для отображения</p>;
+        return "";
     };
 
     return (
         <div className={styles.CatalogPage}>
             <section className={styles.searchbar}>
                 <div className={styles.top}>
-                    <SearchBar handleSearch={handleSearch} />
+                    <SearchBar handleSearch={handleSearch}/>
                     <button className={styles.filter} onClick={() => setModalOpen(true)}>Фильтры</button>
                 </div>
                 <div>
@@ -123,7 +123,7 @@ const CatalogPage = () => {
             <section className={styles.results_container}>
                 {renderProductsSection()}
             </section>
-            {isModalOpen && <ModalFilter onClose={() => setModalOpen(false)} />}
+            {isModalOpen && <ModalFilter onClose={() => setModalOpen(false)}/>}
         </div>
     );
 };
