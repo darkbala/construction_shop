@@ -14,6 +14,7 @@ const Header = () => {
     "https://res.cloudinary.com/dxlerkcn8/image/upload/v1732253899/Property_1_Variant4_mks8c3.png",
     "https://res.cloudinary.com/dxlerkcn8/image/upload/v1732253899/Property_1_Variant3_blp2jz.png",
     "https://res.cloudinary.com/dxlerkcn8/image/upload/v1732253899/Property_1_Variant5_f4dr1j.png",
+    "https://res.cloudinary.com/dxlerkcn8/image/upload/v1732253899/Property_1_Variant5_f4dr1j.png"
   ];
 
   const settings = {
