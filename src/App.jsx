@@ -17,6 +17,7 @@ import AllCollections from "./components/AllCollections/AllCollections.jsx";
 import Register from "./components/Auth/Register/Register.jsx";
 import Login from "./components/Auth/Login/Login.jsx";
 import AddCollection from "./components/AllCollections/AddCollection/AddCollection.jsx";
+import CreateVacancy from "./components/AllVacancy/CreateVacancy/CreateVacancy.jsx";
 
 
 const isAuthenticated = () => {
@@ -67,6 +68,7 @@ const App = () => {
                         <Route path="/admin/discount" element={<ModifySpecialOffer/>}/>
                         <Route path="/admin/add-category" element={<AddCategory/>}/>
                         <Route path="/admin/all-vacancies" element={<AllVacancy/>}/>
+                        <Route path="/admin/create-vacancy" element={<CreateVacancy/>}/>
                     </>
                 )}
             </Routes>
