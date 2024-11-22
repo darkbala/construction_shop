@@ -9,9 +9,11 @@ const Header = () => {
     const { t } = useTranslation();
 
     const backgrounds = [
-        'https://images.unsplash.com/photo-1719937051176-9b98352a6cf4?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-        'https://plus.unsplash.com/premium_photo-1730142098065-c8e1a9361b6e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-        'https://images.unsplash.com/photo-1726094232383-2fe17106bf19?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+        'https://res.cloudinary.com/dxlerkcn8/image/upload/v1732253899/Property_1_Default_r4ewp3.png',
+        'https://res.cloudinary.com/dxlerkcn8/image/upload/v1732253899/Property_1_Variant2_rodhvo.png',
+        'https://res.cloudinary.com/dxlerkcn8/image/upload/v1732253899/Property_1_Variant4_mks8c3.png',
+        'https://res.cloudinary.com/dxlerkcn8/image/upload/v1732253899/Property_1_Variant3_blp2jz.png',
+        'https://res.cloudinary.com/dxlerkcn8/image/upload/v1732253899/Property_1_Variant5_f4dr1j.png'
     ];
 
     const settings = {
