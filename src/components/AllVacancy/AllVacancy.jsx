@@ -19,7 +19,6 @@ const AllVacancy = () => {
 
 
 
-    console.log(vacancies)
 
     const startIndex = (currentPage - 1) * itemsPerPage2;
     const endIndex = startIndex + itemsPerPage2;

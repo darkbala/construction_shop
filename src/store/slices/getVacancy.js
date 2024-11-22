@@ -7,7 +7,6 @@ export const fetchVacancies = createAsyncThunk(
     async (_, {getState}) => {
         const language = getState().language.currentLanguage;
         const response = await axios.get(`${API_URI}/vacancies?lang=${language}`);
-        console.log(response.data)
         return response.data;
     }
 );

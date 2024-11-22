@@ -2,14 +2,24 @@ import styles from "./SpecialProductCard.module.scss";
 import CardItem from "./CardItem/CardItem.jsx";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Navigation, Pagination} from "swiper/modules";
+import {useDispatch, useSelector} from "react-redux";
+import {useEffect} from "react";
+import {fetchDiscountProducts} from "../../store/slices/getProducts.js";
 
 const SpecialProductCard = () => {
-    const productData = [
-        {id: 1, name: 'Product 1', price: '$10', description: 'Description 1'},
+    const dispatch = useDispatch();
+    const items = useSelector((state) => state.products.discount);
+
+    useEffect(() => {
+        dispatch(fetchDiscountProducts())
+    })
+
+    const productData = [{id: 1, name: 'Product 1', price: '$10', description: 'Description 1'},
         {id: 2, name: 'Product 2', price: '$20', description: 'Description 2'},
         {id: 1, name: 'Product 1', price: '$10', description: 'Description 1'},
         {id: 2, name: 'Product 2', price: '$20', description: 'Description 2'},
     ];
+
 
     return (
         <section className={styles.SpecialProductCard}>

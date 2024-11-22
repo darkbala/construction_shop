@@ -26,7 +26,6 @@ export const fetchProductById = createAsyncThunk(
 );
 
 
-
 export const fetchProductInCollection = createAsyncThunk(
     'products/fetchProductInCollection',
     async (productId, {getState}) => {
@@ -97,14 +96,24 @@ export const fetchByProducerIsPainted = createAsyncThunk(
         const response = await axios.get(`${API_URI}/search?lang=${language}&is_producer=true&is_painted=true`,)
 
 
-        console.log(response.data.items ,"aaxaxaaxaaa")
-        console.log(response.data.collections ,"ssssssssaxaaa")
+        console.log(response.data.items, "aaxaxaaxaaa")
+        console.log(response.data.collections, "ssssssssaxaaa")
         return [...response.data.items, ...response.data.collections];
     }
 )
 
 export const fetchByDistributiv = createAsyncThunk(
     'products/fetchByDistributiv',
+    async (_, {getState}) => {
+        const language = getState().language.currentLanguage;
+        const response = await axios.get(`${API_URI}/search?lang=${language}&is_producer=false`,)
+
+        return [...response.data.items, ...response.data.collections];
+    }
+)
+
+export const fetchByDistr = createAsyncThunk(
+    'products/fetchByDistr',
     async (_, {getState}) => {
         const language = getState().language.currentLanguage;
         const response = await axios.get(`${API_URI}/search?lang=${language}&is_producer=false`,)
@@ -140,19 +149,19 @@ export const fetchRecommendationCollection = createAsyncThunk(
     }
 )
 
-export const fetchRecomendationCollection = createAsyncThunk(
-    'products/fetchRecomendationCollection',
+export const fetchDiscountProducts = createAsyncThunk(
+    'products/fetchDiscountProducts',
     async (_, {rejectWithValue, getState}) => {
         try {
             const language = getState().language.currentLanguage;
-            const response = await axios.get(`${API_URI}/collections/rec?lang=${language}`);
+            const response = await axios.get(`http://127.0.0.1:8080/discounts?lang=${language}`);
+            console.log(response.data);
             return response.data;
         } catch (error) {
             return rejectWithValue(error.response?.data || 'Failed to fetch data');
         }
     }
 )
-
 
 
 const productsSlice = createSlice({
@@ -164,7 +173,9 @@ const productsSlice = createSlice({
         productsInCollection: [],
         popularProducts: [],
         newProducts: [],
-        filteredProducts:[],
+        filteredProducts: [],
+        distr:[],
+        discount: [],
         recommendationCollections: [],
         loading: false,
         error: null,
@@ -269,6 +280,20 @@ const productsSlice = createSlice({
             })
 
 
+            .addCase(fetchDiscountProducts.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(fetchDiscountProducts.fulfilled, (state, action) => {
+                state.loading = false;
+                state.discount = action.payload;
+            })
+            .addCase(fetchDiscountProducts.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message;
+            })
+
+
             .addCase(fetchByProducer.pending, (state) => {
                 state.loading = true;
                 state.error = null;
@@ -278,6 +303,19 @@ const productsSlice = createSlice({
                 state.filteredProducts = action.payload;
             })
             .addCase(fetchByProducer.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message;
+            })
+
+            .addCase(fetchByDistr.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(fetchByDistr.fulfilled, (state, action) => {
+                state.loading = false;
+                state.distr = action.payload;
+            })
+            .addCase(fetchByDistr.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.error.message;
             })
