@@ -1,9 +1,10 @@
 .jobCard {
   overflow: hidden;
   width: 100%;
-  max-width: 1440px;
+  max-width: 1400px;
   border-top: 1px solid #e2e2e2;
   border-bottom: 1px solid #e2e2e2;
+  padding: 0 10px;
 }
 
 .header {

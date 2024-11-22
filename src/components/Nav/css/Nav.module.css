@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .Nav {
   width: 100%;
   margin: 0 auto;
@@ -10,7 +11,7 @@
   background-color: white;
   position: absolute;
   top: 0;
-  right: 0;
+  right: -100%;
   z-index: 10;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -23,8 +24,23 @@
       -ms-flex-direction: column;
           flex-direction: column;
   gap: 10px;
+  -webkit-transform: translateX(100%);
+      -ms-transform: translateX(100%);
+          transform: translateX(100%);
+  opacity: 0;
+  -webkit-transition: opacity 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
+  transition: opacity 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
   -webkit-box-shadow: inset 3px 0 4px 1px rgba(179, 179, 179, 0.48);
   box-shadow: inset 3px 0 4px 1px rgba(179, 179, 179, 0.48);
+}
+.Nav .mobileMenu.active {
+  -webkit-transform: translateX(0);
+      -ms-transform: translateX(0);
+          transform: translateX(0); /* Выдвигает меню в видимую область */
+  opacity: 1;
+  right: 0;
 }
 .Nav .mobileMenu div {
   width: 80%;
