@@ -127,6 +127,19 @@ export const searchByInputValue = createAsyncThunk(
 );
 
 
+export const fetchRecommendationCollection = createAsyncThunk(
+    'products/fetchRecomendationCollection',
+    async (_, {rejectWithValue, getState}) => {
+        try {
+            const language = getState().language.currentLanguage;
+            const response = await axios.get(`${API_URI}/collections/rec?lang=${language}`);
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response?.data || 'Failed to fetch data');
+        }
+    }
+)
+
 export const fetchRecomendationCollection = createAsyncThunk(
     'products/fetchRecomendationCollection',
     async (_, {rejectWithValue, getState}) => {
@@ -139,6 +152,7 @@ export const fetchRecomendationCollection = createAsyncThunk(
         }
     }
 )
+
 
 
 const productsSlice = createSlice({
@@ -310,15 +324,15 @@ const productsSlice = createSlice({
             })
 
 
-            .addCase(fetchRecomendationCollection.pending, (state) => {
+            .addCase(fetchRecommendationCollection.pending, (state) => {
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(fetchRecomendationCollection.rejected, (state, action) => {
+            .addCase(fetchRecommendationCollection.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.error.message;
             })
-            .addCase(fetchRecomendationCollection.fulfilled, (state, action) => {
+            .addCase(fetchRecommendationCollection.fulfilled, (state, action) => {
                 state.loading = false;
                 state.recommendationCollections = action.payload;
             })

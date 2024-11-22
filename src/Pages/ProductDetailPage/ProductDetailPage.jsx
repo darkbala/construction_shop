@@ -8,7 +8,7 @@ import {
     fetchCollectionById,
     fetchProductById,
     fetchProductInCollection,
-    fetchRecomendationCollection
+     fetchRecommendationCollection
 } from "../../store/slices/getProducts.js";
 import {useDispatch, useSelector} from "react-redux";
 import placeholderImage from "../../assets/img.png";
@@ -45,7 +45,7 @@ const ProductDetailPage = () => {
     }, [product?.collection_id, dispatch, language]);
 
     useEffect(() => {
-        dispatch(fetchRecomendationCollection());
+        dispatch(fetchRecommendationCollection());
     }, [dispatch]);
 
     const thumbnails = useMemo(() => {
