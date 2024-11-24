@@ -1,4 +1,3 @@
-import React from 'react'
 import styles from './Footer.module.scss'
 import GoogleMap from './GoogleMap/GoogleMap'
 import { Link } from 'react-router-dom'
