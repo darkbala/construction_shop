@@ -23,9 +23,11 @@ $bg-dark: #212529;
     opacity: 0;
     transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
 
+
     -webkit-box-shadow: inset 3px 0 4px 1px rgba(179, 179, 179, 0.48);
     -moz-box-shadow: inset 3px 0 4px 1px rgba(179, 179, 179, 0.48);
     box-shadow: inset 3px 0 4px 1px rgba(179, 179, 179, 0.48);
+
 
     &.active {
       transform: translateX(0); /* Выдвигает меню в видимую область */
