@@ -11,8 +11,6 @@ const Vacancy = () => {
     useEffect(() => {
         dispatch(fetchVacancies())
     }, [])
-
-    console.log(vacancies)
     return (
         <div className={styles.jobList}>
             <div className={styles.title}>
