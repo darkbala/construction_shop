@@ -16,44 +16,69 @@ export const fetchBrands = createAsyncThunk(
     }
 );
 
-export const createBrands = createAsyncThunk(
-    'brands/fetchBrands',
-    async (_, {rejectWithValue}) => {
+// Thunk для создания бренда
+export const createBrand = createAsyncThunk(
+    "brands/createBrand",
+    async ({ name, photo }, { rejectWithValue }) => {
         try {
-            const response = await axios.get(`${API_URI}/brands`);
-            console.log(response.data);
-            return response.data;
+            const formData = new FormData();
+            formData.append("name", name);
+            formData.append("photo", photo);
+
+            const response = await axios.post(`${API_URI}/brand`, formData, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    "Content-Type": "multipart/form-data",
+                },
+            });
+            return response.data; // Возвращаем созданный бренд
         } catch (error) {
-            return rejectWithValue(error.response?.data || 'Failed to fetch data');
-        }
-    }
-);
-export const updateBrands = createAsyncThunk(
-    'brands/fetchBrands',
-    async (_, {rejectWithValue}) => {
-        try {
-            const response = await axios.get(`${API_URI}/brands`);
-            console.log(response.data);
-            return response.data;
-        } catch (error) {
-            return rejectWithValue(error.response?.data || 'Failed to fetch data');
+            return rejectWithValue(error.response?.data || error.message);
         }
     }
 );
 
-export const deleteBrands = createAsyncThunk(
-    'brands/fetchBrands',
-    async (_, {rejectWithValue}) => {
+
+export const updateBrand = createAsyncThunk(
+    "brands/updateBrand",
+    async ({ brandId, name, photo }, { rejectWithValue }) => {
         try {
-            const response = await axios.get(`${API_URI}/brands`);
+            const formData = new FormData();
+            formData.append("name", name);
+            if (photo) {
+                formData.append("photo", photo);
+            }
+
+            const response = await axios.put(`${API_URI}/brand?id=${brandId}`, formData, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    "Content-Type": "multipart/form-data",
+                },
+            });
             console.log(response.data);
-            return response.data;
+            return response.data; // Возвращаем обновлённый бренд
         } catch (error) {
-            return rejectWithValue(error.response?.data || 'Failed to fetch data');
+            return rejectWithValue(error.response?.data || error.message);
         }
     }
 );
 
+
+export const deleteBrand = createAsyncThunk(
+    "brands/deleteBrand",
+    async (brandId, { rejectWithValue }) => {
+        try {
+            await axios.delete(`${API_URI}/brand/${1}`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            });
+            return brandId;
+        } catch (error) {
+            return rejectWithValue(error.response?.data || error.message);
+        }
+    }
+);
 
 export const brands = createSlice({
     name: "brands",
@@ -74,38 +99,46 @@ export const brands = createSlice({
                 state.loading = false;
                 state.error = action.error.message;
             })
-            .addCase(deleteCollectionById.pending, (state) => {
+            .addCase(createBrand.pending, (state) => {
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(deleteCollectionById.rejected, (state, action) => {
+            .addCase(createBrand.fulfilled, (state, action) => {
                 state.loading = false;
-                if (action.payload) {
-                    state.error = action.payload;
-                } else {
-                    state.error = action.error.message || "Произошла ошибка";
-                }
+                state.brands.push(action.payload); // Добавляем новый бренд
             })
-            .addCase(deleteCollectionById.fulfilled, (state, action) => {
+            .addCase(createBrand.rejected, (state, action) => {
                 state.loading = false;
-                // Используйте ID из meta.arg, если в payload нет нужного id
-                state.data = state.data.filter((item) => item.id !== action.meta.arg);
+                state.error = action.payload;
             })
-
-            .addCase(collectionUpdateById.pending, (state) => {
+            .addCase(updateBrand.pending, (state) => {
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(collectionUpdateById.fulfilled, (state, action) => {
+            .addCase(updateBrand.fulfilled, (state, action) => {
                 state.loading = false;
-                state.data = state.data.map((item) =>
-                    item.id === action.payload.id ? action.payload : item
+                const updatedBrand = action.payload;
+                state.brands = state.brands.map((brand) =>
+                    brand.id === updatedBrand.id ? updatedBrand : brand
                 );
             })
-            .addCase(collectionUpdateById.rejected, (state, action) => {
+            .addCase(updateBrand.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.payload || action.error.message;
+                state.error = action.payload;
             })
+            .addCase(deleteBrand.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(deleteBrand.fulfilled, (state, action) => {
+                state.loading = false;
+                const deletedId = action.payload;
+                state.brands = state.brands.filter((brand) => brand.id !== deletedId);
+            })
+            .addCase(deleteBrand.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            });
     }
 })
 

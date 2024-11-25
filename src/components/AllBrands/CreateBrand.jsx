@@ -1,30 +1,16 @@
 import  { useState } from "react";
-import axios from "axios";
-import {API_URI} from "../../store/api/api.js";
+import { useDispatch, useSelector } from "react-redux";
+import { createBrand } from "../../store/slices/admin/brands/brands.js";
 
 const CreateBrand = () => {
     const [name, setName] = useState("");
     const [photo, setPhoto] = useState(null);
+    const dispatch = useDispatch();
+    const { loading, error } = useSelector((state) => state.brands);
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-
-        // Формируем данные для отправки
-        const formData = new FormData();
-        formData.append("name", name);
-        formData.append("photo", photo);
-
-        try {
-            const response = await axios.post(`${API_URI}/brand`, formData, {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem("token")}`,
-                    "Content-Type": "multipart/form-data",
-                },
-            });
-            console.log("Успешно:", response.data);
-        } catch (error) {
-            console.error("Ошибка:", error.response?.data || error.message);
-        }
+        dispatch(createBrand({ name, photo }));
     };
 
     return (
@@ -50,7 +36,10 @@ const CreateBrand = () => {
                     />
                 </label>
             </div>
-            <button type="submit">Create Brand</button>
+            <button type="submit" disabled={loading}>
+                {loading ? "Creating..." : "Create Brand"}
+            </button>
+            {error && <p style={{ color: "red" }}>Error: {error}</p>}
         </form>
     );
 };
