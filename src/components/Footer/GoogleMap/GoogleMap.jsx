@@ -1,6 +1,6 @@
-import React from "react";
 import GoogleMapReact from 'google-map-react';
 
+// eslint-disable-next-line react/prop-types
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
 export default function GoogleMap(){

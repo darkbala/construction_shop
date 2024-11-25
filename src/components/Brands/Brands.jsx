@@ -1,32 +1,47 @@
 import styles from './Brands.module.scss';
-import logo1 from "../../assets/logo1.png"
-import logo2 from "../../assets/logo2.png"
-import logo3 from "../../assets/logo3.png"
-import logo4 from "../../assets/logo4.png"
-import logo5 from "../../assets/logo5.png"
-import logo6 from "../../assets/logo6.png"
-
-const logos = [
-    `${logo1}`,
-    `${logo2}`,
-    `${logo3}`,
-    `${logo4}`,
-    `${logo5}`,
-    `${logo6}`,
-];
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { fetchBrands } from "../../store/slices/admin/brands/brands.js";
 
 const Brands = () => {
+    const dispatch = useDispatch();
+    const brands = useSelector((state) => state.brands.brands);
+
+    useEffect(() => {
+        dispatch(fetchBrands());
+    }, [dispatch]);
+
+
+    console.log(brands)
     return (
         <>
+
+
             <section className={styles.title}>
                 <h3>Нас выбирают</h3>
+
+
             </section>
             <div className={styles.Brands}>
                 <div className={styles.marquee}>
                     <div className={styles.marqueeContent}>
-                        {logos.concat(logos).map((logo, index) => (
-                            <img key={index} src={logo} alt={`Logo ${index + 1}`} className={styles.logo}/>
-                        ))}
+                        {brands.length > 0 && (
+                            <>
+                                <img
+                                    src={brands[0].photo}
+                                    alt={`Logo ${brands[0].name}`}
+                                    className={styles.logo}
+                                />
+                                {brands.map((logo) => (
+                                    <img
+                                        key={logo.id}
+                                        src={logo.photo}
+                                        alt={`Logo ${logo.name}`}
+                                        className={styles.logo}
+                                    />
+                                ))}
+                            </>
+                        )}
                     </div>
                 </div>
             </div>

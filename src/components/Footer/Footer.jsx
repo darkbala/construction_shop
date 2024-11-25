@@ -18,7 +18,6 @@ export default function Footer() {
 
     const data3 = vacancies.slice(0, 3);
 
-    console.log(data3)
     return (
         <div className={styles.wrap}>
             <div className={styles.content}>
