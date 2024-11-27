@@ -106,12 +106,12 @@ const SpecialProductCard = () => {
             },
           }}
         >
-          {items.lengt > 0 &&
+          {items.length > 0 && (
             items.map((product, index) => (
               <SwiperSlide key={index} className={styles.slide}>
                 <CardItem items={product} />
               </SwiperSlide>
-            ))}
+            )))}
         </Swiper>
       </div>
     </section>
