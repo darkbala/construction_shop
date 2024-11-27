@@ -12,7 +12,6 @@ const Brands = () => {
     }, [dispatch]);
 
 
-    console.log(brands)
     return (
         <>
 

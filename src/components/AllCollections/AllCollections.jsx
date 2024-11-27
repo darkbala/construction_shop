@@ -1,7 +1,7 @@
 import {useDispatch, useSelector} from 'react-redux';
 import styles from "./AllCollections.module.scss";
 import SearchBar from "../SearchBar/SearchBar.jsx";
-import {FaEdit, FaEye, FaTrash} from 'react-icons/fa';
+import {FaEdit, FaTrash} from 'react-icons/fa';
 import {setPage} from "../../store/slices/paginationSlice.js";
 import {useEffect} from "react";
 import {deleteCollectionById, fetchAllCollections} from "../../store/slices/admin/collections/collections.js";
@@ -21,7 +21,6 @@ const AllCollections = () => {
         dispatch(setPage(page));
     };
 
-
     useEffect(() => {
         dispatch(fetchAllCollections());
     }, [dispatch]);
@@ -38,24 +37,6 @@ const AllCollections = () => {
                 alert(error.message || "Не удалось удалить коллекцию.");
             });
     };
-
-    // const handleDelete = async (id) => {
-    //     try {
-    //         const response = await axios.delete("http://127.0.0.1:8080/collection", {
-    //             headers: {
-    //                 Authorization: `Bearer ${localStorage.getItem("token")}`,
-    //             },
-    //             data: {
-    //                 id: id,
-    //             },
-    //         });
-    //         alert("Коллекция успешно удалена!");
-    //     } catch (error) {
-    //         console.error("Ошибка при удалении коллекции:", error);
-    //         alert("Не удалось удалить коллекцию.");
-    //     }
-    // };
-
 
 
     return (
@@ -92,16 +73,14 @@ const AllCollections = () => {
                             <td>{item.price}</td>
                             <td className={styles.actions}>
                                 <Link className={styles.actionButton} to={`/admin/change-collections/${item.ID}`}>
-                                        <FaEdit/>
+                                    <FaEdit/>
                                 </Link>
                                 <button
                                     className={styles.actionButton}
                                     onClick={() => handleDelete(item.ID)}>
-                                   <FaTrash/>
+                                    <FaTrash/>
                                 </button>
-                                <button className={styles.actionButton} onClick={() => handleView(item.id)}>
-                                    <FaEye/>
-                                </button>
+
                             </td>
                         </tr>
                     ))}

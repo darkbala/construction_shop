@@ -6,7 +6,7 @@ export const fetchReviews = createAsyncThunk(
     'reviews/fetchReviews',
     async () => {
         const response = await axios.get(`http://127.0.0.1:8080/reviews`);
-        console.log(response.data)
+
         return response.data;
     }
 );
@@ -16,7 +16,7 @@ export const createReview = createAsyncThunk(
     async (data, {rejectWithValue}) => {
         try {
             const response = await axios.post(`${API_URI}/reviews`, data)
-            console.log(response.data)
+         
             return response.data;
         } catch (error) {
             return rejectWithValue(error.response?.data || error.message);

@@ -8,7 +8,7 @@ export const fetchBrands = createAsyncThunk(
     async (_, {rejectWithValue}) => {
         try {
             const response = await axios.get(`${API_URI}/brands`);
-            console.log(response.data);
+     
             return response.data;
         } catch (error) {
             return rejectWithValue(error.response?.data || 'Failed to fetch data');
@@ -55,8 +55,7 @@ export const updateBrand = createAsyncThunk(
                     "Content-Type": "multipart/form-data",
                 },
             });
-            console.log(response.data);
-            return response.data; // Возвращаем обновлённый бренд
+            return response.data; 
         } catch (error) {
             return rejectWithValue(error.response?.data || error.message);
         }
