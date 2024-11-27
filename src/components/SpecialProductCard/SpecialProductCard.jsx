@@ -14,15 +14,6 @@ const SpecialProductCard = () => {
     dispatch(fetchDiscountProducts());
   }, [dispatch]);
 
-  console.table(items);
-
-  const productData = [
-    { id: 1, name: "Product 1", new_price: "$10", description: "Description 1", old_price:"123$" , is_producer:true},
-    { id: 2, name: "Product 2", price: "$20", description: "Description 2" },
-    { id: 1, name: "Product 1", price: "$10", description: "Description 1" },
-    { id: 2, name: "Product 2", price: "$20", description: "Description 2" },
-  ];
-
   return (
     <section className={styles.SpecialProductCard}>
       <div className={styles.title}>
@@ -115,11 +106,12 @@ const SpecialProductCard = () => {
             },
           }}
         >
-          {items.map((product, index) => (
-            <SwiperSlide key={index} className={styles.slide}>
-              <CardItem items={product} />
-            </SwiperSlide>
-          ))}
+          {items.lengt > 0 &&
+            items.map((product, index) => (
+              <SwiperSlide key={index} className={styles.slide}>
+                <CardItem items={product} />
+              </SwiperSlide>
+            ))}
         </Swiper>
       </div>
     </section>
