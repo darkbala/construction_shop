@@ -19,6 +19,19 @@
     flex-grow: 1;
     padding: 10px;
 
+    .price{
+      display: flex;
+      gap: 30px;
+
+      h4{
+        font-size: 18px;
+      }
+      .old{
+        text-decoration: line-through;
+        color: #ada7a7;
+      }
+    }
+
     article {
       display: flex;
       flex-direction: column;
@@ -38,6 +51,10 @@
       justify-content: space-between;
       align-items: center;
 
+      .link{
+        margin-left: auto;
+      }
+
       .iskender {
         background-color: #ff6f61;
         font-size: 16px;
@@ -48,6 +65,8 @@
         border-radius: 5px;
       }
     }
+
+
   }
 }
 

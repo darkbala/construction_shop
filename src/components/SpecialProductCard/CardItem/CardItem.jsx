@@ -2,13 +2,17 @@ import styles from "./CardItem.module.scss";
 import { Link } from "react-router-dom";
 
 const CardItem = ({ items }) => {
+  console.table(items);
+
+  const url = items.photo[0].url;
+  const fixedUrl = url.replace(/\s+/g, "");
+
+  console.log(fixedUrl);
+
   return (
     <div className={styles.CardItem}>
-      <img
-        src={items.photo[0].url}
-        alt={items.name}
-        width={350}
-      />
+      <img src={fixedUrl} alt={items.name} height={300} width={350} />
+
       <div className={styles.card_content}>
         <article>
           <div className={styles.top_content}>
@@ -18,7 +22,12 @@ const CardItem = ({ items }) => {
               ""
             )}
 
-            <Link to={`/product/${items.id}`}>
+            <Link
+              to={`/catalog/${items.collection_id ? "product" : "collection"}/${
+                items.id
+              }`}
+              className={styles.link}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="26"
@@ -41,9 +50,12 @@ const CardItem = ({ items }) => {
           </div>
           <h4>{items.name}</h4>
         </article>
-        <span>
-          <h4>{items.new_price}</h4>
-          <h4 style={{textDecoration:"throw"}}>{items.old_price}</h4>
+        <span className={styles.price}>
+          <h4>
+            {items.new_price}
+            сом
+          </h4>
+          <h4 className={styles.old}>{items.old_price} сом</h4>
         </span>
       </div>
     </div>
