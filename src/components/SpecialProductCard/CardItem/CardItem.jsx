@@ -2,7 +2,8 @@ import styles from "./CardItem.module.scss";
 import {Link} from "react-router-dom";
 
 const CardItem = () => {
-    return (<div className={styles.CardItem}>
+    return (
+        <div className={styles.CardItem}>
         <img src="https://gratisography.com/wp-content/uploads/2024/01/gratisography-cyber-kitty-800x525.jpg" alt=""
              width={350}/>
         <div className={styles.card_content}>
@@ -23,7 +24,6 @@ const CardItem = () => {
                 <h4>Тумба “Омега” 100 * 50</h4>
             </article>
             <h5>123</h5>
-
         </div>
     </div>)
 };

@@ -1,12 +1,30 @@
 import styles from './ModifySpecialOffer.module.scss';
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Select from "react-select";
+import axios from "axios";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchAllProducts} from "../../store/slices/getProducts.js";
+import {fetchAllCollections} from "../../store/slices/admin/collections/collections.js";
+import {API_URI} from "../../store/api/api.js";
 
 const ModifySpecialOffer = () => {
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [discount, setDiscount] = useState(15);
-    const items = new Array(20).fill('Тумба “Омега” 100 * 50');
+    const [selectedType, setSelectedType] = useState(null);
+    const [selectedTargetId, setSelectedTargetId] = useState(null);
+    const items = useSelector((state) => state.products.data);
+    const collections = useSelector((state) => state.collections.data);
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (selectedType?.value === "item") {
+            dispatch(fetchAllProducts());
+        } else if (selectedType?.value === "collection") {
+            dispatch(fetchAllCollections());
+        }
+    }, [dispatch, selectedType]);
 
     const customStyles = {
         control: (provided) => ({
@@ -14,65 +32,107 @@ const ModifySpecialOffer = () => {
             border: "1px solid black",
             borderRadius: "5px",
             outline: "none",
-
         }),
     };
 
     const options = [
-        {value: "Ala-Archa", label: "Ala-Archa"},
-        {value: "Alamedin", label: "Alamedin"},
-        {value: "Kol-Tor", label: "Kol-Tor"},
+        {value: "collection", label: "Коллекция"},
+        {value: "item", label: "Продукт"},
     ];
 
-
-
-    const handleSave = () => {
-        alert('Сохранено');
+    const handleRadioChange = (id) => {
+        setSelectedTargetId(id);
     };
+
+    const handleSave = async () => {
+        if (!selectedType || !startDate || !endDate || !selectedTargetId) {
+            alert("Заполните все поля перед сохранением.");
+            return;
+        }
+
+        const payload = {
+            discount_type: selectedType.value,
+            target_id: selectedTargetId,
+            discount_percentage: parseFloat(discount),
+            start_date: new Date(startDate).toISOString(),
+            end_date: new Date(endDate).toISOString(),
+        };
+
+        try {
+            const response = await axios.post(`${API_URI}/discount`, payload, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    "Content-Type": "application/json",
+                },
+            });
+            alert("Спецпредложение успешно сохранено!");
+            console.log("Response:", response.data);
+        } catch (error) {
+            console.error("Ошибка при сохранении:", error.response?.data || error.message);
+            alert("Ошибка при сохранении.");
+        }
+    };
+
 
     return (
         <div className={styles.promotionForm}>
             <h2>Акции / Изменить спецпредложение</h2>
 
-            <div className={styles.line}>
-
-            </div>
+            <div className={styles.line}></div>
 
             <div className={styles.select_section}>
                 <h3>Выберите тип продукта</h3>
                 <Select
                     options={options}
                     styles={customStyles}
-                    name="tourName"
-                    placeholder={"выберите товары"}
+                    name="productType"
+                    placeholder="Выберите тип"
+                    onChange={(selectedOption) => setSelectedType(selectedOption)}
                 />
             </div>
+
             <div className={styles.tableContainer}>
                 <table className={styles.customTable}>
                     <tbody>
-                    {Array.from({length: 5}).map((_, rowIndex) => (
-                        <tr key={rowIndex}>
-                            {items.slice(rowIndex * 4, (rowIndex + 1) * 4).map((item, colIndex) => (
-                                <td key={colIndex} className={styles.tableCell}>
-                                    <div className={styles.checkboxContainer}>
-                                        <label className={styles.label}>
-                                            <input type="checkbox"/>
-                                            {item}
-                                        </label>
-                                    </div>
+                    {selectedType?.value === "collection" ? (
+                        collections.map((item) => (
+                            <tr key={item.id}>
+                                <td>{item.name}</td>
+                                <td>
+                                    <input
+                                        type="radio"
+                                        name="collection"
+                                        onChange={() => handleRadioChange(item.ID)}
+                                    />
                                 </td>
-                            ))}
+                            </tr>
+                        ))
+                    ) : selectedType?.value === "item" ? (
+                        items.map((item) => (
+                            <tr key={item.id}>
+                                <td>{item.name}</td>
+                                <td>
+                                    <input
+                                        type="radio"
+                                        name="item"
+                                        onChange={() => handleRadioChange(item.ID)}
+                                    />
+                                </td>
+                            </tr>
+                        ))
+                    ) : (
+                        <tr>
+                            <td colSpan="2">Выберите тип продукта для отображения списка</td>
                         </tr>
-                    ))}
+                    )}
                     </tbody>
+
+
                 </table>
             </div>
 
             <div className={styles.dateInputContainer}>
-                <h3>
-                    Выберите период действия и размер акции
-                </h3>
-
+                <h3>Выберите период действия и размер акции</h3>
                 <div className={styles.inner_container}>
                     <label>
                         Дата начала:
@@ -100,7 +160,6 @@ const ModifySpecialOffer = () => {
                             max="100"
                         />
                     </label>
-
                 </div>
             </div>
 

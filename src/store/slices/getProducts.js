@@ -88,13 +88,23 @@ export const fetchByProducer = createAsyncThunk(
         return [...response.data.items, ...response.data.collections];
     }
 )
+export const fetchAllProducts = createAsyncThunk(
+    'products/fetchAllProducts',
+    async (_, {rejectWithValue}) => {
+        try {
+            const response = await axios.get(`${API_URI}/getAllItems`);
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response?.data || error.message);
+        }
+    }
+)
 
 export const fetchByProducerIsPainted = createAsyncThunk(
     'products/fetchByProducerIsPainted',
     async (_, {getState}) => {
         const language = getState().language.currentLanguage;
         const response = await axios.get(`${API_URI}/search?lang=${language}&is_producer=true&is_painted=true`,)
-
 
         console.log(response.data.items, "aaxaxaaxaaa")
         console.log(response.data.collections, "ssssssssaxaaa")
@@ -173,7 +183,7 @@ const productsSlice = createSlice({
         popularProducts: [],
         newProducts: [],
         filteredProducts: [],
-        distr:[],
+        distr: [],
         discount: [],
         recommendationCollections: [],
         loading: false,
@@ -206,6 +216,18 @@ const productsSlice = createSlice({
                 state.data = action.payload;
             })
             .addCase(fetchProducts.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message;
+            })
+            .addCase(fetchAllProducts.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(fetchAllProducts.fulfilled, (state, action) => {
+                state.loading = false;
+                state.data = action.payload;
+            })
+            .addCase(fetchAllProducts.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.error.message;
             })

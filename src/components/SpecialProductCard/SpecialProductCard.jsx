@@ -12,9 +12,13 @@ const SpecialProductCard = () => {
 
     useEffect(() => {
         dispatch(fetchDiscountProducts())
-    })
+    }, [dispatch])
 
-    const productData = [{id: 1, name: 'Product 1', price: '$10', description: 'Description 1'},
+
+    console.log(items)
+
+    const productData = [
+        {id: 1, name: 'Product 1', price: '$10', description: 'Description 1'},
         {id: 2, name: 'Product 2', price: '$20', description: 'Description 2'},
         {id: 1, name: 'Product 1', price: '$10', description: 'Description 1'},
         {id: 2, name: 'Product 2', price: '$20', description: 'Description 2'},
@@ -91,7 +95,7 @@ const SpecialProductCard = () => {
                             slidesPerView: 1,
                         }
                     }}>
-                    {productData.map((product, index) => (
+                    {items.map((product, index) => (
                         <SwiperSlide key={index} className={styles.slide}>
                             <CardItem {...product} />
                         </SwiperSlide>
