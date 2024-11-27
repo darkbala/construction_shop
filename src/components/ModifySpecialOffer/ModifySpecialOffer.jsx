@@ -58,6 +58,8 @@ const ModifySpecialOffer = () => {
             end_date: new Date(endDate).toISOString(),
         };
 
+        console.log(payload)
+
         try {
             const response = await axios.post(`${API_URI}/discount`, payload, {
                 headers: {
@@ -76,8 +78,7 @@ const ModifySpecialOffer = () => {
 
     return (
         <div className={styles.promotionForm}>
-            <h2>Акции / Изменить спецпредложение</h2>
-
+            <h2>Акции / Создать спецпредложение</h2>
             <div className={styles.line}></div>
 
             <div className={styles.select_section}>
@@ -97,32 +98,28 @@ const ModifySpecialOffer = () => {
                     {selectedType?.value === "collection" ? (
                         collections.map((item) => (
                             <tr key={item.id}>
-                                <td>{item.name}</td>
-                                <td>
-                                    <input
-                                        type="radio"
-                                        name="collection"
-                                        onChange={() => handleRadioChange(item.ID)}
-                                    />
-                                </td>
+                                <td>{item.name} <input
+                                    type="radio"
+                                    name="collection"
+                                    onChange={() => handleRadioChange(item.ID)}
+                                /></td>
+
                             </tr>
                         ))
                     ) : selectedType?.value === "item" ? (
                         items.map((item) => (
                             <tr key={item.id}>
-                                <td>{item.name}</td>
-                                <td>
-                                    <input
-                                        type="radio"
-                                        name="item"
-                                        onChange={() => handleRadioChange(item.ID)}
-                                    />
-                                </td>
+                                <td >{item.name} <input
+                                    type="radio"
+                                    name="item"
+                                    onChange={() => handleRadioChange(item.ID)}
+                                /></td>
+
                             </tr>
                         ))
                     ) : (
                         <tr>
-                            <td colSpan="2">Выберите тип продукта для отображения списка</td>
+                        <td colSpan="2">Выберите тип продукта для отображения списка</td>
                         </tr>
                     )}
                     </tbody>

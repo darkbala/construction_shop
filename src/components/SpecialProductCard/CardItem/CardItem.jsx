@@ -4,28 +4,26 @@ import { Link } from "react-router-dom";
 const CardItem = ({ items }) => {
   console.table(items);
 
-  const url = items.photo[0].url;
-  const fixedUrl = url.replace(/\s+/g, "");
+  const url = items?.photo?.[0]?.url;
+  const fixedUrl = url ? url.replace(/\s+/g, "") : null;
 
   console.log(fixedUrl);
 
   return (
     <div className={styles.CardItem}>
-      <img src={fixedUrl} alt={items.name} height={300} width={350} />
+      {fixedUrl && (
+        <img src={fixedUrl} alt={items.name || "Product Image"} height={300} width={350} />
+      )}
 
       <div className={styles.card_content}>
         <article>
           <div className={styles.top_content}>
-            {items.is_producer === true ? (
+            {items.is_producer === true && (
               <span className={styles.iskender}>iskender</span>
-            ) : (
-              ""
             )}
 
             <Link
-              to={`/catalog/${items.collection_id ? "product" : "collection"}/${
-                items.id
-              }`}
+              to={`/catalog/${items.collection_id ? "product" : "collection"}/${items.id}`}
               className={styles.link}
             >
               <svg
@@ -48,14 +46,15 @@ const CardItem = ({ items }) => {
               </svg>
             </Link>
           </div>
-          <h4>{items.name}</h4>
+          <h4>{items.name || "Product Name"}</h4>
         </article>
         <span className={styles.price}>
           <h4>
-            {items.new_price}
-            сом
+            {items.new_price || "N/A"} сом
           </h4>
-          <h4 className={styles.old}>{items.old_price} сом</h4>
+          <h4 className={styles.old}>
+            {items.old_price || "N/A"} сом
+          </h4>
         </span>
       </div>
     </div>

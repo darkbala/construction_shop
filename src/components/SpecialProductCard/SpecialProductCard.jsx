@@ -14,6 +14,8 @@ const SpecialProductCard = () => {
     dispatch(fetchDiscountProducts());
   }, [dispatch]);
 
+  
+
   return (
     <section className={styles.SpecialProductCard}>
       <div className={styles.title}>
