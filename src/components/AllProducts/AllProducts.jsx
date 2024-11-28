@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./AllProducts.module.scss";
 import SearchBar from "../SearchBar/SearchBar.jsx";
-import { FaEdit, FaEye, FaTrash } from "react-icons/fa";
+import { FaEdit, FaTrash } from "react-icons/fa";
 import { setPage } from "../../store/slices/paginationSlice.js";
 import { useEffect } from "react";
-import { fetchAllProducts } from "../../store/slices/getProducts.js";
+import {deleteProductById, fetchAllProducts} from "../../store/slices/getProducts.js";
 import { Link } from "react-router-dom";
 
 const AllProducts = () => {
@@ -30,6 +30,18 @@ const AllProducts = () => {
     dispatch(setPage(page));
   };
 
+  const handleDelete = (id) => {
+    dispatch(deleteProductById(id))
+        .unwrap()
+        .then(() => {
+          alert("Коллекция успешно удалена");
+        })
+        .catch((error) => {
+          console.error("Ошибка при удалении коллекции:", error);
+          alert(error.message || "Не удалось удалить коллекцию.");
+        });
+  };
+
   return (
     <main className={styles.main}>
       <div className={styles.AllProducts}>
@@ -49,7 +61,7 @@ const AllProducts = () => {
                 fill="white"
               />
             </svg>
-            <Link to={"/admin/create-product"}>Добавить новый продукт</Link>
+            <Link to={"/admin/add-product"}>Добавить новый продукт</Link>
           </button>
         </section>
 
@@ -78,12 +90,14 @@ const AllProducts = () => {
                     <td>{item.price}</td>
                     <td className={styles.actions}>
                       <button className={styles.actionButton}>
-                      <Link to={"/admin/add-product"}>
-                        <FaEdit />
-                      </Link>
+                        <Link to={"/admin/add-product"}>
+                          <FaEdit/>
+                        </Link>
                       </button>
-                      <button className={styles.actionButton}>
-                        <FaTrash />
+                      <button
+                          className={styles.actionButton}
+                          onClick={() => handleDelete(item.ID)}>
+                        <FaTrash/>
                       </button>
                     </td>
                   </tr>
@@ -95,7 +109,7 @@ const AllProducts = () => {
 
         <div className={styles.pagination}>
           <button
-            onClick={() => handlePageChange(currentPage - 1)}
+              onClick={() => handlePageChange(currentPage - 1)}
             disabled={currentPage === 1}
           >
             ←

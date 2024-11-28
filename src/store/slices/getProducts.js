@@ -1,6 +1,7 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import axios from 'axios';
 import {API_URI} from "../api/api.js";
+import {deleteCollectionById} from "./admin/collections/collections.js";
 
 
 export const fetchCollectionById = createAsyncThunk(
@@ -173,6 +174,25 @@ export const fetchDiscountProducts = createAsyncThunk(
 )
 
 
+export const deleteProductById = createAsyncThunk(
+    'products/deleteProductById',
+    async (id, { rejectWithValue }) => {
+        try {
+            console.log(id)
+            const response = await axios.delete(`http://127.0.0.1:8080/items`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                },
+                data: { id },
+            });
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response?.data || error.message);
+        }
+    }
+);
+
+
 const productsSlice = createSlice({
     name: 'products',
     initialState: {
@@ -207,6 +227,22 @@ const productsSlice = createSlice({
 
     extraReducers: (builder) => {
         builder
+            .addCase(deleteProductById.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(deleteProductById.rejected, (state, action) => {
+                state.loading = false;
+                if (action.payload) {
+                    state.error = action.payload;
+                } else {
+                    state.error = action.error.message || "Произошла ошибка";
+                }
+            })
+            .addCase(deleteProductById.fulfilled, (state, action) => {
+                state.loading = false;
+                state.data = state.data.filter((item) => item.id !== action.meta.arg);
+            })
             .addCase(fetchProducts.pending, (state) => {
                 state.loading = true;
                 state.error = null;
