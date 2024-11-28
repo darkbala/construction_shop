@@ -90,6 +90,8 @@ const FormFoAdd = () => {
             console.log(`${pair[0]}: ${pair[1]}`);
         }
 
+        console.table(formData)
+
         try {
             const response = await axios.post(`${API_URI}/collection`, formData, {
                 headers: { "Content-Type": "multipart/form-data" },

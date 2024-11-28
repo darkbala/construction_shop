@@ -20,6 +20,7 @@ import AddCollection from "./components/AllCollections/AddCollection/AddCollecti
 import CreateVacancy from "./components/AllVacancy/CreateVacancy/CreateVacancy.jsx";
 import CreateBrand from "./components/AllBrands/CreateBrand.jsx";
 import UpdateBrand from "./components/AllBrands/UpdateBrands/UpdateBrands.jsx";
+import CreateProduct from "./components/AllProducts/CreateProduct/CreateProduct.jsx";
 
 
 const isAuthenticated = () => {
@@ -64,6 +65,7 @@ const App = () => {
                             </ProtectedRoute>
                         }/>
                         <Route path="/admin/all-products" element={<AllProducts/>}/>
+                        <Route path="/admin/add-product" element={<CreateProduct/>}/>
                         <Route path="/admin/all-collections" element={<AllCollections/>}/>
                         <Route path="/admin/add-collection" element={<AddCollection/>}/>
                         <Route path="/admin/change-collections/:id" element={<ChangeCollection/>}/>

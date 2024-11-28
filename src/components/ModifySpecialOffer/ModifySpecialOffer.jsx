@@ -26,14 +26,7 @@ const ModifySpecialOffer = () => {
         }
     }, [dispatch, selectedType]);
 
-    const customStyles = {
-        control: (provided) => ({
-            ...provided,
-            border: "1px solid black",
-            borderRadius: "5px",
-            outline: "none",
-        }),
-    };
+
 
     const options = [
         {value: "collection", label: "Коллекция"},
@@ -168,3 +161,13 @@ const ModifySpecialOffer = () => {
 };
 
 export default ModifySpecialOffer;
+
+
+export const customStyles = {
+    control: (provided) => ({
+        ...provided,
+        border: "1px solid black",
+        borderRadius: "5px",
+        outline: "none",
+    }),
+};

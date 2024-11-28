@@ -78,7 +78,9 @@ const AllProducts = () => {
                     <td>{item.price}</td>
                     <td className={styles.actions}>
                       <button className={styles.actionButton}>
+                      <Link to={"/admin/add-product"}>
                         <FaEdit />
+                      </Link>
                       </button>
                       <button className={styles.actionButton}>
                         <FaTrash />
