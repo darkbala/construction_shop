@@ -1,5 +1,5 @@
 import styles from "./Footer.module.scss";
-import GoogleMap from "./GoogleMap/GoogleMap";
+import GoogleMAP from "./GoogleMap/GoogleMAP.jsx";
 import {Link} from "react-router-dom";
 import {FaPhone} from 'react-icons/fa';
 import {useDispatch, useSelector} from "react-redux";
@@ -22,7 +22,7 @@ export default function Footer() {
         <div className={styles.wrap}>
             <div className={styles.content}>
                 <div className={styles.map}>
-                    <GoogleMap/>
+                    <GoogleMAP/>
                 </div>
                 <div className={styles.info}>
                     <div className={styles.adresses}>
