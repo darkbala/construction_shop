@@ -21,6 +21,7 @@ import CreateVacancy from "./components/AllVacancy/CreateVacancy/CreateVacancy.j
 import CreateBrand from "./components/AllBrands/CreateBrand.jsx";
 import UpdateBrand from "./components/AllBrands/UpdateBrands/UpdateBrands.jsx";
 import CreateProduct from "./components/AllProducts/CreateProduct/CreateProduct.jsx";
+import UpdateProducts from "./components/AllProducts/UpdateProducts/UpdateProducts.jsx";
 
 
 const isAuthenticated = () => {
@@ -47,7 +48,7 @@ const App = () => {
     return (
         <Layout>
             <Routes>
-                {/* Клиентские маршруты */}
+
                 <Route path="/" element={<Homepage/>}/>
                 <Route path="/register" element={<Register/>}/>
                 <Route path="/login" element={<Login/>}/>
@@ -55,7 +56,6 @@ const App = () => {
                 <Route path="/catalog" element={<CatalogPage/>}/>
                 <Route path="/catalog/:type/:id" element={<ProductDetailPage/>}/>
                 <Route path="*" element={<ErrorPage/>}/>
-
 
                 {isAdmin && (
                     <>
@@ -66,6 +66,7 @@ const App = () => {
                         }/>
                         <Route path="/admin/all-products" element={<AllProducts/>}/>
                         <Route path="/admin/add-product" element={<CreateProduct/>}/>
+                        <Route path="/admin/update-product/:id" element={<UpdateProducts/>}/>
                         <Route path="/admin/all-collections" element={<AllCollections/>}/>
                         <Route path="/admin/add-collection" element={<AddCollection/>}/>
                         <Route path="/admin/change-collections/:id" element={<ChangeCollection/>}/>

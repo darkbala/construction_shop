@@ -90,7 +90,7 @@ const AllProducts = () => {
                     <td>{item.price}</td>
                     <td className={styles.actions}>
                       <button className={styles.actionButton}>
-                        <Link to={"/admin/add-product"}>
+                        <Link to={`/admin/update-product/${item.ID}`}>
                           <FaEdit/>
                         </Link>
                       </button>

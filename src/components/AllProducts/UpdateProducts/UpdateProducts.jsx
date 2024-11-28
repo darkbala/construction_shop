@@ -1,40 +1,90 @@
-import styles from "./CreateProduct.module.scss";
+import styles from "./UpdateProducts.module.scss";
 import {useEffect, useState} from "react";
 import axios from "axios";
-import { API_URI } from "../../../store/api/api.js";
+import {API_URI} from "../../../store/api/api.js";
 import Select from "react-select";
 import {customStyles} from "../../ModifySpecialOffer/ModifySpecialOffer.jsx";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchAllCollections} from "../../../store/slices/admin/collections/collections.js";
 import {fetchCategories} from "../../../store/slices/getCategories.js";
+import {useParams} from "react-router-dom";
 
-const CreateProduct = () => {
+const UpdateProducts = () => {
+    const {id} = useParams();
     const dispatch = useDispatch();
     const categoriesList = useSelector((state) => state.categories.categories);
     const collectionsList = useSelector((state) => state.collections.data);
     const [photos, setPhotos] = useState([]);
     const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     const [formState, setFormState] = useState({
-        price: 1500.75,
-        isProducer: true,
+        price: 0,
+        isProducer: false,
         isPainted: false,
-        isPopular: true,
-        isNew: true,
+        isPopular: false,
+        isNew: false,
         category_id: null,
         collection_id: null,
         items: [
-            { name: "", description: "", language_code: "ru" },
-            { name: "", description: "", language_code: "kgz" },
-            { name: "", description: "", language_code: "en" },
+            {name: "", description: "", language_code: "ru"},
+            {name: "", description: "", language_code: "kgz"},
+            {name: "", description: "", language_code: "en"},
         ],
     });
 
-
     useEffect(() => {
+        // Загружаем списки категорий и коллекций
         dispatch(fetchAllCollections());
         dispatch(fetchCategories());
-    }, [dispatch]);
+
+        // Загружаем данные товара
+        const fetchProductData = async () => {
+            try {
+                const response = await axios.get(`${API_URI}/getItemById?item_id=${id}`, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                });
+
+                console.log(response.data)
+                const productData = response.data;
+
+                // Обновляем состояние формы
+                setFormState({
+                    price: productData.price || 0,
+                    isProducer: productData.isProducer || false,
+                    isPainted: productData.isPainted || false,
+                    isPopular: productData.is_popular || false,
+                    isNew: productData.is_new || false,
+                    category_id: productData.category_id || null,
+                    collection_id: productData.collection_id || null,
+                    items: productData.items || [
+                        {name: "", description: "", language_code: "ru"},
+                        {name: "", description: "", language_code: "kgz"},
+                        {name: "", description: "", language_code: "en"},
+                    ],
+                });
+
+                // Заполняем фотографии
+                setPhotos(
+                    productData.photos.map((photo) => ({
+                        file: null, // В случае загрузки из URL файлов не будет
+                        isMain: photo.isMain,
+                        hashColor: photo.hashColor,
+                        url: photo.url, // Для отображения существующих фото
+                    }))
+                );
+
+                setLoading(false);
+            } catch (err) {
+                setError("Ошибка загрузки данных товара.");
+                console.error(err);
+            }
+        };
+
+        fetchProductData();
+    }, [dispatch, id]);
 
     const handleFormChange = (field, value) => {
         setFormState((prev) => ({
@@ -42,6 +92,7 @@ const CreateProduct = () => {
             [field]: value,
         }));
     };
+
     const handleCollectionChange = (index, field, value) => {
         const updatedItems = [...formState.items];
         updatedItems[index][field] = value;
@@ -74,7 +125,6 @@ const CreateProduct = () => {
         setPhotos((prevPhotos) => prevPhotos.filter((_, i) => i !== index));
     };
 
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -91,7 +141,7 @@ const CreateProduct = () => {
                 items: formState.items,
                 collection_id: formState.collection_id,
                 category_id: formState.category_id,
-                size:"M"
+                size: "M",
             })
         );
 
@@ -103,17 +153,21 @@ const CreateProduct = () => {
             }
         });
 
-        console.log(formData)
         try {
-            const response = await axios.post(`${API_URI}/items`, formData, {
-                headers: { "Content-Type": "multipart/form-data" },
+            const response = await axios.put(`${API_URI}/items?item_id=${id}`, formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
             });
-            alert("Success:", response.data);
+            alert("Успешно обновлено:", response.data);
         } catch (err) {
-            setError(err.response?.data || "Ошибка при создании товара.");
+            setError(err.response?.data || "Ошибка при обновлении товара.");
             console.error("Ошибка:", err);
         }
     };
+
+    if (loading) return <p>Загрузка...</p>;
 
     return (
         <div className={styles.AddCollection}>
@@ -276,7 +330,4 @@ const CreateProduct = () => {
     );
 };
 
-export default CreateProduct;
-
-
-
+export default UpdateProducts;

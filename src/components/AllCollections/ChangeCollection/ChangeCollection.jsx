@@ -5,7 +5,7 @@ import {API_URI} from "../../../store/api/api.js";
 import axios from "axios";
 
 const ChangeCollection = () => {
-    const {id} = useParams(); // Получение id коллекции из URL
+    const {id} = useParams();
     const [formState, setFormState] = useState({
         price: 1500.75,
         isProducer: true,
@@ -87,7 +87,6 @@ const ChangeCollection = () => {
 
 
         try {
-
             const response = await axios.put(`${API_URI}/collection?collection_id=${id}`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
