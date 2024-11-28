@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import { API_URI } from "../../../store/api/api.js";
 import Select from "react-select";
-import {customStyles} from "../../ModifySpecialOffer/ModifySpecialOffer.jsx";
+import {customStyles} from "../../AllDiscounts/ModifySpecialOffer/ModifySpecialOffer.jsx";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchAllCollections} from "../../../store/slices/admin/collections/collections.js";
 import {fetchCategories} from "../../../store/slices/getCategories.js";

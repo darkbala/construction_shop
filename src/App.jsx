@@ -9,9 +9,9 @@ import ProductDetailPage from "./Pages/ProductDetailPage/ProductDetailPage.jsx";
 import './i18n';
 import AdminPage from "./Pages/AdminPage/AdminPage.jsx";
 import AllProducts from "./components/AllProducts/AllProducts.jsx";
-import ModifySpecialOffer from "./components/ModifySpecialOffer/ModifySpecialOffer.jsx";
+import ModifySpecialOffer from "./components/AllDiscounts/ModifySpecialOffer/ModifySpecialOffer.jsx";
 import ChangeCollection from "./components/AllCollections/ChangeCollection/ChangeCollection.jsx";
-import AddCategory from "./components/AddCategory/AddCategory.jsx";
+import AddCategory from "./components/AllCategory/AddCategory/AddCategory.jsx";
 import AllVacancy from "./components/AllVacancy/AllVacancy.jsx";
 import AllCollections from "./components/AllCollections/AllCollections.jsx";
 import Register from "./components/Auth/Register/Register.jsx";
@@ -22,6 +22,7 @@ import CreateBrand from "./components/AllBrands/CreateBrand.jsx";
 import UpdateBrand from "./components/AllBrands/UpdateBrands/UpdateBrands.jsx";
 import CreateProduct from "./components/AllProducts/CreateProduct/CreateProduct.jsx";
 import UpdateProducts from "./components/AllProducts/UpdateProducts/UpdateProducts.jsx";
+import AllCategory from "./components/AllCategory/AllCategory.jsx";
 
 
 const isAuthenticated = () => {
@@ -72,6 +73,7 @@ const App = () => {
                         <Route path="/admin/change-collections/:id" element={<ChangeCollection/>}/>
                         <Route path="/admin/discount" element={<ModifySpecialOffer/>}/>
                         <Route path="/admin/add-category" element={<AddCategory/>}/>
+                        <Route path="/admin/all-category" element={<AllCategory/>}/>
                         <Route path="/admin/all-vacancies" element={<AllVacancy/>}/>
                         <Route path="/admin/create-vacancy" element={<CreateVacancy/>}/>
                         <Route path="/admin/create-brand" element={<CreateBrand/>}/>

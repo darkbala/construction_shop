@@ -1,7 +1,7 @@
 import styles from "./Brands.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { fetchBrands } from "../../store/slices/admin/brands/brands.js";
+import { fetchBrands } from "../../../store/slices/admin/brands/brands.js";
 
 const Brands = () => {
   const dispatch = useDispatch();

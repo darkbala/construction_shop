@@ -54,7 +54,7 @@ export const deleteVacancyById = createAsyncThunk(
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
-                data: { id }, // Передаем тело запроса
+                data: { id },
             });
             return response.data;
         } catch (error) {

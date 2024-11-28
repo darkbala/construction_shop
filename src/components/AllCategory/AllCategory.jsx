@@ -1,11 +1,14 @@
-import styles from "./AddCategory.module.scss";
 import {useDispatch, useSelector} from "react-redux";
 import {setPage} from "../../store/slices/paginationSlice.js";
+import styles from "./AllCategory.module.scss";
+import {useEffect} from "react";
+import {fetchCategories} from "../../store/slices/getCategories.js";
 
-const AddCategory = () => {
-    const categories = Array(22).fill("Коллекции Искендер");
+const AllCategory = () => {
     const dispatch = useDispatch();
-    const { currentPage, itemsPerPage } = useSelector((state) => state.pagination);
+    const categories = useSelector((state) => state.categories.categories);
+
+    const {currentPage, itemsPerPage} = useSelector((state) => state.pagination);
 
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
@@ -16,6 +19,13 @@ const AddCategory = () => {
     const handlePageChange = (page) => {
         dispatch(setPage(page));
     };
+
+    useEffect(() => {
+        dispatch(fetchCategories())
+    }, [dispatch]);
+
+    console.log(currentItems)
+
     return (
         <div className={styles.container}>
             <header className={styles.header}>
@@ -24,9 +34,9 @@ const AddCategory = () => {
             </header>
 
             <div className={styles.grid}>
-                {currentItems.map((category, index) => (
-                    <div key={index} className={styles.card}>
-                        <p>{category}</p>
+                {currentItems.map((category) => (
+                    <div key={category.id} className={styles.card}>
+                        <p>{category.name}</p>
                         <div className={styles.actions}>
                             <button className={styles.editButton}>
                                 <span>✏️</span>
@@ -67,4 +77,4 @@ const AddCategory = () => {
     )
 }
 
-export default AddCategory;
+export default AllCategory;
