@@ -3,9 +3,9 @@ import {useEffect, useState} from "react";
 import Select from "react-select";
 import axios from "axios";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchAllProducts} from "../../store/slices/getProducts.js";
-import {fetchAllCollections} from "../../store/slices/admin/collections/collections.js";
-import {API_URI} from "../../store/api/api.js";
+import {fetchAllProducts} from "../../../store/slices/getProducts.js";
+import {fetchAllCollections} from "../../../store/slices/admin/collections/collections.js";
+import {API_URI} from "../../../store/api/api.js";
 
 const ModifySpecialOffer = () => {
     const [startDate, setStartDate] = useState('');
