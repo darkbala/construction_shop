@@ -52,9 +52,9 @@ const AllCategory = () => {
                     <div key={category.id} className={styles.card}>
                         <p>{category.name}</p>
                         <div className={styles.actions}>
-                            <button className={styles.editButton}>
+                            <Link to={`/admin/update-category/${category.id}`} className={styles.editButton} >
                                 <span>✏️</span>
-                            </button>
+                            </Link>
                             <button
                                 className={styles.deleteButton}
                                 onClick={() => handleDelete(category.id)}

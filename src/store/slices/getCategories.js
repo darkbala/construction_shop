@@ -10,13 +10,25 @@ export const fetchCategories = createAsyncThunk(
         return response.data;
     }
 );
+
+export const fetchCategoriesById = createAsyncThunk(
+    'categories/fetchCategoriesById',
+    async (id, {rejectWithValue}) => {
+        try {
+            const response = await axios.get(`http://127.0.0.1:8080/category/by/id?category_id=${id}`);
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response?.data || error.message)
+        }
+    }
+);
 export const createCategory = createAsyncThunk(
     "categories/createCategory",
-    async (categoryList, { rejectWithValue }) => {
+    async (categoryList, {rejectWithValue}) => {
         try {
             const response = await axios.post(
                 `${API_URI}/category`,
-                { categories: categoryList },
+                {categories: categoryList},
                 {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -33,7 +45,7 @@ export const createCategory = createAsyncThunk(
 
 export const deleteCategory = createAsyncThunk(
     "categories/deleteCategory",
-    async (id, { rejectWithValue }) => {
+    async (id, {rejectWithValue}) => {
         try {
             const response = await axios.delete(
                 `${API_URI}/category`, // No ID in the URL
@@ -42,7 +54,7 @@ export const deleteCategory = createAsyncThunk(
                         Authorization: `Bearer ${localStorage.getItem("token")}`,
                         "Content-Type": "application/json", // Ensure the content type is set
                     },
-                    data: { id }, // Pass the ID in the request body
+                    data: {id}, // Pass the ID in the request body
                 }
             );
 
@@ -53,6 +65,27 @@ export const deleteCategory = createAsyncThunk(
     }
 );
 
+export const updateCategory = createAsyncThunk(
+    "categories/updateCategory",
+    async ({id,categoryData}, {rejectWithValue}) => {
+        try {
+            const response = await axios.put(
+                `${API_URI}/category?category_id=${id}`,
+                categoryData,
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response?.data || error.message);
+        }
+    }
+);
 
 
 const categoriesSlice = createSlice({
@@ -75,6 +108,18 @@ const categoriesSlice = createSlice({
                 state.categories = action.payload;
             })
             .addCase(fetchCategories.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message;
+            })
+            .addCase(fetchCategoriesById.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(fetchCategoriesById.fulfilled, (state, action) => {
+                state.loading = false;
+                state.categories = action.payload;
+            })
+            .addCase(fetchCategoriesById.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.error.message;
             })
@@ -103,6 +148,31 @@ const categoriesSlice = createSlice({
             .addCase(deleteCategory.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload || action.error.message;
+            })
+            .addCase(updateCategory.pending, (state) => {
+                state.status = "loading";
+                state.error = null;
+            })
+            .addCase(updateCategory.fulfilled, (state, action) => {
+                state.status = "succeeded";
+
+                if (Array.isArray(state.categories)) {
+                    const index = state.categories.findIndex(
+                        (category) => category.id === action.payload.id
+                    );
+                    if (index !== -1) {
+                        state.categories[index] = action.payload;
+                    }
+                } else {
+                    state.categories = {
+                        ...state.categories,
+                        [action.payload.id]: action.payload,
+                    };
+                }
+            })
+            .addCase(updateCategory.rejected, (state, action) => {
+                state.status = "failed";
+                state.error = action.payload;
             });
     },
 });

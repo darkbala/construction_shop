@@ -23,6 +23,7 @@ import UpdateBrand from "./components/AllBrands/UpdateBrands/UpdateBrands.jsx";
 import CreateProduct from "./components/AllProducts/CreateProduct/CreateProduct.jsx";
 import UpdateProducts from "./components/AllProducts/UpdateProducts/UpdateProducts.jsx";
 import AllCategory from "./components/AllCategory/AllCategory.jsx";
+import EditCategory from "./components/AllCategory/EditCategory/EditCategory.jsx";
 
 
 const isAuthenticated = () => {
@@ -74,6 +75,7 @@ const App = () => {
                         <Route path="/admin/discount" element={<ModifySpecialOffer/>}/>
                         <Route path="/admin/add-category" element={<AddCategory/>}/>
                         <Route path="/admin/all-category" element={<AllCategory/>}/>
+                        <Route path="/admin/update-category/:id" element={<EditCategory/>}/>
                         <Route path="/admin/all-vacancies" element={<AllVacancy/>}/>
                         <Route path="/admin/create-vacancy" element={<CreateVacancy/>}/>
                         <Route path="/admin/create-brand" element={<CreateBrand/>}/>
