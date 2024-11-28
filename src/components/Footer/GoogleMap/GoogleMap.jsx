@@ -1,31 +1,28 @@
-import GoogleMapReact from 'google-map-react';
+import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
-// eslint-disable-next-line react/prop-types
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
+export default function GoogleMAP() {
+  const containerStyle = {
+    width: '100%',
+    height: '100%',
+    borderRadius: '30px',
+  };
 
-export default function GoogleMap(){
-  const defaultProps = {
-    center: {
-      lat: 42.516667, 
-      lng: 72.233333
-    },
-    zoom: 11
+  const center = {
+    lat: 42.516667,
+    lng: 72.233333,
   };
 
   return (
-    <div style={{ height: '100%', width: '100%', borderRadius:"30px" }}>
-      <GoogleMapReact
-
-        bootstrapURLKeys={{ key: "AIzaSyD28KY3Z_QawvntkpyaIbdbBDeJQoG-WJw" }}
-        defaultCenter={defaultProps.center}
-        defaultZoom={defaultProps.zoom}
-      >
-        <AnyReactComponent
-          lat={49.955413}
-          lng={30.337844}
-          text="My Marker"
-        />
-      </GoogleMapReact>
+    <div style={{ height: '100%', width: '100%', borderRadius: '30px' }}>
+      <LoadScript googleMapsApiKey="AIzaSyD28KY3Z_QawvntkpyaIbdbBDeJQoG-WJw">
+        <GoogleMap
+          mapContainerStyle={containerStyle}
+          center={center}
+          zoom={11}
+        >
+          <Marker position={{ lat: 49.955413, lng: 30.337844 }} />
+        </GoogleMap>
+      </LoadScript>
     </div>
   );
 }
