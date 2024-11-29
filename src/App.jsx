@@ -38,7 +38,6 @@ const isAuthenticated = () => {
     }
 };
 
-// Компонент для защиты маршрутов
 // eslint-disable-next-line react/prop-types
 const ProtectedRoute = ({isAuthenticated, children}) => {
     return isAuthenticated ? children : <Navigate to="/"/>;

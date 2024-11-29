@@ -1,37 +1,38 @@
-import { useDispatch, useSelector } from 'react-redux';
-import {
-    resetFiltered,
-    resetProducts,
-    searchByInputValue,
-    setInputValue
-} from '../../store/slices/getProducts.js';
+import {useDispatch, useSelector} from 'react-redux';
+import {searchByInputValue, setInputValue} from '../../store/slices/getProducts.js';
+import {useEffect, useState} from 'react';
 import styles from './SearchBar.module.scss';
+import {clearError} from "../../store/slices/filters/search.js";
 
 const SearchBar = () => {
     const dispatch = useDispatch();
-    const inputValue = useSelector((state) => state.products.inputValue);
-
-    const handleInputChange = (e) => {
-        dispatch(setInputValue(e.target.value)); // Обновляем состояние inputValue
+    const [localInputValue, setLocalInputValue] = useState('');  // Локальное состояние для инпута
+    const inputValue = useSelector((state) => state.search.filters.inputValue); // Значение из Redux (можно использовать для синхронизации)
+    const handleChange = (e) => {
+        dispatch(clearError());
+        const value = e.target.value;
+        setLocalInputValue(value);
+        dispatch(setInputValue(value));
     };
+
+    useEffect(() => {
+        setLocalInputValue(inputValue);
+    }, [inputValue]);
 
     const handleSearch = () => {
-        const trimmedInputValue = inputValue.trim();
-
-        if (trimmedInputValue) {
-            dispatch(resetProducts());
-            dispatch(resetFiltered());
-            dispatch(searchByInputValue(trimmedInputValue));
+        if (localInputValue) {
+            dispatch(searchByInputValue(localInputValue));
         }
     };
+
 
     return (
         <div className={styles.searchContainer}>
             <input
                 type="text"
                 placeholder="Поиск"
-                onChange={handleInputChange} // Обработка ввода
-                value={inputValue} // Значение в input из состояния Redux
+                onChange={handleChange}
+                value={localInputValue}
                 className={styles.searchInput}
             />
             <button className={styles.searchButton} onClick={handleSearch}>
@@ -42,6 +43,7 @@ const SearchBar = () => {
                     />
                 </svg>
             </button>
+
         </div>
     );
 };

@@ -3,6 +3,7 @@ import exiticon from "../../../assets/x.png";
 import Slider from 'rc-slider';
 import styles from './ModalFilter.module.scss';
 import "rc-slider/assets/index.css";
+import {useDispatch, useSelector} from "react-redux";
 
 export default function ModalFilter({ onClose }) {
   const [isClosing, setIsClosing] = useState(false);
@@ -58,6 +59,16 @@ export default function ModalFilter({ onClose }) {
     // return number.toLocaleString('de-DE'); // Для точки между тысячами
   };
 
+
+  const dispatch = useDispatch();
+  const { min, max } = useSelector((state) => state.search.filters.priceRange);
+
+  const handlePriceChange = (e) => {
+    const { name, value } = e.target;
+    const newPriceRange = { ...{ min, max }, [name]: value };
+    dispatch(setPriceRange(newPriceRange));
+    dispatch(searchByPriceRange(newPriceRange)); // Инициируем поиск по ценовому диапазону
+  };
   return (
     <div className={`${styles.overlay} ${isClosing ? styles.fadeOut : ''}`} onClick={handleOverlayClick}>
       <div className={`${styles.wrap} ${isClosing ? styles.fadeOutWrap : ''}`}>
@@ -72,7 +83,7 @@ export default function ModalFilter({ onClose }) {
                 max={12000000}
                 step={2000}
                 value={[minValue, maxValue]}
-                onChange={handleSliderChange}
+                onChange={handlePriceChange}
                 tipFormatter={(value) => formatNumber(value)} // Форматирование подсказки
               />
             </div>
@@ -89,8 +100,8 @@ export default function ModalFilter({ onClose }) {
                 <p>Макс.</p>
                 <input 
                   type="text" 
-                  value={formatNumber(maxValue)} 
-                  onChange={handleMaxInputChange} 
+                  value={formatNumber(maxValue)}
+                  onChange={handlePriceChange}
                 />
               </div>
             </div>

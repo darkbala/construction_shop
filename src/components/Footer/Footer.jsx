@@ -47,20 +47,20 @@ export default function Footer() {
                         <h6>Контакты</h6>
                         <ul>
                             <li>
-                                <a href="tel:+996999960511">
-                                    <FaPhone className={styles.icon}/> +996 999 96 05 11
+                                <a href="tel:+996500000104">
+                                    <FaPhone className={styles.icon}/> +996 500 000 104
                                 </a>
                             </li>
                             <li>
-                                <a href="tel:+996999960511">
+                                <a href="tel:+996997000104">
                                     {" "}
-                                    <FaPhone className={styles.icon}/> +996 999 96 05 11
+                                    <FaPhone className={styles.icon}/> +996 997 000 104
                                 </a>
                             </li>
                             <li>
-                                <a href="tel:+996999960511">
+                                <a href="tel:+996222000104">
                                     {" "}
-                                    <FaPhone className={styles.icon}/> +996 999 96 05 11
+                                    <FaPhone className={styles.icon}/> +996 222 000 104
                                 </a>
                             </li>
                         </ul>

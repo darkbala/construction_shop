@@ -1,7 +1,6 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import axios from 'axios';
 import {API_URI} from "../api/api.js";
-import {deleteCollectionById} from "./admin/collections/collections.js";
 
 
 export const fetchCollectionById = createAsyncThunk(
@@ -69,13 +68,18 @@ export const fetchNewProducts = createAsyncThunk(
 
 export const fetchProducts = createAsyncThunk(
     'products/fetchProducts',
-    async (categoryId, {getState}) => {
-        const language = getState().language.currentLanguage;
-        const response = await axios.get(`http://127.0.0.1:8080/items?categoryId=${categoryId}&lang=${language}`, {
-            params: {category_id: categoryId, lang: language},
-        });
+    async (categoryId, {getState, rejectWithValue}) => {
+        try {
+            const language = getState().language.currentLanguage;
+            const response = await axios.get(`http://127.0.0.1:8080/items?categoryId=${categoryId}&lang=${language}`, {
+                params: {category_id: categoryId, lang: language},
+            });
 
-        return response.data;
+            console.log(response.data)
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response?.data || 'Failed to fetch data');
+        }
     }
 );
 
@@ -101,37 +105,7 @@ export const fetchAllProducts = createAsyncThunk(
     }
 )
 
-export const fetchByProducerIsPainted = createAsyncThunk(
-    'products/fetchByProducerIsPainted',
-    async (_, {getState}) => {
-        const language = getState().language.currentLanguage;
-        const response = await axios.get(`${API_URI}/search?lang=${language}&is_producer=true&is_painted=true`,)
 
-        console.log(response.data.items, "aaxaxaaxaaa")
-        console.log(response.data.collections, "ssssssssaxaaa")
-        return [...response.data.items, ...response.data.collections];
-    }
-)
-
-export const fetchByDistributiv = createAsyncThunk(
-    'products/fetchByDistributiv',
-    async (_, {getState}) => {
-        const language = getState().language.currentLanguage;
-        const response = await axios.get(`${API_URI}/search?lang=${language}&is_producer=false`,)
-
-        return [...response.data.items, ...response.data.collections];
-    }
-)
-
-export const fetchByDistr = createAsyncThunk(
-    'products/fetchByDistr',
-    async (_, {getState}) => {
-        const language = getState().language.currentLanguage;
-        const response = await axios.get(`${API_URI}/search?lang=${language}&is_producer=false`,)
-
-        return [...response.data.items, ...response.data.collections];
-    }
-)
 
 export const searchByInputValue = createAsyncThunk(
     'products/searchByInputValue',
@@ -147,8 +121,19 @@ export const searchByInputValue = createAsyncThunk(
 );
 
 
+export const fetchByDistr = createAsyncThunk(
+    'products/fetchByDistr',
+    async (_, {getState}) => {
+        const language = getState().language.currentLanguage;
+        const response = await axios.get(`${API_URI}/search?lang=${language}&is_producer=false`,)
+
+        return [...response.data.items, ...response.data.collections];
+    }
+)
+
+
 export const fetchRecommendationCollection = createAsyncThunk(
-    'products/fetchRecomendationCollection',
+    'products/fetchRecommendationCollection',
     async (_, {rejectWithValue, getState}) => {
         try {
             const language = getState().language.currentLanguage;
@@ -176,14 +161,14 @@ export const fetchDiscountProducts = createAsyncThunk(
 
 export const deleteProductById = createAsyncThunk(
     'products/deleteProductById',
-    async (id, { rejectWithValue }) => {
+    async (id, {rejectWithValue}) => {
         try {
             console.log(id)
             const response = await axios.delete(`http://127.0.0.1:8080/items`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
                 },
-                data: { id },
+                data: {id},
             });
             return response.data;
         } catch (error) {
@@ -274,8 +259,7 @@ const productsSlice = createSlice({
                 state.error = null;
             })
             .addCase(fetchProductById.fulfilled, (state, action) => {
-                state.loading = false;
-                state.selectedProduct = action.payload;
+                state.selectedProduct = Array.isArray(action.payload) ? action.payload : [];
             })
             .addCase(fetchProductById.rejected, (state, action) => {
                 state.loading = false;
@@ -364,59 +348,9 @@ const productsSlice = createSlice({
                 state.error = action.error.message;
             })
 
-            .addCase(fetchByDistr.pending, (state) => {
-                state.loading = true;
-                state.error = null;
-            })
-            .addCase(fetchByDistr.fulfilled, (state, action) => {
-                state.loading = false;
-                state.distr = action.payload;
-            })
-            .addCase(fetchByDistr.rejected, (state, action) => {
-                state.loading = false;
-                state.error = action.error.message;
-            })
-
-            .addCase(fetchByProducerIsPainted.pending, (state) => {
-                state.loading = true;
-                state.error = null;
-            })
-            .addCase(fetchByProducerIsPainted.fulfilled, (state, action) => {
-                state.loading = false;
-                state.filteredProducts = action.payload;
-            })
-            .addCase(fetchByProducerIsPainted.rejected, (state, action) => {
-                state.loading = false;
-                state.error = action.error.message;
-            })
 
 
-            .addCase(fetchByDistributiv.pending, (state) => {
-                state.loading = true;
-                state.error = null;
-            })
-            .addCase(fetchByDistributiv.fulfilled, (state, action) => {
-                state.loading = false;
-                state.filteredProducts = action.payload;
-            })
-            .addCase(fetchByDistributiv.rejected, (state, action) => {
-                state.loading = false;
-                state.error = action.error.message;
-            })
 
-
-            .addCase(searchByInputValue.pending, (state) => {
-                state.loading = true;
-                state.error = null;
-            })
-            .addCase(searchByInputValue.fulfilled, (state, action) => {
-                state.loading = false;
-                state.newProducts = action.payload;
-            })
-            .addCase(searchByInputValue.rejected, (state, action) => {
-                state.loading = false;
-                state.error = action.error.message;
-            })
 
 
             .addCase(fetchRecommendationCollection.pending, (state) => {
@@ -435,6 +369,6 @@ const productsSlice = createSlice({
     }
 });
 
-export const {setInputValue, resetNewProducts, resetProducts, resetFiltered} = productsSlice.actions;
+export const {setInputValue, resetNewProducts, resetProducts} = productsSlice.actions;
 
 export default productsSlice.reducer;
