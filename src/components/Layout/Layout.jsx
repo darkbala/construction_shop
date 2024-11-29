@@ -9,7 +9,7 @@ const Layout = ({children}) => {
             <header>
                 <Nav/>
             </header>
-            <main style={{minHeight: "100vh"}}>
+            <main style={{minHeight: "100vh", maxWidth: "1350px", margin:"0 auto"}}>
                 {children}
             </main>
             <Footer/>

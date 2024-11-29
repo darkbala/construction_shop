@@ -19,11 +19,8 @@ const Homepage = () => {
             <SpecialProductCard/>
             <SwitchSection/>
             <Catalog/>
-
             <Reviews/>
-
             <Brands/>
-        
         </main>
     )
 }
