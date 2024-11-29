@@ -5,6 +5,8 @@ import {useEffect, useState} from 'react';
 import styles from './CatalogPage.module.scss';
 import {fetchCategories} from "../../store/slices/getCategories.js";
 
+import ModalFilter from "../../components/Catalog/ModalFilter/ModalFilter.jsx"
+
 const CatalogPage = () => {
     const dispatch = useDispatch();
     const results = useSelector((state) => state.search.results);
@@ -57,7 +59,7 @@ const CatalogPage = () => {
                 )}
             </section>
 
-            {/*{isModalOpen && <ModalFilter onClose={() => setModalOpen(false)} />}*/}
+            {isModalOpen && <ModalFilter onClose={() => setModalOpen(false)}/>}
         </div>
     );
 };
