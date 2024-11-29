@@ -59,7 +59,6 @@ export const fetchNewProducts = createAsyncThunk(
         );
         const collection = response.data.collections;
 
-        console.log(collection)
         const item = response.data.items;
         return [...collection, ...item];
     }
@@ -163,7 +162,6 @@ export const deleteProductById = createAsyncThunk(
     'products/deleteProductById',
     async (id, {rejectWithValue}) => {
         try {
-            console.log(id)
             const response = await axios.delete(`http://127.0.0.1:8080/items`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -259,7 +257,7 @@ const productsSlice = createSlice({
                 state.error = null;
             })
             .addCase(fetchProductById.fulfilled, (state, action) => {
-                state.selectedProduct = Array.isArray(action.payload) ? action.payload : [];
+                state.selectedProduct =  action.payload ;
             })
             .addCase(fetchProductById.rejected, (state, action) => {
                 state.loading = false;

@@ -7,6 +7,8 @@ import {fetchCategories} from "../../store/slices/getCategories.js";
 
 import ModalFilter from "../../components/Catalog/ModalFilter/ModalFilter.jsx"
 import {useTranslation} from "react-i18next";
+import {Link} from "react-router-dom";
+import placeholderImage from "../../assets/img.png";
 
 const CatalogPage = () => {
     const {t} = useTranslation();
@@ -25,9 +27,12 @@ const CatalogPage = () => {
         dispatch(fetchCategories());
     }, [dispatch, language]);
 
+    console.log(results)
+
     const isNoResults = !results || (Array.isArray(results) && results.length === 0 && (selectedCategory || (inputValue?.length || 0) > 0));
 
-    return (<div className={styles.CatalogPage}>
+    return (
+        <div className={styles.CatalogPage}>
             <section className={styles.searchbar}>
                 <div className={styles.top}>
                     <SearchBar/>
@@ -41,11 +46,34 @@ const CatalogPage = () => {
                 </div>
             </section>
 
-            <section>
-                {error ? (<div className={styles.noResults}>Продукты не
-                        найдены</div>) : (Array.isArray(results) && results.length > 0 && (<ul>
-                            {results.map((item) => (<li key={item.id}>{item.name}</li>))}
-                        </ul>))}
+            <section className={styles.results_container}>
+                {error ? (
+                    <div className={styles.noResults}>{t("noResults")}</div>
+                ) : (
+                    Array.isArray(results) && results.length > 0 ? (
+                        <div className={styles.card_cont}>
+                            {results.map((item) => (
+                                <Link
+                                    key={item.id}
+                                    to={`/catalog/${item.collection_id ? "product" : "collection"}/${item.id}`}
+                                    className={styles.card}
+                                >
+                                    {item.isProducer && <span className={styles.brand}>iskender</span>}
+                                    <div>
+                                        <img src={item.photos?.[0]?.url || placeholderImage} alt={item.name}/>
+                                        <aside>
+                                            <h4>{item.name}</h4>
+                                            <div className={styles.line}/>
+                                            <p>{item.price} som</p>
+                                        </aside>
+                                    </div>
+                                </Link>
+                            ))}
+                        </div>
+                    ) : (
+                        <div className={styles.noResults}>{t("noProductsFound")}</div> // Сообщение о том, что продукты не найдены
+                    )
+                )}
             </section>
 
             {isModalOpen && <ModalFilter onClose={() => setModalOpen(false)}/>}

@@ -33,6 +33,7 @@ const ProductDetailPage = () => {
             dispatch(fetchProductById(id));
         } else if (type === "collection") {
             dispatch(fetchCollectionById(id));
+
         }
     }, [type, id, dispatch, language]);
 
