@@ -5,10 +5,12 @@ import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import {fetchReviews} from "../../store/slices/reviewsSlice.js";
-import ModalForm from "../ModalForm/ModalForm"; // Подключаем компонент модального окна
+import ModalForm from "../ModalForm/ModalForm";
+import {useTranslation} from "react-i18next"; // Подключаем компонент модального окна
 
 
 const Reviews = () => {
+    const { t } = useTranslation();
     const dispatch = useDispatch();
     const { data: reviews, loading, error } = useSelector((state) => state.reviews);
     const [isModalOpen, setModalOpen] = useState(false); // Состояние для управления модалкой
@@ -29,8 +31,8 @@ const Reviews = () => {
     return (
         <div className={styles.Reviews}>
             <section className={styles.title}>
-                <h3>Отзывы</h3>
-                <Link onClick={() => setModalOpen(true)}>Оставить отзыв</Link>
+                <h3>{t("reviews.title")}</h3>
+                <Link onClick={() => setModalOpen(true)}>{t("reviews.button")}</Link>
             </section>
             <section className={styles.container}>
                 <Swiper

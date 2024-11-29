@@ -3,8 +3,10 @@ import {searchByInputValue, setInputValue} from '../../store/slices/getProducts.
 import {useEffect, useState} from 'react';
 import styles from './SearchBar.module.scss';
 import {clearError} from "../../store/slices/filters/search.js";
+import {useTranslation} from "react-i18next";
 
 const SearchBar = () => {
+    const { t } = useTranslation();
     const dispatch = useDispatch();
     const [localInputValue, setLocalInputValue] = useState('');  // Локальное состояние для инпута
     const inputValue = useSelector((state) => state.search.filters.inputValue); // Значение из Redux (можно использовать для синхронизации)
@@ -30,7 +32,7 @@ const SearchBar = () => {
         <div className={styles.searchContainer}>
             <input
                 type="text"
-                placeholder="Поиск"
+                placeholder={t("catalog_page.search")}
                 onChange={handleChange}
                 value={localInputValue}
                 className={styles.searchInput}
@@ -43,7 +45,6 @@ const SearchBar = () => {
                     />
                 </svg>
             </button>
-
         </div>
     );
 };

@@ -5,9 +5,10 @@ import {FaPhone} from 'react-icons/fa';
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import {fetchVacancies} from "../../store/slices/getVacancy.js";
+import {useTranslation} from "react-i18next";
 
 export default function Footer() {
-
+    const {t} = useTranslation();
     const dispatch = useDispatch();
     const {vacancies} = useSelector((state) => state.vacancies);
 
@@ -26,25 +27,26 @@ export default function Footer() {
                 </div>
                 <div className={styles.info}>
                     <div className={styles.adresses}>
-                        <h6>Адресы</h6>
+                        <h6>{t("footer.addresses")}</h6>
                         <ul>
                             <Link to="https://maps.app.goo.gl/JdbygE2Ehi4WX5VA9">
                                 <p>
-                                    <b>ЭлитСтрой: </b>
+                                    <b>{t("footer.city1")}: </b>
                                     <br/>
-                                    ул. Ден-Сяопина 18/1
+                                    {t("footer.address1")}
                                 </p>
                             </Link>
                             <Link to="https://maps.app.goo.gl/cJjc97mkECiUzkVJ8">
                                 <p>
-                                    <b>Баткен:</b> <br/>
-                                    ул. Льва-Толстого 19
+                                    <b>{t("footer.city2")}: </b>
+                                    <br/>
+                                    {t("footer.address2")}
                                 </p>
                             </Link>
                         </ul>
                     </div>
                     <div className={styles.contacts}>
-                        <h6>Контакты</h6>
+                        <h6>{t("footer.contacts")}</h6>
                         <ul>
                             <li>
                                 <a href="tel:+996500000104">
@@ -66,7 +68,7 @@ export default function Footer() {
                         </ul>
                     </div>
                     <div className={styles.vacancies}>
-                        <h6>Вакансии</h6>
+                        <h6>{t("footer.vacancies")}</h6>
                         <ul>
 
                             {data3.map((vacancies) => (
@@ -74,7 +76,7 @@ export default function Footer() {
                                     <Link to={`/vacancy`}>{vacancies.title}</Link>
                                 </li>
                             ))}
-                            <Link to="/vacancy">See more...</Link>
+                            <Link to="/vacancy">{t("footer.see_more")}</Link>
                         </ul>
                     </div>
                 </div>

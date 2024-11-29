@@ -1,16 +1,14 @@
 import styles from './CompanyGoalHome.module.scss'
+import {useTranslation} from "react-i18next";
 
 const CompanyGoalHome = () => {
+    const {t} = useTranslation();
     return (
         <div className={styles.wrapper}>
             <div className={styles.inbox}>
-                <p className={styles.left}><span>Iskender Company</span> является ведущим международным производителем
-                    дизайнерской мебели для ванных комнат</p>
+                <p className={styles.left}><span>{t("about.garant")}</span> {t("about.title")} </p>
                 <div className={styles.line}/>
-                <p className={styles.right}>Наша постоянная цель — удовлетворять потребности клиентов. Мы достигли этого
-                    благодаря нашим ценностям, работающим в идеальном симбиозе, реагировать на рынок, предоставляя
-                    широкий ассортимент мебели для ванных комнат, которая является высококонкурентной с точки зрения
-                    дизайна,<br/> качества и цены. </p>
+                <p className={styles.right}>{t("about.description")} </p>
             </div>
         </div>
     )

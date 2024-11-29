@@ -5,8 +5,10 @@ import {Navigation, Pagination} from "swiper/modules";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import {fetchDiscountProducts} from "../../../store/slices/getProducts.js";
+import {useTranslation} from "react-i18next";
 
 const SpecialProductCard = () => {
+    const { t } = useTranslation();
     const dispatch = useDispatch();
     const items = useSelector((state) => state.products.discount);
 
@@ -18,7 +20,7 @@ const SpecialProductCard = () => {
     return (
         <section className={styles.SpecialProductCard}>
             <div className={styles.title}>
-                <h2>Специальное предложение</h2>
+                <h2>{t("special_offer.title")}</h2>
             </div>
 
             <div className={styles.slider_container}>

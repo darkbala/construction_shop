@@ -6,8 +6,10 @@ import styles from './CatalogPage.module.scss';
 import {fetchCategories} from "../../store/slices/getCategories.js";
 
 import ModalFilter from "../../components/Catalog/ModalFilter/ModalFilter.jsx"
+import {useTranslation} from "react-i18next";
 
 const CatalogPage = () => {
+    const {t} = useTranslation();
     const dispatch = useDispatch();
     const results = useSelector((state) => state.search.results);
     const categories = useSelector((state) => state.categories.categories);
@@ -23,45 +25,31 @@ const CatalogPage = () => {
         dispatch(fetchCategories());
     }, [dispatch, language]);
 
-    const isNoResults =
-        !results ||
-        (Array.isArray(results) && results.length === 0 && (selectedCategory || (inputValue?.length || 0) > 0));
+    const isNoResults = !results || (Array.isArray(results) && results.length === 0 && (selectedCategory || (inputValue?.length || 0) > 0));
 
-    return (
-        <div className={styles.CatalogPage}>
+    return (<div className={styles.CatalogPage}>
             <section className={styles.searchbar}>
                 <div className={styles.top}>
                     <SearchBar/>
-                    <button className={styles.filter} onClick={() => setModalOpen(true)}>Фильтры</button>
+                    <button className={styles.filter}
+                            onClick={() => setModalOpen(true)}>{t("catalog_page.filter")}</button>
                 </div>
                 <div>
-                    {categoriesLoading ? (
-                        <p>Loading categories...</p>
-                    ) : categoriesError ? (
-                        <p>Error loading categories: {categoriesError}</p>
-                    ) : (
-                        <CategorySlider categories={categories}/>
-                    )}
+                    {categoriesLoading ? (<p>Loading categories...</p>) : categoriesError ? (
+                        <p>Error loading categories: {categoriesError}</p>) : (
+                        <CategorySlider categories={categories}/>)}
                 </div>
             </section>
 
             <section>
-                {error ? (
-                    <div className={styles.noResults}>Продукты не найдены</div>
-                ) : (
-                    Array.isArray(results) && results.length > 0 && (
-                        <ul>
-                            {results.map((item) => (
-                                <li key={item.id}>{item.name}</li>
-                            ))}
-                        </ul>
-                    )
-                )}
+                {error ? (<div className={styles.noResults}>Продукты не
+                        найдены</div>) : (Array.isArray(results) && results.length > 0 && (<ul>
+                            {results.map((item) => (<li key={item.id}>{item.name}</li>))}
+                        </ul>))}
             </section>
 
             {isModalOpen && <ModalFilter onClose={() => setModalOpen(false)}/>}
-        </div>
-    );
+        </div>);
 };
 
 export default CatalogPage;

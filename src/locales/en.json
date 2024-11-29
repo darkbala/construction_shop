@@ -12,6 +12,11 @@
     "english": "English",
     "russian": "Russian"
   },
+  "counter": {
+    "market": "as",
+    "clients": "as"
+  }
+  ,
   "header": {
     "title": "Garant ",
     "subtitle": "premium",
@@ -24,7 +29,8 @@
     "years2": "in the market",
     "customer": "satisfied customers",
     "prod": "products per year",
-    "title": "Iskender Company is a leading international manufacturer of designer bathroom furniture",
+    "garant": "Garant premium",
+    "title": " is a leading international manufacturer of designer bathroom furniture",
     "description": "Our constant aim is to fulfil the needs of our customers. We have achieved this through our values working in perfect symbiosis, respond to the market by providing a wide range of bathroom furniture that is highly competitive in terms of design,quality and price."
   },
   "special_offer": {
@@ -37,7 +43,7 @@
   "catalog": {
     "title": "Catalogue",
     "link": "See more",
-    "subtitle1": "Own production ‘ISKENDER’",
+    "subtitle1": "Own production ‘Garant’",
     "description1": "We create unique furniture to offer our customers unique furniture, entirely made by us in Kyrgyzstan, with passion and attention...",
     "subtitle2": "Furniture from trusted partners",
     "description2": "We offer not only our own furniture, but also carefully selected furniture from trusted partners. Each item is quality controlled to meet our standards and harmoniously complement the Iskender collections",

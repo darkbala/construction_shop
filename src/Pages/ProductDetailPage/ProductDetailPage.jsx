@@ -8,13 +8,15 @@ import {
     fetchCollectionById,
     fetchProductById,
     fetchProductInCollection,
-     fetchRecommendationCollection
+    fetchRecommendationCollection
 } from "../../store/slices/getProducts.js";
 import {useDispatch, useSelector} from "react-redux";
 import placeholderImage from "../../assets/img.png";
 import CardSlider from "../../components/UI/CardSlider/CardSlider.jsx";
+import {useTranslation} from "react-i18next";
 
 const ProductDetailPage = () => {
+    const {t} = useTranslation();
     const {id, type} = useParams();
     const dispatch = useDispatch();
     const language = useSelector((state) => state.language.currentLanguage);
@@ -33,9 +35,6 @@ const ProductDetailPage = () => {
             dispatch(fetchCollectionById(id));
         }
     }, [type, id, dispatch, language]);
-
-
-
 
 
     useEffect(() => {
@@ -115,17 +114,16 @@ const ProductDetailPage = () => {
             </div>
 
 
-                <section className={styles.cont2}>
-                    <h3>Продукты из этой коллекции</h3>
-                    <CardSlider cards={collection}/>
-                </section>
+            <section className={styles.cont2}>
+                <h3>{t("detail_page.block1")}</h3>
+                <CardSlider cards={collection}/>
+            </section>
 
 
-
-                <section className={styles.cont2}>
-                    <h3>Похожие продукты</h3>
-                    <CardSlider cards={rec}/>
-                </section>
+            <section className={styles.cont2}>
+                <h3>{t("detail_page.block2")}</h3>
+                <CardSlider cards={rec}/>
+            </section>
 
         </div>
     );
