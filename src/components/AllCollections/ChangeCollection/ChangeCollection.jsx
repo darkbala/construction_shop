@@ -1,26 +1,78 @@
 import styles from "./ChangeCollection.module.scss";
-import {useParams} from "react-router-dom";
-import {useState} from "react";
-import {API_URI} from "../../../store/api/api.js";
+import { useEffect, useState } from "react";
 import axios from "axios";
+import { API_URI } from "../../../store/api/api.js";
+import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 
-const ChangeCollection = () => {
-    const {id} = useParams();
+const UpdateProducts = () => {
+    const { id } = useParams();
+    const dispatch = useDispatch();
+    const [photos, setPhotos] = useState([]);
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(true);
+
     const [formState, setFormState] = useState({
-        price: 1500.75,
-        isProducer: true,
-        isPainted: false,
-        isPopular: true,
-        isNew: true,
+        price: 0,
+        isProducer: true, // true: "Свой товар", false: "Дистрибуция"
+        isPainted: false, // true: "Крашенная", false: "Стандартная"
+        isPopular: false,
+        isNew: false,
+        category_id: null,
         collections: [
-            {name: "", description: "", language_code: "ru"},
-            {name: "", description: "", language_code: "kgz"},
-            {name: "", description: "", language_code: "en"},
+            { name: "", description: "", language_code: "ru" },
+            { name: "", description: "", language_code: "en" },
+            { name: "", description: "", language_code: "kgz" },
         ],
     });
 
-    const [photos, setPhotos] = useState([]);
-    const [error, setError] = useState(null);
+    useEffect(() => {
+        const fetchProductData = async () => {
+            try {
+                const response = await axios.get(
+                    `http://127.0.0.1:8080/api/getCollectionById?collection_id=${id}`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${localStorage.getItem("token")}`,
+                        },
+                    }
+                );
+
+                const productData = response.data;
+
+                setFormState({
+                    price: productData.price || 0,
+                    isProducer: productData.isProducer || true,
+                    isPainted: productData.isPainted || false,
+                    isPopular: productData.is_popular || false,
+                    isNew: productData.is_new || false,
+                    category_id: productData.category_id || null,
+                    collections: productData.collections || [
+                        { name: "", description: "", language_code: "ru" },
+                        { name: "", description: "", language_code: "en" },
+                        { name: "", description: "", language_code: "kgz" },
+                    ],
+                });
+
+                // Обработка null для photos
+                setPhotos(
+                    (productData.photos || []).map((photo) => ({
+                        file: null, // Загружаемый файл (пустой по умолчанию)
+                        isMain: photo.isMain,
+                        hashColor: photo.hashColor,
+                        url: photo.url, // URL фотографии, если есть
+                    }))
+                );
+
+                setLoading(false);
+            } catch (err) {
+                setError("Ошибка загрузки данных товара.");
+                console.error(err);
+            }
+        };
+
+        fetchProductData();
+    }, [dispatch, id]);
 
     const handleFormChange = (field, value) => {
         setFormState((prev) => ({
@@ -32,20 +84,21 @@ const ChangeCollection = () => {
     const handleCollectionChange = (index, field, value) => {
         const updatedCollections = [...formState.collections];
         updatedCollections[index][field] = value;
-        setFormState({...formState, collections: updatedCollections});
+        setFormState((prev) => ({
+            ...prev,
+            collections: updatedCollections,
+        }));
     };
 
-    const handleAddPhoto = () => {
-        setPhotos((prevPhotos) => [
-            ...prevPhotos,
-            {file: null, isMain: false, hashColor: "#ffffff"},
-        ]);
-    };
-
-    const handleFileChange = (index, file) => {
-        const updatedPhotos = [...photos];
-        updatedPhotos[index].file = file;
-        setPhotos(updatedPhotos);
+    const handleFileChange = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const previewUrl = URL.createObjectURL(file);
+            setPhotos((prevPhotos) => [
+                ...prevPhotos,
+                { file, previewUrl, isMain: false },
+            ]);
+        }
     };
 
     const handlePhotoFieldChange = (index, field, value) => {
@@ -69,182 +122,189 @@ const ChangeCollection = () => {
                 price: formState.price,
                 isProducer: formState.isProducer,
                 isPainted: formState.isPainted,
-                isPopular: formState.isPopular,
-                isNew: formState.isNew,
+                is_popular: formState.isPopular,
+                is_new: formState.isNew,
                 collections: formState.collections,
+                category_id: formState.category_id,
             })
         );
 
         photos.forEach((photo, index) => {
-            if (photo.file && photo.isMain !== null && photo.hashColor !== "") {
+            if (photo.file) {
                 formData.append(`photos`, photo.file);
-                formData.append(`isMain_${photo.file.name}`, photo.isMain);
-                formData.append(`hashColor_${photo.file.name}`, photo.hashColor);
-            } else {
-                console.log(`Skipping photo with index ${index} due to missing data`);
+                formData.append(`photos[${index}][isMain]`, photo.isMain);
+                formData.append(`photos[${index}][hashColor]`, photo.hashColor);
             }
         });
 
-
+        console.log(formData);
         try {
-            const response = await axios.put(`${API_URI}/collection?collection_id=${id}`, formData, {
+            await axios.put(`${API_URI}/collection?collection_id=${id}`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
             });
-
-            alert("Успешно обновлено:", response.data);
-
-        } catch (error) {
-            setError(error.response?.data || error.message);
-            console.error("Ошибка:", error);
+            alert("Успешно обновлено");
+        } catch (err) {
+            setError(err.response?.data || "Ошибка при обновлении товара.");
+            console.error("Ошибка:", err);
         }
     };
 
-    return (
-        <main className={styles.Form}>
-            <form onSubmit={handleSubmit}>
-                <section className={styles.title}>
-                    <h2>Коллекции / Изменить коллекцию {id}</h2>
-                    <div className={styles.line}></div>
-                </section>
+    if (loading) return <p>Загрузка...</p>;
 
-                {formState.collections.map((collection, index) => (
-                    <section key={index} className={styles.info_container}>
-                        <h4>
-                            {collection.language_code === "ru"
+    return (
+        <div className={styles.UpdateProducts}>
+            <h2>Коллекции / Изменить коллекцию id {id}</h2>
+            <form onSubmit={handleSubmit}>
+                {formState.collections.map((item, index) => (
+                    <div key={index}>
+                        <h3>
+                            {item.language_code === "ru"
                                 ? "Русский"
-                                : collection.language_code === "kgz"
-                                    ? "Кыргызча"
-                                    : "English"}
-                        </h4>
-                        <span>
-                            <label>
-                                <h5>
-                                    {collection.language_code === "ru"
-                                        ? "Название коллекции"
-                                        : collection.language_code === "kgz"
-                                            ? "Коллекциянын аты"
-                                            : "Collection Name"}
-                                </h5>
-                                <input
-                                    type="text"
-                                    placeholder="Название"
-                                    value={collection.name}
-                                    onChange={(e) =>
-                                        handleCollectionChange(index, "name", e.target.value)
-                                    }
-                                />
-                            </label>
-                            <label>
-                                <h5>
-                                    {collection.language_code === "ru"
-                                        ? "Цена"
-                                        : collection.language_code === "kgz"
-                                            ? "Баасы"
-                                            : "Price"}
-                                </h5>
-                                <input
-                                    type="number"
-                                    placeholder="xxx"
-                                    value={formState.price}
-                                    onChange={(e) =>
-                                        handleFormChange("price", parseFloat(e.target.value))
-                                    }
-                                />
-                            </label>
-                        </span>
-                        <label htmlFor="" className={styles.textarea}>
-                            <h5>
-                                {collection.language_code === "ru"
-                                    ? "Описание"
-                                    : collection.language_code === "kgz"
-                                        ? "Суроттомо"
-                                        : "Description"}
-                            </h5>
-                            <textarea
-                                cols="180"
-                                rows="10"
-                                placeholder="Описание коллекции"
-                                value={collection.description}
-                                onChange={(e) =>
-                                    handleCollectionChange(index, "description", e.target.value)
-                                }
-                            />
-                        </label>
-                    </section>
+                                : item.language_code === "en"
+                                    ? "English"
+                                    : "Кыргызча"}
+                        </h3>
+                        <input
+                            type="text"
+                            placeholder="Название"
+                            value={item.name}
+                            onChange={(e) => handleCollectionChange(index, "name", e.target.value)}
+                        />
+                        <textarea
+                            placeholder="Описание"
+                            value={item.description}
+                            onChange={(e) =>
+                                handleCollectionChange(index, "description", e.target.value)
+                            }
+                        />
+                    </div>
                 ))}
 
-                <div className={styles.filters}>
-                    {/* Радиокнопки и чекбоксы */}
+                <div>
+                    <h4>Производство</h4>
+                    <label>
+                        <input
+                            type="radio"
+                            value={true}
+                            checked={formState.isProducer === true}
+                            onChange={() => handleFormChange("isProducer", true)}
+                        />
+                        Свой товар
+                    </label>
+                    <label>
+                        <input
+                            type="radio"
+                            value={false}
+                            checked={formState.isProducer === false}
+                            onChange={() => handleFormChange("isProducer", false)}
+                        />
+                        Дистрибуция
+                    </label>
                 </div>
 
-                <div className={styles.photos}>
-                    <p>Фотографии</p>
-                    <div className={styles.grid}>
+                <div>
+                    <h4>Тип коллекции</h4>
+                    <label>
+                        <input
+                            type="radio"
+                            value={true}
+                            checked={formState.isPainted === true}
+                            onChange={() => handleFormChange("isPainted", true)}
+                        />
+                        Крашенная коллекция
+                    </label>
+                    <label>
+                        <input
+                            type="radio"
+                            value={false}
+                            checked={formState.isPainted === false}
+                            onChange={() => handleFormChange("isPainted", false)}
+                        />
+                        Стандартная коллекция
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <input
+                            type="checkbox"
+                            checked={formState.isPopular}
+                            onChange={() => handleFormChange("isPopular", !formState.isPopular)}
+                        />
+                        Популярная коллекция
+                    </label>
+                    <label>
+                        <input
+                            type="checkbox"
+                            checked={formState.isNew}
+                            onChange={() => handleFormChange("isNew", !formState.isNew)}
+                        />
+                        Новая коллекция
+                    </label>
+                </div>
+
+
+                <div>
+                    <h4>Фотографии</h4>
+                    <div className={styles.photoGrid}>
                         {photos.map((photo, index) => (
-                            <div key={index} className={styles.cardWrapper}>
-                                <div className={styles.card} style={{height: "300px", width: "300px"}}>
-                                    {photo.file ? (
-                                        <img
-                                            src={URL.createObjectURL(photo.file)}
-                                            alt={`Фото ${index + 1}`}
-                                        />
-                                    ) : (
-                                        <input
-                                            style={{height: "300px", width: "300px"}}
-                                            type="file"
-                                            onChange={(e) => handleFileChange(index, e.target.files[0])}
-                                        />
-                                    )}
-                                </div>
-                                <div className={styles.colors}>
-                                    <label>
-                                        <input
-                                            type="radio"
-                                            name={`main-photo`}
-                                            checked={photo.isMain}
-                                            onChange={() =>
-                                                handlePhotoFieldChange(index, "isMain", true)
-                                            }
-                                        />
-                                        Главная
-                                    </label>
+                            <div key={index} className={styles.photoCard}>
+                                <img
+                                    src={photo.previewUrl || photo.url}
+                                    alt={`Фото ${index + 1}`}
+                                    className={styles.photoPreview}
+                                />
+
+                                <label>
                                     <input
-                                        type="color"
-                                        value={photo.hashColor}
-                                        onChange={(e) =>
-                                            handlePhotoFieldChange(index, "hashColor", e.target.value)
+                                        type="radio"
+                                        name="mainPhoto"
+                                        checked={photo.isMain}
+                                        onChange={() =>
+                                            handlePhotoFieldChange(index, "isMain", true)
                                         }
                                     />
-                                    <button
-                                        type="button"
-                                        onClick={() => handleRemovePhoto(index)}
-                                    >
-                                        Удалить
-                                    </button>
-                                </div>
+                                    Главная
+                                </label>
+                                <button
+                                    type="button"
+                                    className={styles.removePhotoButton}
+                                    onClick={() => handleRemovePhoto(index)}
+                                >
+                                    Удалить
+                                </button>
+
                             </div>
                         ))}
-                        <button type="button" onClick={handleAddPhoto} style={{height: "300px", width: "300px"}}>
-                            Добавить фото
-                        </button>
+                        <label className={styles.addPhotoCard}>
+                            <input
+                                type="file"
+                                accept="image/*"
+                                onChange={handleFileChange}
+                                className={styles.fileInput}
+                            />
+                            <span className={styles.addPhotoPlaceholder}>+</span>
+                            <button
+                                type="button"
+                                className={styles.removePhotoButton}
+                                onClick={() => handleRemovePhoto(index)}
+                            >
+                                Удалить
+                            </button>
+                        </label>
+
+
                     </div>
                 </div>
 
-                <button type="submit" className={styles.saveButton}>
-                    Сохранить
-                </button>
 
-                {error && (
-                    <p style={{color: "red"}}>
-                        {typeof error === "string" ? error : error.message || "Неизвестная ошибка"}
-                    </p>
-                )}
+                <button type="submit" className={styles.save_btn}>Сохранить</button>
+                {error && <p style={{color: "red"}}>{error}</p>}
             </form>
-        </main>
+        </div>
     );
 };
 
-export default ChangeCollection;
+export default UpdateProducts;

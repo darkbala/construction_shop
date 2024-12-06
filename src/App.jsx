@@ -25,6 +25,7 @@ import UpdateProducts from "./components/AllProducts/UpdateProducts/UpdateProduc
 import AllCategory from "./components/AllCategory/AllCategory.jsx";
 import EditCategory from "./components/AllCategory/EditCategory/EditCategory.jsx";
 import AllBrands from "./components/AllBrands/AllBrands.jsx";
+import EditVacancy from "./components/AllVacancy/EditVacancy/EditVacancy.jsx";
 
 
 const isAuthenticated = () => {
@@ -77,6 +78,7 @@ const App = () => {
                         <Route path="/admin/all-category" element={<AllCategory/>}/>
                         <Route path="/admin/update-category/:id" element={<EditCategory/>}/>
                         <Route path="/admin/all-vacancies" element={<AllVacancy/>}/>
+                        <Route path="/admin/change-vacancy/:id" element={<EditVacancy/>}/>
                         <Route path="/admin/create-vacancy" element={<CreateVacancy/>}/>
                         <Route path="/admin/create-brand" element={<CreateBrand/>}/>
                         <Route path="/admin/update-brand/:id" element={<UpdateBrand/>}/>

@@ -73,9 +73,9 @@ const AllVacancy = () => {
                                     <td>{item.salary}</td>
                                     <td>{item.date}</td>
                                     <td className={styles.actions}>
-                                        <button className={styles.actionButton}>
+                                        <Link className={styles.actionButton} to={`/admin/change-vacancy/${item.id}`}>
                                             <FaEdit/>
-                                        </button>
+                                        </Link>
                                         <button
                                             className={styles.actionButton}
                                             onClick={() => handleDelete(item.id)}
