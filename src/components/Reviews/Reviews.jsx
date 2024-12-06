@@ -13,7 +13,7 @@ const Reviews = () => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
     const { data: reviews, loading, error } = useSelector((state) => state.reviews);
-    const [isModalOpen, setModalOpen] = useState(false); // Состояние для управления модалкой
+    const [isModalOpen, setModalOpen] = useState(false);
 
 
     useEffect(() => {

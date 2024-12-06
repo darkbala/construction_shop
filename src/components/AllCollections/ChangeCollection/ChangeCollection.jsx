@@ -95,6 +95,7 @@ const ChangeCollection = () => {
             });
 
             alert("Успешно обновлено:", response.data);
+
         } catch (error) {
             setError(error.response?.data || error.message);
             console.error("Ошибка:", error);

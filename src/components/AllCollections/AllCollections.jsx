@@ -31,11 +31,14 @@ const AllCollections = () => {
             .unwrap()
             .then(() => {
                 alert("Коллекция успешно удалена");
+                dispatch(fetchAllCollections());
             })
             .catch((error) => {
                 console.error("Ошибка при удалении коллекции:", error);
                 alert(error.message || "Не удалось удалить коллекцию.");
             });
+
+
     };
 
 

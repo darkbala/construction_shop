@@ -1,12 +1,13 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import axios from "axios";
+import {API_URI} from "../api/api.js";
 
 export const fetchAllCollections = createAsyncThunk(
     'collections/fetchAllCollections',
     async (_, {getState}) => {
         const language = getState().language.currentLanguage;
         const response = await axios.get((
-            `http://127.0.0.1:8080/collections?lang=${language}`
+            `${API_URI}/collections?lang=${language}`
         ))
         return response.data
     }

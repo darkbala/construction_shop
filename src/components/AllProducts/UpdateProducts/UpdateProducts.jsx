@@ -18,6 +18,8 @@ const UpdateProducts = () => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
 
+
+
     const [formState, setFormState] = useState({
         price: 0,
         isProducer: false,
@@ -41,7 +43,7 @@ const UpdateProducts = () => {
         // Загружаем данные товара
         const fetchProductData = async () => {
             try {
-                const response = await axios.get(`${API_URI}/getItemById?item_id=${id}`, {
+                const response = await axios.get(`http://127.0.0.1:8080/api/getItemById?item_id=${id}`, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`,
                     },

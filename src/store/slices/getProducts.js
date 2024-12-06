@@ -8,7 +8,7 @@ export const fetchCollectionById = createAsyncThunk(
     async (collectionId, {getState}) => {
         const language = getState().language.currentLanguage;
         const response = await axios.get(
-            `http://127.0.0.1:8080/collection?collection_id=${collectionId}&lang=${language}`
+            `${API_URI}//collection?collection_id=${collectionId}&lang=${language}`
         );
         return response.data;
     }
@@ -19,7 +19,7 @@ export const fetchProductById = createAsyncThunk(
     async (productId, {getState}) => {
         const language = getState().language.currentLanguage;
         const response = await axios.get(
-            `http://127.0.0.1:8080/item?item_id=${productId}&lang=${language}`
+            `${API_URI}//item?item_id=${productId}&lang=${language}`
         );
         return response.data;
     }
@@ -31,7 +31,7 @@ export const fetchProductInCollection = createAsyncThunk(
     async (productId, {getState}) => {
         const language = getState().language.currentLanguage;
         const response = await axios.get(
-            `http://127.0.0.1:8080/items/collection?collection_id=${productId}&lang=${language}`
+            `${API_URI}//items/collection?collection_id=${productId}&lang=${language}`
         );
         return response.data;
     }
@@ -42,7 +42,7 @@ export const fetchPopularProducts = createAsyncThunk(
     async (_, {getState}) => {
         const language = getState().language.currentLanguage;
         const response = await axios.get(
-            `http://127.0.0.1:8080/popular?lang=${language}`
+            `${API_URI}//popular?lang=${language}`
         );
         const collection = response.data.collections;
         const item = response.data.items;
@@ -55,7 +55,7 @@ export const fetchNewProducts = createAsyncThunk(
     async (_, {getState}) => {
         const language = getState().language.currentLanguage;
         const response = await axios.get(
-            `http://127.0.0.1:8080/new?lang=${language}`
+            `${API_URI}//new?lang=${language}`
         );
         const collection = response.data.collections;
 
@@ -70,7 +70,7 @@ export const fetchProducts = createAsyncThunk(
     async (categoryId, {getState, rejectWithValue}) => {
         try {
             const language = getState().language.currentLanguage;
-            const response = await axios.get(`http://127.0.0.1:8080/items?categoryId=${categoryId}&lang=${language}`, {
+            const response = await axios.get(`${API_URI}/items?categoryId=${categoryId}&lang=${language}`, {
                 params: {category_id: categoryId, lang: language},
             });
 
@@ -149,7 +149,8 @@ export const fetchDiscountProducts = createAsyncThunk(
     async (_, {rejectWithValue, getState}) => {
         try {
             const language = getState().language.currentLanguage;
-            const response = await axios.get(`http://127.0.0.1:8080/discounts?lang=${language}`);
+            console.log(language)
+            const response = await axios.get(`${API_URI}/discounts?lang=ru`);
             return response.data;
         } catch (error) {
             return rejectWithValue(error.response?.data || 'Failed to fetch data');
@@ -162,7 +163,7 @@ export const deleteProductById = createAsyncThunk(
     'products/deleteProductById',
     async (id, {rejectWithValue}) => {
         try {
-            const response = await axios.delete(`http://127.0.0.1:8080/items`, {
+            const response = await axios.delete(`${API_URI}/items`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
                 },

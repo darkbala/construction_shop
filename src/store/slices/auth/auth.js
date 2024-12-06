@@ -5,7 +5,7 @@ import {API_URI} from "../../api/api.js";
 export const signup = createAsyncThunk('auth/register', async ({username, password}) => {
     // eslint-disable-next-line no-useless-catch
     try {
-        const response = await axios.post(`http://127.0.0.1:8080/register`, {username, password});
+        const response = await axios.post(`${API_URI}/register`, {username, password});
         const token = response.data.token;
 
         console.log(response.data)
@@ -21,7 +21,7 @@ export const signup = createAsyncThunk('auth/register', async ({username, passwo
 export const login = createAsyncThunk('auth/login', async ({password, username}) => {
     // eslint-disable-next-line no-useless-catch
     try {
-        const response = await axios.post(`http://127.0.0.1:8080/login`, {password, username});
+        const response = await axios.post(`${API_URI}/login`, {password, username});
         const token = response.data.token;
         localStorage.setItem('token', token);
         localStorage.setItem('username', username);

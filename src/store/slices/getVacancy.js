@@ -18,7 +18,7 @@ export const createVacancy = createAsyncThunk(
         try {
             const response = await axios.post(
                 `${API_URI}/vacancy`,
-                data, // передаём данные напрямую
+                data, 
                 {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`,

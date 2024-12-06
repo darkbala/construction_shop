@@ -1,13 +1,12 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import axios from "axios";
 import {API_URI} from "../../../api/api.js";
-import header from "../../../../components/Header/Header.jsx";
 
 export const fetchAllCollections = createAsyncThunk(
     'admin/collections/fetchAllCollections',
     async (_, {rejectWithValue}) => {
         try {
-            const response = await axios.get(`http://127.0.0.1:8080/getAllCollection`);
+            const response = await axios.get(`${API_URI}/getAllCollection`);
 
             return response.data;
         } catch (error) {
@@ -22,7 +21,7 @@ export const deleteCollectionById = createAsyncThunk(
     async (id, { rejectWithValue }) => {
         try {
             console.log(id)
-            const response = await axios.delete(`http://127.0.0.1:8080/collection`, {
+            const response = await axios.delete(`${API_URI}/collection`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
                 },

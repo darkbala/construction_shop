@@ -1,6 +1,5 @@
 import styles from './Catalog.module.scss';
 import {Link} from "react-router-dom";
-import img from '../../assets/img.png';
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import {fetchByDistr, fetchByProducer} from "../../store/slices/getProducts.js";
@@ -41,7 +40,13 @@ const Catalog = () => {
                         <Link to={`/catalog/${product.collection_id ? "product" : "collection"}/${product.id}`}
                               key={product.id} className={styles.productCard}>
                             <div className={styles.brandLabel}>Garant</div>
-                            <img src={img} alt={product.name} className={styles.productImage}/>
+
+                            {product?.photos?.[0]?.url ? (
+                                <img src={product.photos[0].url} alt={product.name || "Product"} />
+                            ) : (
+                                <p>Изображение отсутствует</p>
+                            )}
+
                             <aside className={styles.productAside}>
                                 <h3 className={styles.productName}>{product.name}</h3>
                                 <p className={styles.productPrice}>{product.price}</p>

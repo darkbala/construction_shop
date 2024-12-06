@@ -14,7 +14,7 @@ import {
 } from "../../store/slices/filters/search.js";
 
 
-const Nav = ({set}) => {
+const Nav = () => {
     const dispatch = useDispatch();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const {t, i18n} = useTranslation();

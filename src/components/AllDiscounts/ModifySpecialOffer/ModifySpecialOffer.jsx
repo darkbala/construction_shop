@@ -60,6 +60,8 @@ const ModifySpecialOffer = () => {
                     "Content-Type": "application/json",
                 },
             });
+
+            console.log(response.data);
             alert("Спецпредложение успешно сохранено!");
             console.log("Response:", response.data);
         } catch (error) {

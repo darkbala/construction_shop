@@ -42,7 +42,7 @@ const AllVacancy = () => {
         <div className={styles.AllVacancy}>
             <div className={styles.inner}>
                 <section className={styles.search}>
-                    <SearchBar />
+                    <SearchBar/>
                     <button className={styles.filter}>Фильтры</button>
                     <button className={styles.add_btn}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
@@ -51,7 +51,7 @@ const AllVacancy = () => {
                                 fill="white"
                             />
                         </svg>
-                        <Link to={"/admin/create-vacancy"} style={{ color: "white" }}>Добавить новую вакансию</Link>
+                        <Link to={"/admin/create-vacancy"} style={{color: "white"}}>Добавить новую вакансию</Link>
                     </button>
                 </section>
 
@@ -74,13 +74,13 @@ const AllVacancy = () => {
                                     <td>{item.date}</td>
                                     <td className={styles.actions}>
                                         <button className={styles.actionButton}>
-                                            <FaEdit />
+                                            <FaEdit/>
                                         </button>
                                         <button
                                             className={styles.actionButton}
                                             onClick={() => handleDelete(item.id)}
                                         >
-                                            <FaTrash />
+                                            <FaTrash/>
                                         </button>
                                     </td>
                                 </tr>
@@ -100,7 +100,7 @@ const AllVacancy = () => {
                         >
                             ←
                         </button>
-                        {Array.from({ length: totalPages }, (_, index) => (
+                        {Array.from({length: totalPages}, (_, index) => (
                             <button
                                 key={index + 1}
                                 onClick={() => handlePageChange(index + 1)}

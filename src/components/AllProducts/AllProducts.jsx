@@ -5,10 +5,10 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import { setPage } from "../../store/slices/paginationSlice.js";
 import { useEffect } from "react";
 import {deleteProductById, fetchAllProducts} from "../../store/slices/getProducts.js";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 
 const AllProducts = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
   const { currentPage, itemsPerPage2 } = useSelector(
     (state) => state.pagination
   );
@@ -35,6 +35,9 @@ const AllProducts = () => {
         .unwrap()
         .then(() => {
           alert("Коллекция успешно удалена");
+
+          dispatch(fetchAllProducts());
+
         })
         .catch((error) => {
           console.error("Ошибка при удалении коллекции:", error);

@@ -6,7 +6,7 @@ export const fetchCategories = createAsyncThunk(
     'categories/fetchCategories',
     async (_, {getState}) => {
         const language = getState().language.currentLanguage;
-        const response = await axios.get(`http://127.0.0.1:8080/category?lang=${language}`);
+        const response = await axios.get(`${API_URI}/category?lang=${language}`);
         return response.data;
     }
 );
@@ -15,7 +15,7 @@ export const fetchCategoriesById = createAsyncThunk(
     'categories/fetchCategoriesById',
     async (id, {rejectWithValue}) => {
         try {
-            const response = await axios.get(`http://127.0.0.1:8080/category/by/id?category_id=${id}`);
+            const response = await axios.get(`${API_URI}/category/by/id?category_id=${id}`);
 
             console.log(response.data)
             return response.data;
