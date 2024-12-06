@@ -19,7 +19,6 @@ const Catalog = () => {
     const topProductsToShow = topProducts.slice(0, 4);
     const bottomProductsToShow = bottomProducts.slice(0, 4);
 
-
     return (
         <div className={styles.catalog}>
             <section className={styles.title}>

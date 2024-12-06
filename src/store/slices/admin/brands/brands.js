@@ -1,13 +1,14 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import axios from "axios";
 import {API_URI} from "../../../api/api.js";
+import {deleteCategory} from "../../getCategories.js";
 
 export const fetchBrands = createAsyncThunk(
     'brands/fetchBrands',
     async (_, {rejectWithValue}) => {
         try {
             const response = await axios.get(`${API_URI}/brands`);
-     
+
             return response.data;
         } catch (error) {
             return rejectWithValue(error.response?.data || 'Failed to fetch data');
@@ -18,7 +19,7 @@ export const fetchBrands = createAsyncThunk(
 // Thunk для создания бренда
 export const createBrand = createAsyncThunk(
     "brands/createBrand",
-    async ({ name, photo }, { rejectWithValue }) => {
+    async ({name, photo}, {rejectWithValue}) => {
         try {
             const formData = new FormData();
             formData.append("name", name);
@@ -40,7 +41,7 @@ export const createBrand = createAsyncThunk(
 
 export const updateBrand = createAsyncThunk(
     "brands/updateBrand",
-    async ({ brandId, name, photo }, { rejectWithValue }) => {
+    async ({brandId, name, photo}, {rejectWithValue}) => {
         try {
             const formData = new FormData();
             formData.append("name", name);
@@ -54,7 +55,7 @@ export const updateBrand = createAsyncThunk(
                     "Content-Type": "multipart/form-data",
                 },
             });
-            return response.data; 
+            return response.data;
         } catch (error) {
             return rejectWithValue(error.response?.data || error.message);
         }
@@ -64,24 +65,31 @@ export const updateBrand = createAsyncThunk(
 
 export const deleteBrand = createAsyncThunk(
     "brands/deleteBrand",
-    async (brandId, { rejectWithValue }) => {
+    async (id, { rejectWithValue }) => {
         try {
-            await axios.delete(`${API_URI}/brand/${1}`, {
+            const response = await axios.delete(`${API_URI}/brand`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    "Content-Type": "application/json",
                 },
+                data: { id: id },
             });
-            return brandId;
+
+            console.log(response.data);
+            return response.data;
         } catch (error) {
+            console.error("Error:", error.response || error.message);
             return rejectWithValue(error.response?.data || error.message);
         }
     }
 );
 
+
+
 export const brands = createSlice({
     name: "brands",
     initialState: {
-        brands: []
+        brands: [],
     },
     extraReducers: (builder) => {
         builder
@@ -124,19 +132,21 @@ export const brands = createSlice({
                 state.loading = false;
                 state.error = action.payload;
             })
+
+            .addCase(deleteBrand.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            })
             .addCase(deleteBrand.pending, (state) => {
                 state.loading = true;
                 state.error = null;
             })
             .addCase(deleteBrand.fulfilled, (state, action) => {
                 state.loading = false;
-                const deletedId = action.payload;
-                state.brands = state.brands.filter((brand) => brand.id !== deletedId);
+                state.brands = state.brands.filter((item) => item.id !== action.payload.id)
+
             })
-            .addCase(deleteBrand.rejected, (state, action) => {
-                state.loading = false;
-                state.error = action.payload;
-            });
+
     }
 })
 

@@ -79,7 +79,7 @@ const Nav = () => {
                             <Link to={"/admin/all-vacancies"}>Вакансии</Link>
                         </li>
                         <li>
-                            <Link to={"/brands"}>Клиенты</Link>
+                            <Link to={"/admin/brands"}>Клиенты</Link>
                         </li>
                     </ul>
                 </nav>
