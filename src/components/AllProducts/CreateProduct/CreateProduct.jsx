@@ -124,7 +124,6 @@ const CreateProduct = () => {
                 </section>
 
                 <form onSubmit={handleSubmit}>
-                    {/* Select for categories */}
                     <div className={styles.select_section}>
                         <h3>Выберите категорию</h3>
                         <Select
@@ -227,6 +226,7 @@ const CreateProduct = () => {
                                             <input
                                                 style={{height: "300px", width: "300px"}}
                                                 type="file"
+
                                                 onChange={(e) => handleFileChange(index, e.target.files[0])}
                                             />
                                         )}

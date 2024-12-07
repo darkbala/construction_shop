@@ -17,7 +17,7 @@ const UpdateProducts = () => {
     const [photos, setPhotos] = useState([]);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
-
+    const [modal, setModal] = useState({show: false, message: "", type: ""}); // Для модального окна
 
 
     const [formState, setFormState] = useState({
@@ -36,11 +36,9 @@ const UpdateProducts = () => {
     });
 
     useEffect(() => {
-        // Загружаем списки категорий и коллекций
         dispatch(fetchAllCollections());
         dispatch(fetchCategories());
 
-        // Загружаем данные товара
         const fetchProductData = async () => {
             try {
                 const response = await axios.get(`http://127.0.0.1:8080/api/getItemById?item_id=${id}`, {
@@ -49,10 +47,8 @@ const UpdateProducts = () => {
                     },
                 });
 
-                console.log(response.data)
                 const productData = response.data;
 
-                // Обновляем состояние формы
                 setFormState({
                     price: productData.price || 0,
                     isProducer: productData.isProducer || false,
@@ -68,14 +64,15 @@ const UpdateProducts = () => {
                     ],
                 });
 
-                // Заполняем фотографии
                 setPhotos(
-                    productData.photos.map((photo) => ({
-                        file: null, // В случае загрузки из URL файлов не будет
-                        isMain: photo.isMain,
-                        hashColor: photo.hashColor,
-                        url: photo.url, // Для отображения существующих фото
-                    }))
+                    Array.isArray(productData.photos)
+                        ? productData.photos.map((photo) => ({
+                            file: null,
+                            isMain: photo.isMain,
+                            hashColor: photo.hashColor,
+                            url: photo.url,
+                        }))
+                        : [] // Если photos нет, устанавливаем пустой массив
                 );
 
                 setLoading(false);
@@ -87,6 +84,7 @@ const UpdateProducts = () => {
 
         fetchProductData();
     }, [dispatch, id]);
+
 
     const handleFormChange = (field, value) => {
         setFormState((prev) => ({
@@ -162,25 +160,31 @@ const UpdateProducts = () => {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
             });
-            alert("Успешно обновлено:", response.data);
+
+            console.log(response.data);
+            setModal({ show: true, message: "Товар успешно обновлён", type: "success" });
+
         } catch (err) {
             setError(err.response?.data || "Ошибка при обновлении товара.");
             console.error("Ошибка:", err);
         }
     };
 
+    const closeModal = () => {
+        setModal({show: false, message: "", type: ""});
+    };
     if (loading) return <p>Загрузка...</p>;
 
     return (
         <div className={styles.AddCollection}>
             <div className={styles.inner}>
                 <section className={styles.title}>
-                    <h2>Коллекции / добавить товар</h2>
+                    <h2>Коллекции / изменить товар {collectionsList.name}</h2>
                     <div className={styles.line}></div>
                 </section>
 
                 <form onSubmit={handleSubmit}>
-                    {/* Select for categories */}
+
                     <div className={styles.select_section}>
                         <h3>Выберите категорию</h3>
                         <Select
@@ -271,12 +275,17 @@ const UpdateProducts = () => {
                     <div className={styles.photos}>
                         <p>Фотографии</p>
                         <div className={styles.grid}>
-                            {photos.map((photo, index) => (
+                            {Array.isArray(photos) && photos.map((photo, index) => (
                                 <div key={index} className={styles.cardWrapper}>
                                     <div className={styles.card} style={{height: "300px", width: "300px"}}>
                                         {photo.file ? (
                                             <img
                                                 src={URL.createObjectURL(photo.file)}
+                                                alt={`Фото ${index + 1}`}
+                                            />
+                                        ) : photo.url ? (
+                                            <img
+                                                src={photo.url}
                                                 alt={`Фото ${index + 1}`}
                                             />
                                         ) : (
@@ -315,6 +324,7 @@ const UpdateProducts = () => {
                                     </div>
                                 </div>
                             ))}
+
                             <button type="button" onClick={handleAddPhoto} style={{height: "300px", width: "300px"}}>
                                 Добавить фото
                             </button>
@@ -328,6 +338,17 @@ const UpdateProducts = () => {
                     {error && <p style={{color: "red"}}>{error}</p>}
                 </form>
             </div>
+            {modal.show && (
+                <div className={styles.modal}>
+                    <div
+                        className={`${styles.modalContent} ${modal.type === "success" ? styles.success : styles.error}`}>
+                        <h4>{modal.message}</h4>
+                        <button onClick={closeModal} className={styles.closeButton}>
+                            Закрыть
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

@@ -137,3 +137,69 @@
     }
   }
 }
+
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5); /* затемнение фона */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 90%;
+  max-width: 400px;
+}
+
+.modalContent p {
+  margin-bottom: 20px;
+  font-size: 16px;
+  color: #333;
+}
+
+.modalActions {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.confirmButton,
+.cancelButton {
+  flex: 1;
+  padding: 10px 15px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: none;
+}
+
+.confirmButton {
+  background-color: #d9534f; /* красный для подтверждения */
+  color: #fff;
+  transition: background-color 0.3s ease;
+}
+
+.confirmButton:hover {
+  background-color: #c9302c;
+}
+
+.cancelButton {
+  background-color: #f0f0f0; /* серый для отмены */
+  color: #333;
+  transition: background-color 0.3s ease;
+}
+
+.cancelButton:hover {
+  background-color: #e0e0e0;
+}
