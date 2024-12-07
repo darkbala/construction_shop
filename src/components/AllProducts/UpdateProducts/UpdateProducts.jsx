@@ -9,6 +9,8 @@ import {fetchAllCollections} from "../../../store/slices/admin/collections/colle
 import {fetchCategories} from "../../../store/slices/getCategories.js";
 import {useParams} from "react-router-dom";
 
+const API_URL = "http://localhost:8080";
+
 const UpdateProducts = () => {
     const {id} = useParams();
     const dispatch = useDispatch();
@@ -48,6 +50,8 @@ const UpdateProducts = () => {
                 });
 
                 const productData = response.data;
+
+                console.log(productData);
 
                 setFormState({
                     price: productData.price || 0,
@@ -109,10 +113,18 @@ const UpdateProducts = () => {
         ]);
     };
 
+
+    const handleFileReplace = (index) => {
+        const updatedPhotos = [...photos];
+        updatedPhotos[index].file = null; // Удаляем текущий файл
+        updatedPhotos[index].url = null; // Удаляем серверное фото
+        setPhotos(updatedPhotos); // Обновляем состояние
+    };
+
     const handleFileChange = (index, file) => {
         const updatedPhotos = [...photos];
-        updatedPhotos[index].file = file;
-        setPhotos(updatedPhotos);
+        updatedPhotos[index].file = file; // Устанавливаем новый файл
+        setPhotos(updatedPhotos); // Обновляем состояние
     };
 
     const handlePhotoFieldChange = (index, field, value) => {
@@ -161,8 +173,8 @@ const UpdateProducts = () => {
                 },
             });
 
-            console.log(response.data);
-            setModal({ show: true, message: "Товар успешно обновлён", type: "success" });
+
+            setModal({show: true, message: "Товар успешно обновлён", type: "success"});
 
         } catch (err) {
             setError(err.response?.data || "Ошибка при обновлении товара.");
@@ -174,6 +186,13 @@ const UpdateProducts = () => {
         setModal({show: false, message: "", type: ""});
     };
     if (loading) return <p>Загрузка...</p>;
+
+
+
+
+
+
+    console.log("Photos:", photos);
 
     return (
         <div className={styles.AddCollection}>
@@ -275,55 +294,64 @@ const UpdateProducts = () => {
                     <div className={styles.photos}>
                         <p>Фотографии</p>
                         <div className={styles.grid}>
+
                             {Array.isArray(photos) && photos.map((photo, index) => (
                                 <div key={index} className={styles.cardWrapper}>
-                                    <div className={styles.card} style={{height: "300px", width: "300px"}}>
+                                    <div className={styles.card} style={{ height: "300px", width: "300px" }}>
                                         {photo.file ? (
+                                            // Отображение локального файла
                                             <img
                                                 src={URL.createObjectURL(photo.file)}
                                                 alt={`Фото ${index + 1}`}
                                             />
                                         ) : photo.url ? (
                                             <img
-                                                src={photo.url}
+                                                src={`${API_URL}${photo.url}`}
                                                 alt={`Фото ${index + 1}`}
                                             />
                                         ) : (
                                             <input
-                                                style={{height: "300px", width: "300px"}}
+                                                style={{ height: "300px", width: "300px" }}
                                                 type="file"
                                                 onChange={(e) => handleFileChange(index, e.target.files[0])}
                                             />
                                         )}
                                     </div>
                                     <div className={styles.colors}>
+
+                                        <div className={styles.buttons}>
+                                            <button
+                                                type="button"
+                                                onClick={() => handleFileReplace(index)}
+                                            >
+                                                Изменить
+                                            </button>
+                                            <button
+                                                type="button"
+                                                onClick={() => handleRemovePhoto(index)}
+                                            >
+                                                Удалить
+                                            </button>
+                                        </div>
+
                                         <label>
                                             <input
                                                 type="radio"
                                                 name={`main-photo`}
                                                 checked={photo.isMain}
-                                                onChange={() =>
-                                                    handlePhotoFieldChange(index, "isMain", true)
-                                                }
+                                                onChange={() => handlePhotoFieldChange(index, "isMain", true)}
                                             />
                                             Главная
                                         </label>
                                         <input
                                             type="color"
                                             value={photo.hashColor}
-                                            onChange={(e) =>
-                                                handlePhotoFieldChange(index, "hashColor", e.target.value)
-                                            }
+                                            onChange={(e) => handlePhotoFieldChange(index, "hashColor", e.target.value)}
                                         />
-                                        <button
-                                            type="button"
-                                            onClick={() => handleRemovePhoto(index)}
-                                        >
-                                            Удалить
-                                        </button>
                                     </div>
                                 </div>
                             ))}
+
 
                             <button type="button" onClick={handleAddPhoto} style={{height: "300px", width: "300px"}}>
                                 Добавить фото

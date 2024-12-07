@@ -195,37 +195,6 @@
                   cursor: pointer;
                 }
               }
-
-              button {
-                padding: 5px 10px;
-                background-color: #d9534f;
-                color: #fff;
-                border: none;
-                border-radius: 4px;
-                cursor: pointer;
-                font-size: 12px;
-
-                &:hover {
-                  background-color: #c9302c;
-                }
-              }
-            }
-          }
-
-          button {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: #007bff;
-            color: #fff;
-            font-size: 16px;
-            font-weight: 500;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-
-            &:hover {
-              background-color: #0056b3;
             }
           }
         }
@@ -308,5 +277,37 @@ h4 {
 
   &:hover {
     background: #0056b3;
+  }
+}
+
+
+.buttons {
+  display: flex;
+  gap: 10px;
+
+  button {
+    padding: 10px 20px;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  button:first-of-type {
+    background-color: #ffc107;
+    color: #fff;
+
+    &:hover {
+      background-color: #e0a800;
+    }
+  }
+
+  button:last-of-type {
+    background-color: #d9534f; /* Красный для кнопки "Удалить" */
+    color: #fff;
+
+    &:hover {
+      background-color: #c9302c;
+    }
   }
 }
